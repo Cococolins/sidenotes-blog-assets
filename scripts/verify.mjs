@@ -4,6 +4,8 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const snapshotDate = "2026-06-11";
+const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
+const cdnBase = `https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@v${packageJson.version}`;
 
 const normalize = (text) => text.replace(/\r\n/g, "\n").trimEnd() + "\n";
 const read = (file) => normalize(readFileSync(join(root, file), "utf8"));
@@ -31,6 +33,34 @@ for (const [label, actualPath, expectedPath] of checks) {
     console.error(`  ${expectedPath}: ${sha(expected)}`);
   } else {
     console.log(`PASS ${label} (${sha(actual)})`);
+  }
+}
+
+for (const site of ["sidenotes", "daily", "tt"]) {
+  const js = read(`dist/${site}.js`);
+  const headerExternal = read(`dist/${site}.header.external.html`);
+  const footerExternal = read(`dist/${site}.footer.external.html`);
+
+  if (!js.includes("BlogApp.init();") || !js.includes("Plugin name: Editor shortcut")) {
+    failed = true;
+    console.error(`FAIL ${site} external JS contains expected custom scripts`);
+  } else {
+    console.log(`PASS ${site} external JS contains expected custom scripts (${sha(js)})`);
+  }
+
+  const expectedCssUrl = `${cdnBase}/dist/${site}.css`;
+  const expectedJsUrl = `${cdnBase}/dist/${site}.js`;
+  if (!headerExternal.includes(expectedCssUrl)) {
+    failed = true;
+    console.error(`FAIL ${site} external header references ${expectedCssUrl}`);
+  } else {
+    console.log(`PASS ${site} external header references tagged CSS`);
+  }
+  if (!footerExternal.includes(expectedJsUrl)) {
+    failed = true;
+    console.error(`FAIL ${site} external footer references ${expectedJsUrl}`);
+  } else {
+    console.log(`PASS ${site} external footer references tagged JS`);
   }
 }
 
