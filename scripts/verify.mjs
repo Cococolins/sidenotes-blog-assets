@@ -33,8 +33,10 @@ for (const [label, actualPath, expectedPath] of checks) {
 for (const site of ["sidenotes", "daily", "tt"]) {
   const js = read(`dist/${site}.js`);
   const css = read(`dist/${site}.css`);
+  const customCss = read(`dist/${site}.custom-css.css`);
   const headerExternal = read(`dist/${site}.header.external.html`);
   const footerExternal = read(`dist/${site}.footer.external.html`);
+  const snippetCustomCss = read(`dist/snippets/${site}-custom-css.css`);
   const snippetHeader = read(`dist/snippets/${site}-header.html`);
   const snippetFooter = read(`dist/snippets/${site}-footer.html`);
   const config = JSON.parse(read(`src/sites/${site}/config.json`));
@@ -85,11 +87,17 @@ for (const site of ["sidenotes", "daily", "tt"]) {
 
   const expectedCssUrl = `${cdnBase}/dist/${site}.css`;
   const expectedJsUrl = `${cdnBase}/dist/${site}.js`;
-  if (!headerExternal.includes(expectedCssUrl)) {
+  if (!customCss.includes(expectedCssUrl)) {
     failed = true;
-    console.error(`FAIL ${site} external header references ${expectedCssUrl}`);
+    console.error(`FAIL ${site} custom CSS references ${expectedCssUrl}`);
   } else {
-    console.log(`PASS ${site} external header references CDN CSS`);
+    console.log(`PASS ${site} custom CSS references CDN CSS`);
+  }
+  if (headerExternal.includes("rel=\"stylesheet\"")) {
+    failed = true;
+    console.error(`FAIL ${site} external header should not load stylesheet before Bear default CSS`);
+  } else {
+    console.log(`PASS ${site} external header avoids early stylesheet load`);
   }
   if (!footerExternal.includes(expectedJsUrl)) {
     failed = true;
@@ -98,7 +106,7 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     console.log(`PASS ${site} external footer references CDN JS`);
   }
 
-  if (snippetHeader !== headerExternal || snippetFooter !== footerExternal) {
+  if (snippetCustomCss !== customCss || snippetHeader !== headerExternal || snippetFooter !== footerExternal) {
     failed = true;
     console.error(`FAIL ${site} snippets mirror external compatibility files`);
   } else {

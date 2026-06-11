@@ -16,7 +16,11 @@ const write = (file, text) => {
 };
 
 function externalHeader(headerHtml, site) {
-  return `${headerHtml.trim()}\n<link rel="stylesheet" href="${cdnBase}/dist/${site}.css">`;
+  return headerHtml.trim();
+}
+
+function externalCustomCss(site) {
+  return `@import url("${cdnBase}/dist/${site}.css");`;
 }
 
 function externalFooter(site) {
@@ -45,16 +49,19 @@ for (const site of sites) {
   const moduleJs = buildSiteJs(manifest);
   const inlineFooterHtml = `<script type="module">\n${moduleJs.trim()}\n</script>`;
   const externalHeaderHtml = externalHeader(headerHtml, site);
+  const externalCustomCssText = externalCustomCss(site);
   const externalFooterHtml = externalFooter(site);
 
   write(`dist/${site}.css`, css);
   write(`dist/${site}.js`, moduleJs);
   write(`dist/${site}.header.html`, headerHtml);
   write(`dist/${site}.footer.html`, inlineFooterHtml);
+  write(`dist/${site}.custom-css.css`, externalCustomCssText);
   write(`dist/${site}.header.external.html`, externalHeaderHtml);
   write(`dist/${site}.footer.external.html`, externalFooterHtml);
+  write(`dist/snippets/${site}-custom-css.css`, externalCustomCssText);
   write(`dist/snippets/${site}-header.html`, externalHeaderHtml);
   write(`dist/snippets/${site}-footer.html`, externalFooterHtml);
 
-  console.log(`Built ${site}: dist/${site}.css, dist/${site}.js, inline and external snippets`);
+  console.log(`Built ${site}: dist/${site}.css, dist/${site}.js, custom CSS and injection snippets`);
 }

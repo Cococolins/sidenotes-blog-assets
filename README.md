@@ -67,16 +67,17 @@ src/sites/tt/config.json
 
 ## 发布产物
 
-每个站点会生成两套调用方式：
+每个站点会生成这些调用片段：
 
 ```text
-dist/<site>.css                  # 外链 CSS
-dist/<site>.js                   # 外链 ES module 脚本
-dist/snippets/<site>-header.html # Bear Blog Header Injection 外链片段
-dist/snippets/<site>-footer.html # Bear Blog Footer Script 外链片段
+dist/<site>.css                       # 外链 CSS
+dist/<site>.js                        # 外链 ES module 脚本
+dist/snippets/<site>-custom-css.css   # Bear Blog Custom CSS 片段
+dist/snippets/<site>-header.html      # Bear Blog Header Injection 片段
+dist/snippets/<site>-footer.html      # Bear Blog Footer Script 片段
 
-dist/<site>.header.html          # 旧方式：整段 header injection
-dist/<site>.footer.html          # 旧方式：整段 module footer injection
+dist/<site>.header.html               # 旧方式：整段 header injection
+dist/<site>.footer.html               # 旧方式：整段 module footer injection
 ```
 
 其中 `<site>` 是：
@@ -87,14 +88,18 @@ daily
 tt
 ```
 
-推荐 Bear Blog 使用外链片段：
+推荐 Bear Blog 使用这三段：
 
 ```html
 <!-- Header Injection -->
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preload" href="https://cdn.jsdelivr.net/fontsource/fonts/noto-serif:vf@latest/latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://cdn.jsdelivr.net/fontsource/fonts/noto-serif:vf@latest/latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@latest/dist/sidenotes.css">
+```
+
+```css
+/* Custom CSS */
+@import url("https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@latest/dist/sidenotes.css");
 ```
 
 ```html
@@ -102,7 +107,7 @@ tt
 <script type="module" src="https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@latest/dist/sidenotes.js"></script>
 ```
 
-切换到外链后，Bear Blog 的 Custom CSS 字段不需要再粘贴同一份 CSS；否则只是重复加载同样规则，维护上容易混乱。
+不要把 Bear Blog 的 Custom CSS 清空。清空后 Bear 会重新注入默认主题 CSS，而 Header Injection 又排在默认 CSS 前面，会导致默认 Verdana 字体和蓝色链接覆盖当前主题。Custom CSS 里只保留上面这一行 `@import` 即可，不需要再粘贴整份 CSS。
 
 `@latest` 会跟随最新 tag，但 jsDelivr 和浏览器缓存可能让更新延迟一段时间。如果某次改动需要完全可控，可以把 `latest` 换成固定 tag，例如 `v0.2.1`。
 
