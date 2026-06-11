@@ -11,8 +11,14 @@ const read = (file) => normalize(readFileSync(join(root, file), "utf8"));
 const sha = (text) => createHash("sha256").update(normalize(text)).digest("hex").slice(0, 12);
 
 const checks = [
-  ["sidenotes CSS equals current archived v34", "dist/sidenotes.css", "Archive/Current/1_Sidenotes_theme_css_v34.css"],
   ["sidenotes header equals current archived V3", "dist/sidenotes.header.html", "Archive/Current/3_Sidenotes_header_injection_V3.js"],
+];
+
+const containsChecks = [
+  ["sidenotes CSS keeps Noto Serif font face", "dist/sidenotes.css", "font-family: 'Noto Serif'"],
+  ["sidenotes CSS keeps custom body font stack", "dist/sidenotes.css", "--font-secondary: \"CJK Dash Fix\", 'Noto Serif'"],
+  ["sidenotes CSS keeps green link color", "dist/sidenotes.css", "--link-color: #1f7a4f"],
+  ["sidenotes CSS keeps current body text color", "dist/sidenotes.css", "--text-color: #2B3831"],
 ];
 
 let failed = false;
@@ -27,6 +33,17 @@ for (const [label, actualPath, expectedPath] of checks) {
     console.error(`  ${expectedPath}: ${sha(expected)}`);
   } else {
     console.log(`PASS ${label} (${sha(actual)})`);
+  }
+}
+
+for (const [label, actualPath, needle] of containsChecks) {
+  const actual = read(actualPath);
+  if (!actual.includes(needle)) {
+    failed = true;
+    console.error(`FAIL ${label}`);
+    console.error(`  Missing: ${needle}`);
+  } else {
+    console.log(`PASS ${label}`);
   }
 }
 
@@ -75,6 +92,8 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     ["hero portrait image rule", "img.hero-portrait"],
     ["consecutive image paragraph rule", "7B. 多段图片连排"],
     ["figure-after-image spacing rule", "main p:has(> :is(img, a.pswp-gallery__item)) + figure > p:has(> :is(img, a.pswp-gallery__item))"],
+    ["PhotoSwipe anchor line-height rule", "main a.pswp-gallery__item"],
+    ["PhotoSwipe list and figure wrapper rule", "main :is(li, figure)>a.pswp-gallery__item"],
   ];
   for (const [label, needle] of imageFixes) {
     if (!css.includes(needle)) {

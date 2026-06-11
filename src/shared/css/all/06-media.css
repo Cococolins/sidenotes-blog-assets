@@ -23,6 +23,23 @@ main figure {
     margin: 0;
 }
 
+/* PhotoSwipe 包装后的图片链接：避免 inline anchor 的行盒在 focus 时露出上下白边 */
+main a.pswp-gallery__item {
+    line-height: 0;
+}
+
+/* 列表和 figure 中的单图由 <a> 承担外距，图片本身贴合容器 */
+main :is(li, figure)>a.pswp-gallery__item {
+    display: block;
+    width: fit-content;
+    max-width: 100%;
+    margin: 1.2rem auto;
+}
+
+main :is(li, figure)>a.pswp-gallery__item>img {
+    margin: 0 auto;
+}
+
 /* 正文顶层段落里的大图向两侧各拓宽 20px，突破 --width 限制 */
 main>p:has(:is(img, .pswp-gallery__item)) {
     max-width: calc(100% + 40px);
@@ -102,4 +119,3 @@ main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2))+figcaption {
 .footnotes li {
     margin-bottom: 0.4rem;
 }
-
