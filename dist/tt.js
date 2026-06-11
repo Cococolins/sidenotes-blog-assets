@@ -328,6 +328,8 @@ const SITE_CONFIG = {
         const list = document.querySelector(config.listSelector);
         if (!list) return;
 
+        this.initPostExcerptLinks(list);
+
         const titleLinks = Array.from(list.querySelectorAll(':scope > li > a[href]'));
         const posts = titleLinks
             .slice(0, config.maxPosts || titleLinks.length)
@@ -338,6 +340,21 @@ const SITE_CONFIG = {
 
         posts.forEach(post => {
             this.hydratePostExcerpt(post, config);
+        });
+    },
+
+    initPostExcerptLinks(list) {
+        list.addEventListener('click', event => {
+            if (event.target.closest('a')) return;
+
+            const excerpt = event.target.closest('li > p');
+            if (!excerpt || !list.contains(excerpt)) return;
+
+            const item = excerpt.closest('li');
+            const link = item?.querySelector(':scope > span + a[href]');
+            if (!link) return;
+
+            window.location.href = link.href;
         });
     },
 

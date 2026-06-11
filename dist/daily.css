@@ -889,11 +889,38 @@ ul.blog-posts>li>* {
 }
 
 .homelist ul.blog-posts>li>a {
+    display: inline-flex;
+    align-items: baseline;
+    width: max-content;
+    max-width: 100%;
     font-weight: 600;
+    text-decoration: none;
+}
+
+.homelist ul.blog-posts>li>span + a::after {
+    content: '→';
+    display: inline-block;
+    margin-left: 0.35em;
+    opacity: 0;
+    transform: translateX(-0.35em);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+
+.homelist ul.blog-posts>li>span + a:is(:hover, :focus-visible)::after {
+    opacity: 1;
+    transform: translateX(0);
 }
 
 ul.blog-posts > li > p {
-    margin-top: 0.35rem;   
+    margin-top: 0.35rem;
+}
+
+.homelist ul.blog-posts>li>p {
+    cursor: pointer;
+}
+
+.homelist ul.blog-posts>li>p:hover {
+    color: var(--link-hover-color);
 }
 
 .homelist ul.blog-posts>li {
@@ -903,7 +930,6 @@ ul.blog-posts > li > p {
 ul.blog-posts>li a:visited {
     color: var(--visited-color);
 }
-
 /* ==========================================================================
    6. 图片与图注、脚注 (Images, Figcaption & footnote)
    让页面级覆盖（Notes / Gallery 的 aspect-ratio、height 等）自然胜出。
