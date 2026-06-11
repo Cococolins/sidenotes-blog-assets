@@ -29,6 +29,7 @@ const SITE_CONFIG = {
     this.initFigcaption();
     this.initGallery();
     this.initExactTime();
+    this.initPostExcerpts();
     this.initYouTube();
     this.initExternalLinks();
     },
@@ -316,7 +317,134 @@ const SITE_CONFIG = {
     },
 
     // ════════════════════════════════════════════════════════════════
-    //  7. YouTube 解析与装载底包
+    //  7. Daily 首页摘要水合
+    //     Bear 的 embedded list 只读 meta_description；这里用单篇正文里的
+    //     <!-- more --> 标记生成更像传统博客的首页摘要。
+    // ════════════════════════════════════════════════════════════════
+    initPostExcerpts() {
+        const config = SITE_CONFIG.excerptHydrator;
+        if (!config?.enabled) return;
+
+        const list = document.querySelector(config.listSelector);
+        if (!list) return;
+
+        const titleLinks = Array.from(list.querySelectorAll(':scope > li > a[href]'));
+        const posts = titleLinks
+            .slice(0, config.maxPosts || titleLinks.length)
+            .map(link => ({ link, item: link.closest('li') }))
+            .filter(post => post.item && (config.overrideExistingDescription || !post.item.querySelector(':scope > p')));
+
+        if (posts.length === 0) return;
+
+        posts.forEach(post => {
+            this.hydratePostExcerpt(post, config);
+        });
+    },
+
+    async hydratePostExcerpt({ link, item }, config) {
+        try {
+            const response = await fetch(link.href, { credentials: 'same-origin' });
+            if (!response.ok) return;
+
+            const html = await response.text();
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            const excerpt = this.extractPostExcerpt(doc, config);
+            if (!excerpt.paragraphs.length) return;
+
+            const fragment = document.createDocumentFragment();
+            excerpt.paragraphs.forEach((paragraph, index) => {
+                const cloned = paragraph.cloneNode(true);
+                cloned.classList.add('post-excerpt');
+                if (excerpt.truncated && index === excerpt.paragraphs.length - 1) {
+                    this.appendEllipsis(cloned);
+                }
+                fragment.appendChild(cloned);
+            });
+
+            if (config.overrideExistingDescription) {
+                item.querySelectorAll(':scope > p').forEach(p => p.remove());
+            }
+
+            const media = item.querySelector(':scope > img, :scope > a.pswp-gallery__item');
+            if (media) {
+                item.insertBefore(fragment, media);
+            } else {
+                item.appendChild(fragment);
+            }
+        } catch { }
+    },
+
+    extractPostExcerpt(doc, config) {
+        const main = doc.querySelector('main');
+        if (!main) return { paragraphs: [], truncated: false };
+
+        const marker = (config.marker || 'more').trim().toLowerCase();
+        const fallbackParagraphs = Math.max(1, config.fallbackParagraphs || 2);
+        const hasMarker = Array.from(main.childNodes)
+            .some(node => node.nodeType === Node.COMMENT_NODE && node.nodeValue.trim().toLowerCase() === marker);
+        const paragraphs = [];
+        let reachedContent = false;
+        let hitMarker = false;
+        let hasMoreContent = false;
+
+        for (const node of main.childNodes) {
+            if (node.nodeType === Node.COMMENT_NODE && node.nodeValue.trim().toLowerCase() === marker) {
+                hitMarker = true;
+                break;
+            }
+
+            if (node.nodeType !== Node.ELEMENT_NODE) continue;
+
+            if (!reachedContent) {
+                if (node.tagName === 'H1') {
+                    reachedContent = true;
+                }
+                continue;
+            }
+
+            if (node.tagName !== 'P') {
+                if (paragraphs.length > 0) hasMoreContent = true;
+                continue;
+            }
+
+            if (node.querySelector('time, img, iframe, video, audio')) continue;
+            if (!node.textContent.trim()) continue;
+
+            paragraphs.push(node);
+            if (!hasMarker && paragraphs.length >= fallbackParagraphs) {
+                hasMoreContent = this.hasReadableContentAfter(node, marker);
+                break;
+            }
+        }
+
+        return {
+            paragraphs,
+            truncated: hitMarker || hasMoreContent
+        };
+    },
+
+    hasReadableContentAfter(node, marker) {
+        let current = node.nextSibling;
+        while (current) {
+            if (current.nodeType === Node.COMMENT_NODE && current.nodeValue.trim().toLowerCase() === marker) {
+                return true;
+            }
+            if (current.nodeType === Node.ELEMENT_NODE && current.textContent.trim()) {
+                return true;
+            }
+            current = current.nextSibling;
+        }
+        return false;
+    },
+
+    appendEllipsis(paragraph) {
+        const text = paragraph.textContent.trim();
+        if (text.endsWith('…') || text.endsWith('...')) return;
+        paragraph.append('…');
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  8. YouTube 解析与装载底包
     // ════════════════════════════════════════════════════════════════
     async loadYouTube({el, videoId, isBare, customText, placeholder}) {
         let captionText = customText;
@@ -362,7 +490,7 @@ const SITE_CONFIG = {
     },
 
     // ════════════════════════════════════════════════════════════════
-    //  8. YouTube 懒加载调度器 (基于 IntersectionObserver)
+    //  9. YouTube 懒加载调度器 (基于 IntersectionObserver)
     // ════════════════════════════════════════════════════════════════
     initYouTube() {
         // 使用更健壮的正则包裹，避免参数被抛弃导致匹配不到空白纯净文本
@@ -435,7 +563,7 @@ const SITE_CONFIG = {
     },
 
     // ════════════════════════════════════════════════════════════════
-    //  9. 外部链接新窗口打开 (全局)
+    //  10. 外部链接新窗口打开 (全局)
     // ════════════════════════════════════════════════════════════════
     initExternalLinks() {
     // 定义你真正的根域名

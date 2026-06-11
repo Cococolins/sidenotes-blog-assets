@@ -103,6 +103,9 @@ The known site-specific JS differences are small:
 
 - the tagline appended to the page identity text
 - the selectors used for exact-time formatting
+- `daily` enables `excerptHydrator` so the homepage can fetch post pages and
+  build excerpts from paragraphs before `<!-- more -->`; posts without the
+  marker fall back to the first configured paragraphs.
 
 When adding a new per-site difference, prefer adding a config field before
 forking the shared JS. Fork the JS only if the behavior is genuinely different

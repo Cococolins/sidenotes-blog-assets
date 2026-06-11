@@ -81,6 +81,15 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     }
   }
 
+  if (config.excerptHydrator?.enabled) {
+    if (!js.includes('"excerptHydrator"') || !js.includes("initPostExcerpts") || !js.includes("extractPostExcerpt")) {
+      failed = true;
+      console.error(`FAIL ${site} external JS includes excerpt hydrator`);
+    } else {
+      console.log(`PASS ${site} external JS includes excerpt hydrator`);
+    }
+  }
+
   if (!js.includes("BlogApp.init();") || !js.includes("Plugin name: Editor shortcut")) {
     failed = true;
     console.error(`FAIL ${site} external JS contains expected custom scripts`);

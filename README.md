@@ -63,6 +63,8 @@ src/sites/daily/config.json
 src/sites/tt/config.json
 ```
 
+`daily` 额外启用了首页摘要水合：文章正文里可以放 `<!-- more -->`，脚本会在首页读取单篇文章，并用该标记之前的段落替换 embedded list 里的 description；没有标记时默认取前 2 段。配置在 `src/sites/daily/config.json` 的 `excerptHydrator`。
+
 不要手动改 `dist/`。改完 `src/` 后运行 `npm run build`，确认没问题再发布。
 
 ## 发布产物
