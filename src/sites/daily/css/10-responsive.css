@@ -16,7 +16,8 @@
         display: flex;
         flex-direction: column;
         gap: 0;
-      	padding-top: 1rem
+      	padding-top: 1rem;
+        margin-bottom: 2.8rem;
     }
   
 	/* 第一层：标题 */
