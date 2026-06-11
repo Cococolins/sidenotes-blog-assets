@@ -1,0 +1,36 @@
+/* ==========================================================================
+   7B. 多段图片连排 (Consecutive Photo Paragraphs)
+   通过「先清零所有图片段 margin-bottom，再反向恢复」绕过 :has() 嵌套限制。
+   ========================================================================== */
+
+/* 所有图片段落：清零底部 margin */
+main p:has(> :is(img, a.pswp-gallery__item)) {
+    margin-bottom: 0;
+}
+
+/* 连续两个图片段落：第二个段落顶部 6px，等同于网格 gap */
+main p:has(> :is(img, a.pswp-gallery__item)) + p:has(> :is(img, a.pswp-gallery__item)) {
+    margin-top: 6px;
+}
+
+/* 图片段落后紧跟带图注的 figure：figure 内图片段落也按连续图片间距处理 */
+main p:has(> :is(img, a.pswp-gallery__item)) + figure > p:has(> :is(img, a.pswp-gallery__item)) {
+    margin-top: 6px;
+}
+
+/* 图片段落后紧跟非图片段落（如「再来测试一下：」文字段、tags 段）：
+   恢复默认 1em 顶部间距，避免和上方图片粘在一起 */
+main p:has(> :is(img, a.pswp-gallery__item)) + p:not(:has(> :is(img, a.pswp-gallery__item))) {
+    margin-top: 1em;
+}
+main p:has(> :is(img, a.pswp-gallery__item)) + details {
+    margin-top: 1em;
+}
+
+/* 多段连排里的单图也走正方形裁切 */
+main p:has(> :is(img, a.pswp-gallery__item)) + p:has(> :is(img, a.pswp-gallery__item):only-of-type),
+main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.pswp-gallery__item)) {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+

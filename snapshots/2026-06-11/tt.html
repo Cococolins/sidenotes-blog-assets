@@ -1,0 +1,2234 @@
+<!DOCTYPE html>
+<html lang="zh-CHS">
+
+<!-- Powered by Bear Blog -->
+
+<head>
+  
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5">
+  
+  <title>Sidenotes of C&amp;T</title>
+  <link rel="canonical" href="https://tt.sidenotes.cc">
+  
+
+
+<meta name="ct" content="look-for-the-bear-necessities">
+
+
+<!-- Primary Meta Tags -->
+<meta name="title" content="Sidenotes of C&amp;T">
+<meta name="description" content="Communicate &amp; Translate.">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:site_name" content="Sidenotes of C&amp;T">
+<meta property="og:title" content="Sidenotes of C&amp;T">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://tt.sidenotes.cc">
+<meta property="og:description" content="Communicate &amp; Translate.">
+<meta property="og:image" content="https://bear-images.sfo2.cdn.digitaloceanspaces.com/ct/ct-10th-anniversary.webp">
+
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary">
+<meta property="twitter:url" content="https://tt.sidenotes.cc">
+<meta property="twitter:title" content="Sidenotes of C&amp;T">
+<meta property="twitter:description" content="Communicate &amp; Translate.">
+<meta property="twitter:image" content="https://bear-images.sfo2.cdn.digitaloceanspaces.com/ct/ct-10th-anniversary.webp">
+
+
+
+<!-- Microdata -->
+<script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "website",
+    "name": "Sidenotes of C&amp;T",
+    "headline": "Sidenotes of C&amp;T",
+    "url": "https://tt.sidenotes.cc",
+    "description": "Communicate &amp; Translate.",
+    "image": "https://bear-images.sfo2.cdn.digitaloceanspaces.com/ct/ct-10th-anniversary.webp"
+  }
+</script>
+<link rel="alternate" type="application/atom+xml" href="/feed/" title="Sidenotes of C&amp;T">
+<link rel="alternate" type="application/rss+xml" href="/feed/?type=rss" title="Sidenotes of C&amp;T">
+
+  
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="preload" href="https://cdn.jsdelivr.net/fontsource/fonts/noto-serif:vf@latest/latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="https://cdn.jsdelivr.net/fontsource/fonts/noto-serif:vf@latest/latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
+
+
+
+
+  
+  
+  
+    
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%20100%20100'%3E%3Ctext%20y='.9em'%20font-size='90'%3E👬🏻%3C/text%3E%3C/svg%3E">
+    
+
+
+
+  <style data-name="default">
+      
+      
+/* ==========================================================================
+   0. 第三方样式 (Vendor)
+   PhotoSwipe v5 灯箱核心样式，压缩内联以减少请求数。
+   ========================================================================== */
+/*! PhotoSwipe main CSS by Dmytro Semenov | photoswipe.com */
+.pswp,
+.pswp:focus,
+.pswp__icn:focus {
+    outline: 0
+}
+
+.pswp,
+.pswp__button,
+.pswp__icn,
+.pswp__item,
+.pswp__scroll-wrap {
+    overflow: hidden
+}
+
+.pswp {
+    --pswp-bg: #000;
+    --pswp-placeholder-bg: #222;
+    --pswp-root-z-index: 100000;
+    --pswp-preloader-color: rgba(79, 79, 79, 0.4);
+    --pswp-preloader-color-secondary: rgba(255, 255, 255, 0.9);
+    --pswp-icon-color: #fff;
+    --pswp-icon-color-secondary: #4f4f4f;
+    --pswp-icon-stroke-color: #4f4f4f;
+    --pswp-icon-stroke-width: 2px;
+    --pswp-error-text-color: var(--pswp-icon-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--pswp-root-z-index);
+    display: none;
+    touch-action: none;
+    opacity: .003;
+    contain: layout style size;
+    -webkit-tap-highlight-color: transparent
+}
+
+.pswp * {
+    box-sizing: border-box
+}
+
+.pswp img {
+    max-width: none
+}
+
+.pswp--open {
+    display: block
+}
+
+.pswp,
+.pswp__bg {
+    transform: translateZ(0);
+    will-change: opacity
+}
+
+.pswp__bg {
+    opacity: .005;
+    background: var(--pswp-bg)
+}
+
+.pswp__bg,
+.pswp__container,
+.pswp__content,
+.pswp__img,
+.pswp__item,
+.pswp__scroll-wrap,
+.pswp__zoom-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.pswp__img,
+.pswp__zoom-wrap {
+    width: auto;
+    height: auto
+}
+
+.pswp--click-to-zoom.pswp--zoom-allowed .pswp__img {
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+    cursor: zoom-in
+}
+
+.pswp--click-to-zoom .pswp--zoomed-in .pswp__img {
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab
+}
+
+.pswp--click-to-zoom.pswp--zoomed-in .pswp__img:active {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing
+}
+
+.pswp--no-mouse-drag.pswp--zoomed-in .pswp__img,
+.pswp--no-mouse-drag.pswp--zoomed-in .pswp__img:active,
+.pswp__img {
+    cursor: -webkit-zoom-out;
+    cursor: -moz-zoom-out;
+    cursor: zoom-out
+}
+
+.pswp__button,
+.pswp__container,
+.pswp__counter,
+.pswp__img {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.pswp__item {
+    z-index: 1
+}
+
+.pswp__hidden {
+    display: none !important
+}
+
+.pswp__content {
+    pointer-events: none
+}
+
+.pswp__content>* {
+    pointer-events: auto
+}
+
+.pswp__error-msg-container {
+    display: grid
+}
+
+.pswp__error-msg {
+    margin: auto;
+    font-size: 1em;
+    line-height: 1;
+    color: var(--pswp-error-text-color)
+}
+
+.pswp .pswp__hide-on-close {
+    opacity: .005;
+    will-change: opacity;
+    transition: opacity var(--pswp-transition-duration) cubic-bezier(.4, 0, .22, 1);
+    z-index: 10;
+    pointer-events: none
+}
+
+.pswp--ui-visible .pswp__hide-on-close {
+    opacity: 1;
+    pointer-events: auto
+}
+
+.pswp__button {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 60px;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    box-shadow: none;
+    opacity: .85;
+    -webkit-appearance: none;
+    -webkit-touch-callout: none
+}
+
+.pswp__button:active,
+.pswp__button:focus,
+.pswp__button:hover {
+    transition: none;
+    padding: 0;
+    background: 0 0;
+    border: 0;
+    box-shadow: none;
+    opacity: 1
+}
+
+.pswp__button:disabled {
+    opacity: .3;
+    cursor: auto
+}
+
+.pswp__icn {
+    fill: var(--pswp-icon-color);
+    color: var(--pswp-icon-color-secondary);
+    position: absolute;
+    top: 14px;
+    left: 9px;
+    width: 32px;
+    height: 32px;
+    pointer-events: none
+}
+
+.pswp__icn-shadow {
+    stroke: var(--pswp-icon-stroke-color);
+    stroke-width: var(--pswp-icon-stroke-width);
+    fill: none
+}
+
+.pswp__img--with-bg,
+div .pswp__img--placeholder {
+    background: var(--pswp-placeholder-bg)
+}
+
+.pswp__top-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    z-index: 10;
+    pointer-events: none !important
+}
+
+.pswp--one-slide .pswp__button--arrow,
+.pswp--zoomed-in .pswp__zoom-icn-bar-v,
+.pswp__button--zoom {
+    display: none
+}
+
+.pswp__top-bar>* {
+    pointer-events: auto;
+    will-change: opacity
+}
+
+.pswp__button--close {
+    margin-right: 6px
+}
+
+.pswp__button--arrow {
+    position: absolute;
+    width: 75px;
+    height: 100px;
+    top: 50%;
+    margin-top: -50px
+}
+
+.pswp__button--arrow:disabled {
+    display: none;
+    cursor: default
+}
+
+.pswp__button--arrow .pswp__icn {
+    top: 50%;
+    margin-top: -30px;
+    width: 60px;
+    height: 60px;
+    background: 0 0;
+    border-radius: 0
+}
+
+.pswp--touch .pswp__button--arrow {
+    visibility: hidden
+}
+
+.pswp--has_mouse .pswp__button--arrow {
+    visibility: visible
+}
+
+.pswp__button--arrow--prev {
+    right: auto;
+    left: 0
+}
+
+.pswp__button--arrow--next {
+    right: 0
+}
+
+.pswp__button--arrow--next .pswp__icn {
+    left: auto;
+    right: 14px;
+    transform: scale(-1, 1)
+}
+
+.pswp--zoom-allowed .pswp__button--zoom {
+    display: block
+}
+
+.pswp__preloader {
+    position: relative;
+    overflow: hidden;
+    width: 50px;
+    height: 60px;
+    margin-right: auto
+}
+
+.pswp__preloader .pswp__icn {
+    opacity: 0;
+    transition: opacity .2s linear;
+    animation: .6s linear infinite pswp-clockwise
+}
+
+.pswp__preloader--active .pswp__icn {
+    opacity: .85
+}
+
+@keyframes pswp-clockwise {
+    0% {
+        transform: rotate(0)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.pswp__counter {
+    height: 30px;
+    margin-top: 15px;
+    margin-inline-start: 20px;
+    font-size: 14px;
+    line-height: 30px;
+    color: var(--pswp-icon-color);
+    text-shadow: 1px 1px 3px var(--pswp-icon-color-secondary);
+    opacity: .85
+}
+
+.pswp--one-slide .pswp__counter {
+    display: none
+}
+
+/* ==========================================================================
+   1. 设计令牌 (Design Tokens)
+   CSS 自定义属性：颜色、字体、尺寸。亮/暗主题通过 prefers-color-scheme 切换。
+   ========================================================================== */
+
+/* Noto Serif 可变字体：通过 jsDelivr fontsource CDN 加载
+   全球可用（含中国大陆节点），单文件覆盖 100–900 全部字重 */
+@font-face {
+    font-family: 'Noto Serif';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src:
+        url(https://cdn.jsdelivr.net/fontsource/fonts/noto-serif:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153,
+        U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F,
+        U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Noto Serif';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 100 900;
+    src:
+        url(https://cdn.jsdelivr.net/fontsource/fonts/noto-serif:vf@latest/latin-wght-italic.woff2) format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153,
+        U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F,
+        U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 强制中文标点使用 CJK 字体渲染（修复破折号、省略号断裂与下沉问题） */
+@font-face {
+    font-family: "CJK Dash Fix";
+    src: local("PingFang SC"),
+        local("PingFangSC-Regular"),
+        local("Noto Sans CJK SC"),
+        local("Microsoft YaHei"),
+        local("微软雅黑");
+    unicode-range: U+2013-2015, U+2026;
+    /* 覆盖 En Dash, Em Dash, Horizontal Bar, Ellipsis */
+}
+
+
+:root {
+    --width: 660px;
+
+    /* 标题字体：系统 UI，醒目清晰 */
+    --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
+        "Segoe UI", "Liberation Sans", sans-serif;
+
+    /* 正文字体：Noto Serif 优先（jsDelivr CDN），Optima 备用（本地），中文回退 PingFang / 微软雅黑 */
+    --font-secondary: "CJK Dash Fix", 'Noto Serif', "Optima", system-ui,
+        -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI",
+        "Liberation Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+
+    /* 等宽字体：代码块、日期时间 */
+    --font-mono: Menlo, Monaco, Consolas, "Courier New", monospace;
+
+    --font-scale: 1em;
+    --background-color: #FFFFFF;
+    --heading-color: #222;
+    --text-color: #2B3831;
+    --link-color: #1f7a4f;
+    --link-hover-color: #16603d;
+    --visited-color: #467856;
+    --code-background-color: #f2f2f2;
+    --code-color: #5f6f64;
+    --blockquote-color: #222;
+    --border-color: #d9e3d8;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #14140F;
+        --heading-color: #ECE6D8;
+        --text-color: #E8E3D6;
+        --link-color: #7FB89A;
+        --link-hover-color: #A8D4BA;
+        --visited-color: #8A8A82;       /* 暖灰；如要 visited=link 同色，改成 var(--link-color) */
+        --code-background-color: #1F1F1A;
+        --code-color: #C9C4B5;
+        --blockquote-color: #DDDDD0;
+        --border-color: #2E2E26;
+    }
+}
+
+/* ==========================================================================
+   2. 全局与基础版式 (Reset & Typography)
+   ========================================================================== */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-autospace: ideograph-alpha ideograph-numeric;
+    text-spacing-trim: normal;
+    font-feature-settings: "chws" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+}
+
+h1 {
+    font-size: 1.5em;
+    margin-top: 1rem;
+}
+
+h2 {
+    font-size: 1.3em;
+    margin-top: 2.5rem;
+}
+
+h3 {
+    font-size: 1.05em;
+    margin-top: 1rem;
+}
+
+/* --- 通用排版组件：区块标题与页脚 --- */
+
+/* 去标签化的区块标题，可挂载于任何 h1~h6 */
+.section-title {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.section-title span {
+    font-size: 0.9em;
+    opacity: 0.6;
+    font-weight: 400;
+    margin-left: 0.5em;
+}
+
+/* 列表下方的统一页脚与「>> more」链接 */
+.section-footer {
+    text-align: right;
+    margin-bottom: 1.5rem;
+}
+
+.section-footer a {
+    font-size: 0.85em;
+    color: #999;
+    font-family: var(--font-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.section-footer a:hover {
+    color: var(--link-color);
+}
+
+a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration-line: none;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 1px;
+    /* 默认稍贴近文字 */
+    text-decoration-color: transparent;
+    /* 先藏起来 */
+    transition:
+        color 0.2s ease,
+        text-decoration-color 0.2s ease,
+        text-underline-offset 0.2s ease;
+    /* 让 offset 也有过渡 */
+}
+
+a:hover {
+    color: var(--link-hover-color);
+    /* hover 颜色 */
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+    /* 显示下划线 */
+    text-underline-offset: 4px;
+    /* 比默认再往下 2px */
+}
+
+mark {
+    background-color: transparent;
+    color: inherit;
+    -webkit-text-emphasis-style: dot;
+    text-emphasis-style: dot;
+    -webkit-text-emphasis-position: under right;
+    text-emphasis-position: under right;
+    -webkit-text-emphasis-color: var(--link-color);
+    text-emphasis-color: var(--link-color);
+    line-height: 0;
+}
+
+/* 斜体定制：中文斜体用楷体，英文斜体继承 Noto Serif italic */
+/* 建立楷体白名单，并将其伪装成斜体供浏览器调用 */
+@font-face {
+    font-family: 'CustomCJKItalic';
+    src: local('STKaiti'),
+        local('KaiTi'),
+        local('BiauKai');
+    unicode-range: U+4E00-9FFF, U+3000-303F, U+FF00-FFEF;
+    font-style: italic;
+}
+
+em,
+i {
+    font-family: 'CustomCJKItalic', var(--font-secondary);
+    font-style: italic;
+    font-synthesis: none;
+}
+
+/* 修复 Bear Blog 客户端 JS 替换日期文本造成的行内闪烁*/
+time {
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-variant-numeric: tabular-nums;
+    /* 默认隐藏，等待 JS 解析确实完成后赋予 .loaded 类再显示 */
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+time.loaded {
+    opacity: 1;
+}
+
+hr {
+    border: 0;
+    width: 80%;
+    height: 1px;
+    margin: 3.3rem auto;
+    background-color: var(--border-color);
+}
+
+table {
+    width: 100%;
+}
+
+button {
+    margin: 0;
+    cursor: pointer;
+}
+
+main {
+    line-height: 1.6;
+}
+
+/* YouTube / 视频嵌入自适应 */
+main iframe[src*="youtube"] {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+    display: block;
+    margin: 1.2rem auto;
+}
+
+main iframe[src*="youtube"]:has(+ figcaption) {
+    margin-bottom: 0;
+}
+
+main iframe[src*="youtube"]+figcaption a {
+    color: inherit;
+}
+
+sup,
+sub {
+    line-height: 0;
+}
+
+code {
+    font-family: var(--font-mono);
+    padding: 2px 5px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+pre,
+.highlight,
+.code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    padding: 2px 15px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+    font-size: 0.85em;
+
+}
+
+/* pre 内的 code 重置行内样式，避免双重背景与 padding */
+pre code {
+    padding: 0;
+    background: none;
+}
+
+blockquote {
+    border-left: 1px solid var(--border-color);
+    color: var(--blockquote-color);
+    font-family: var(--font-secondary);
+    padding-left: 12px;
+    margin: 18px;
+}
+
+/* 正文列表缩进：文字起始位置约两个汉字宽（浏览器默认约 40px） */
+main ul,
+main ol {
+    padding-left: 2em;
+}
+
+ruby {
+    ruby-align: center;
+    /* 注音与汉字居中对齐 */
+}
+
+rt {
+    user-select: none;
+    /* 防止读者复制文字时误选中拼音 */
+}
+
+/* ==========================================================================
+   3. 页面骨架 (Layout: Header & Footer)
+   ========================================================================== */
+header {
+    position: sticky;
+    top: 0;
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 0 20px;
+    background-color: var(--background-color);
+    border-bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0 16px;
+    min-height: 52px;
+    /* 滚动隐藏过渡（配合 Headroom.js）：cubic-bezier 缓动避免线性带来的「弹弓感」 */
+    will-change: transform;
+    transition: transform 250ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+
+/* --- Headroom.js 状态类 ---
+   由 Footer Script 中的 Headroom 实例在滚动时动态切换。
+   .headroom            初始挂载（library 自动添加）
+   .headroom--pinned    向上滚动 → 显示
+   .headroom--unpinned  向下滚动 → 隐藏（向上平移自身高度） */
+header.headroom--unpinned {
+    transform: translateY(-100%);
+}
+
+header.headroom--pinned {
+    transform: translateY(0);
+}
+
+/* 尊重用户的「减少动效」系统偏好：保留隐藏/显示行为，但去掉滑动过渡 */
+@media (prefers-reduced-motion: reduce) {
+    header {
+        transition: none;
+    }
+}
+
+header .title {
+    flex: 1 1 auto;
+    text-decoration: none;
+}
+
+header .title h1 {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    font-family: var(--font-main);
+    color: var(--heading-color);
+    white-space: nowrap;
+    margin: 0;
+    line-height: 1.1;
+}
+
+/* 副标题：真实 DOM，由 Footer Script 动态注入 */
+.site-tagline {
+    font-family: var(--font-main);
+    font-size: 0.9em;
+    color: var(--text-color);
+    white-space: nowrap;
+    margin-left: 0.5em;
+    font-weight: 400;
+    opacity: 0.6;
+}
+
+/* 版权信息：同样用伪元素生成，footer 原生内容清零 */
+footer {
+    font-size: 0;
+    text-align: center;
+}
+
+footer::after {
+    content: "© 2026 Cococolin";
+    font-size: 15px;
+    color: var(--text-color);
+    display: block;
+    text-align: center;
+    padding: 15px 0;
+}
+
+/* ==========================================================================
+   4. 导航栏 (Navigation)
+   桌面端：水平链接行。移动端（≤768px）：汉堡菜单 + 下拉面板。
+   DOM 由 Footer Script 动态生成。
+   ========================================================================== */
+nav {
+    margin: 0;
+    padding: 0;
+    flex: 0 0 auto;
+    font-family: var(--font-main);
+    font-weight: 500;
+}
+
+nav p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 8px 0;
+    white-space: nowrap;
+}
+
+nav p a {
+    margin-right: 8px;
+}
+
+/* --- 汉堡按钮（移动端显示，桌面端隐藏） --- */
+.nav-hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 22px;
+    line-height: 1;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    border-radius: 6px;
+    transition: background-color 0.2s cubic-bezier(0.2, 0, 0.2, 1), transform 0.1s;
+}
+
+.nav-hamburger:active {
+    background-color: var(--border-color);
+    transform: scale(0.92);
+}
+
+/* --- 移动端下拉菜单 --- */
+.nav-mobile-menu {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: var(--background-color);
+    border-bottom: none;
+    padding: 4px 20px 10px;
+    z-index: 99;
+}
+
+.nav-mobile-menu.open {
+    display: flex;
+}
+
+.nav-mobile-menu a {
+    padding: 5px 0;
+    border-bottom: none;
+    color: var(--link-color);
+    font-family: var(--font-main);
+    font-size: 1em;
+}
+
+.nav-mobile-menu a:last-child {
+    border-bottom: none;
+}
+
+/* ==========================================================================
+   5. 文章列表 (Essays List)
+   Bear Blog 的 {{ posts }} 渲染为 ul.blog-posts，日期 + 标题的双列 Grid。
+   ========================================================================== */
+ul.blog-posts {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+    margin-bottom: 2rem;
+}
+
+/* 首页嵌入式列表收紧下边距，让「查看更多」链接贴近 */
+ul.embedded.blog-posts {
+    margin-bottom: 0.5rem;
+}
+
+ul.blog-posts>li {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    column-gap: 1rem;
+    align-items: baseline;
+    margin-bottom: 0.2rem;
+}
+
+ul.blog-posts>li>span {
+    grid-column: 1 / 2;
+    color: #999;
+    font-size: 0.9rem;
+    flex: none !important;
+    font-family: var(--font-mono);
+    white-space: nowrap;
+}
+
+ul.blog-posts>li>a {
+    grid-column: 2 / 3;
+}
+
+ul.blog-posts>li a:visited {
+    color: var(--visited-color);
+}
+
+/* ==========================================================================
+   6. 图片与图注、脚注 (Images, Figcaption & footnote)
+   让页面级覆盖（Notes / Gallery 的 aspect-ratio、height 等）自然胜出。
+   ========================================================================== */
+main img {
+    cursor: zoom-in;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.2rem auto;
+}
+
+/* <figure> 基础重置：清除浏览器默认的 margin: 1em 40px */
+main figure {
+    margin: 0;
+}
+
+/* 正文顶层段落里的大图向两侧各拓宽 20px，突破 --width 限制 */
+main>p:has(:is(img, .pswp-gallery__item)) {
+    max-width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+/* <figure> 包裹的图片同样拓宽（由 Footer Script 动态生成） */
+main>figure:has(:is(img, .pswp-gallery__item)) {
+    max-width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+/* 引用、列表、脚注里的图片不拓宽 */
+main :is(blockquote, li, .footnotes) img {
+    max-width: 100%;
+    margin: 1.2rem auto;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* 图注：居中、小字、弱化 */
+main figcaption {
+    display: block;
+    text-align: center;
+    font-size: 0.85em;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-style: normal;
+    line-height: 1.5;
+    margin-top: 0.5rem;
+    margin-bottom: 1.6rem;
+}
+
+/* 图片 + 图注间距智能收紧：当 <p> 含图片且紧跟 <figcaption> 时自动贴合 */
+main p:has(img):has(+ figcaption) {
+    margin-bottom: 0;
+}
+
+main p:has(img):has(+ figcaption) img {
+    margin-bottom: 0;
+}
+
+main p:has(img + figcaption) img {
+    margin-bottom: 0;
+}
+
+/* 多图网格后的图注：网格内图片的 margin 被 !important 清零，
+   需要通过 figcaption 自身的 margin-top 补回间距 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2))+figcaption {
+    margin-top: 0.5rem;
+}
+
+/* 脚注整体排版：略小于正文，带一条分隔线 */
+.footnotes {
+    font-size: 0.85em;
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.footnotes::before {
+    content: "";
+    display: block;
+    width: 36%;
+    height: 1px;
+    margin: 0 0 0 1em;
+    /* 上 右 下 左：左邊對齊腳注文字 */
+    background-color: var(--border-color);
+}
+
+.footnotes ol {
+    padding-left: 2.5em;
+}
+
+.footnotes li {
+    margin-bottom: 0.4rem;
+}
+
+/* ==========================================================================
+   7. 图片网格 (Image Grid · Quantity Queries)
+   挂在 main 上，不绑定任何页面类型。
+   同一 <p> 内多张图片自动并排（Markdown 里不留空行即可触发）。
+
+   :is() 使用规则：
+   - :has() 内可以安全使用 :is(img, a.pswp-gallery__item)，
+     因为两者都是 <p> 的直接子元素。
+   - 但样式规则中不能用 p > :is(img, a.pswp-gallery__item > img)，
+     因为 img 在 <a> 内部时不是 <p> 的直接子元素。
+     必须写成逗号分隔的两条选择器。
+
+   布局规则：
+   1 张 → 自然流（不启用 Grid）  2 张 → 两列  3 张 → 三列
+   4 张 → 2×2 田字格            5+ 张 → 三列九宫格
+   ========================================================================== */
+
+/* 含 2+ 张图片的段落启用 Grid */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2)) {
+    display: grid;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+/* PhotoSwipe 生成的 <a> 填满网格单元 */
+main p>a.pswp-gallery__item {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* 对抗 Safari 闪烁：强制开启独立渲染层 */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+}
+
+/* 多图缩略图统一裁切为 1:1 正方形 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2))>img,
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2))>a.pswp-gallery__item>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    margin: 0 !important;
+    border-radius: 3px;
+    display: block;
+    /* 对抗 Safari 闪烁：强制 GPU 渲染 */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* 2 张图：两列 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2):last-of-type) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 3 张图：三列 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(3):last-of-type) {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* 4 张图：2×2 田字格 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(4):last-of-type) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 5+ 张图：三列九宫格 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(n+5)) {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* ==========================================================================
+   8. Notes 信息流 (Notes Feed)
+   「记」页面专属：左侧日期+时间，右侧正文（标题隐藏）。
+   图片在 Notes 中单图也裁切为正方形。
+   ========================================================================== */
+.notes ul.blog-posts {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+/* ============================================================
+   修改说明 v33：Notes 条目分隔——日期列上方短线
+   - 不画全宽 hr，避免割裂 660px 行宽
+   - 短线仅跨日期列宽（64px），形成「条目锚点」而非「分隔条」
+   - 第一条不显示，避免和上方 section-title 重复制造横线
+   ============================================================ */
+.notes ul.blog-posts>li {
+    list-style-type: none;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    column-gap: 1rem;
+    align-items: start;
+	position: relative;
+    padding-top: 1.2rem;
+    margin-bottom: 2rem;  
+}
+
+.notes ul.blog-posts > li::before {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 101px;
+    height: 1px;
+    background: linear-gradient(
+        to right,
+        var(--border-color) 0%,
+        var(--border-color) 60%,
+        transparent 100%
+    );
+}
+
+.notes ul.blog-posts > li:first-child {
+    padding-top: 0;
+}
+
+.notes ul.blog-posts > li:first-child::before {
+    display: none;
+}
+
+/* 所有子元素默认落入右侧内容列 */
+.notes ul.blog-posts>li>* {
+    grid-column: 2 / 3;
+    margin-top: 0;
+}
+
+.notes ul.blog-posts>li>div>p:first-child {
+    margin-top: 0;
+}
+
+/* 隐藏标题 */
+.notes ul.blog-posts>li>a {
+    display: none;
+}
+
+/* 左侧日期+时间区 */
+.notes ul.blog-posts>li>span {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    flex: none !important;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    margin-top: 2px;
+}
+
+.notes ul.blog-posts>li>span :is(time, .exact-time) {
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: #999;
+    line-height: 1.2;
+}
+
+/* Notes 单图也启用网格裁切（覆盖第 7 节「1 张不启用」的默认行为） */
+.notes p:has(> :is(img, a.pswp-gallery__item):only-of-type) {
+    display: grid;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.notes p>img,
+.notes p>a.pswp-gallery__item>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    margin: 0 !important;
+    border-radius: 4px;
+    display: block;
+    /* 对抗 Safari 闪烁：强制 GPU 渲染 */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* 消除最后一条 Note 的叠加边距与底部留白 */
+.notes ul.blog-posts>li:last-child {
+    margin-bottom: 0;
+}
+
+.notes ul.blog-posts>li:last-child>div>*:last-child {
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
+   9. Gallery 信息流 (Gallery Feed)
+   「相」页面专属：左侧日期（无时间），右侧标题，正文隐藏但图片显示。
+   Flex 流式网格让分散在不同 <p> 中的单图自动并列为两列。
+   ========================================================================== */
+.gallery ul.blog-posts {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.gallery ul.blog-posts>li {
+    list-style-type: none;
+    margin-bottom: 1.6rem;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    column-gap: 1rem;
+    align-items: start;
+}
+
+.gallery ul.blog-posts>li>* {
+    grid-column: 2 / 3;
+    margin-top: 0;
+}
+
+/* 标题：显示在日期右侧 */
+.gallery ul.blog-posts>li>a {
+    display: inline;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+/* 左侧日期区：只留日期，隐藏精确时间 */
+.gallery ul.blog-posts>li>span {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    flex: none !important;
+    align-self: baseline;
+    margin-top: 2px;
+}
+
+.gallery ul.blog-posts>li>span time {
+    font-family: var(--font-mono);
+    color: #999;
+    line-height: 1.2;
+}
+
+.gallery ul.blog-posts>li>span .exact-time {
+    display: none;
+}
+
+/* 反向隐藏策略：先隐藏内容区一切子元素，再单独放出含图片的元素 */
+.gallery ul.blog-posts>li>div>* {
+    display: none;
+}
+
+.gallery ul.blog-posts>li>div>p:has(:is(img, .pswp-gallery__item)) {
+    display: grid;
+}
+
+/* 兼容手动嵌套的 div（display:contents 让子元素直接参与外层 flex 流） */
+.gallery ul.blog-posts>li>div>div:has(:is(img, .pswp-gallery__item)) {
+    display: contents;
+}
+
+/* Flex 流式网格：让分散在不同 <p> 中的图片自动并列 */
+.gallery ul.blog-posts>li>div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-top: 0.4rem;
+}
+
+/* 单图段落：两列等分 */
+.gallery ul.blog-posts>li>div>p:has(> :is(img, a.pswp-gallery__item):only-of-type) {
+    flex: 0 0 calc(50% - 3px);
+    margin: 0;
+}
+
+/* 多图段落：占满整行，内部由第 7 节 Quantity Queries 控制网格 */
+.gallery ul.blog-posts>li>div>p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2)) {
+    flex: 0 0 100%;
+    margin: 0;
+}
+
+/* Gallery 单图段落也启用 Grid（覆盖第 7 节「1 张不启用」的默认行为） */
+.gallery p:has(> :is(img, a.pswp-gallery__item):only-of-type) {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+/* Gallery 所有图片强制正方形裁切（含单图） */
+.gallery p>img,
+.gallery p>a.pswp-gallery__item>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    margin: 0 !important;
+    border-radius: 4px;
+    display: block;
+    /* 对抗 Safari 闪烁：强制 GPU 渲染 */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* ==========================================================================
+   10. 插件定制 (Plugin Overrides)
+   PhotoSwipe 灯箱 UI + 网易云迷你播放器 + 工具类。
+   ========================================================================== */
+
+/* --- PhotoSwipe 灯箱按钮 --- */
+.pswp__button svg {
+    width: 25px !important;
+    height: 25px !important;
+    transition: opacity 0.2s ease;
+}
+
+.pswp__button {
+    opacity: 0.8;
+}
+
+.pswp__button:hover {
+    opacity: 1 !important;
+}
+
+/* 灯箱底部图注（由 Footer Script 动态注入） */
+.pswp__custom-caption {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #eee;
+    font-size: 0.85em;
+    font-family: var(--font-secondary);
+    text-align: center;
+    opacity: 0.9;
+    max-width: 85%;
+    pointer-events: none;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+}
+
+/* --- 网易云音乐迷你播放器 --- */
+.netease-mini-player {
+    height: 100px;
+}
+
+.netease-mini-player iframe {
+    width: 100%;
+    height: 100px;
+}
+
+.netease-mobile-link {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .netease-mini-player {
+        height: auto;
+        /* 覆盖固定高度 */
+    }
+
+    .netease-mini-player iframe {
+        display: none;
+    }
+
+    .netease-mobile-link {
+        display: block;
+        text-align: center;
+        padding: 10px 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        color: var(--link-color);
+        font-size: 0.9em;
+        text-decoration: none;
+        margin-bottom: 1.6rem;
+        /* ← 补回行间距 */
+
+    }
+}
+
+/* --- 工具类 --- */
+.inline {
+    width: auto !important;
+}
+
+/* ==========================================================================
+   11. 折叠面板 (Details & Summary)
+   ========================================================================== */
+details {
+    margin-bottom: 1.6rem;
+    border-left: 2px solid var(--border-color);
+    padding-left: 1rem;
+}
+
+details summary {
+    cursor: pointer;
+    color: var(--heading-color);
+    font-weight: 500;
+    outline: none;
+    transition: color 0.2s ease;
+}
+
+details summary:hover {
+    color: var(--link-color);
+}
+
+details> :not(summary) {
+    margin-top: 0.8rem;
+    font-size: 0.85em;
+    color: var(--text-color);
+    opacity: 0.7;
+    text-align: left;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   12. 响应式 (Responsive · ≤768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+
+    /* 导航栏：隐藏水平链接，显示汉堡按钮 */
+    nav p {
+        display: none;
+    }
+
+    .nav-hamburger {
+        display: flex;
+    }
+
+    /* Notes：Grid 改为单列堆叠 */
+    .notes ul.blog-posts>li {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+      	padding-top: 1rem
+    }
+
+    .notes ul.blog-posts>li>* {
+        margin-top: 0;
+    }
+
+    .notes ul.blog-posts>li>span {
+        margin-bottom: 0;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 0.5rem;
+    }
+
+    /* 为所有的日期容器在移动端上个双保险 */
+    ul.blog-posts>li>span,
+    .notes ul.blog-posts>li>span,
+    .gallery ul.blog-posts>li>span {
+        white-space: nowrap;
+        overflow: visible;
+    }
+
+    /* Gallery：图片区跨满两列，日期+标题仍保持同行 */
+    .gallery ul.blog-posts>li>div {
+        grid-column: 1 / -1;
+    }
+}
+
+/* ==========================================================================
+   13. 体验增强 (UX Enhancements)
+   ========================================================================== */
+/* 外部链接优雅提示，忽略图片画廊项与处理过的 YouTube 包 */
+main a[target="_blank"]:not(.pswp-gallery__item):not(.yt-processed)::after {
+    content: '↗';
+    font-size: 0.7em;
+    margin-left: 0.15rem;
+    opacity: 0.6;
+    position: relative;
+    top: -0.3em;
+}
+
+/* 弱网下图片保护与占位底色 */
+main img {
+    background-color: var(--code-background-color);
+}
+
+/* YouTube 等待加载或失败时的占位符 */
+.yt-placeholder {
+    padding: 3rem 1rem;
+    text-align: center;
+    color: #999;
+    border: 1px dashed var(--border-color);
+    border-radius: 4px;
+    margin: 1.2rem auto;
+    background: var(--code-background-color);
+    font-size: 0.9em;
+	}
+      
+  </style>
+</head>
+
+<body class="home" onload="(function() { document.cookie = `timezone=${Intl.DateTimeFormat().resolvedOptions().timeZone};path=/`; })()">
+  
+  <header>
+    <a class="title" href="/">
+      <h1>
+        Sidenotes of C&amp;T
+      </h1>
+    </a>
+    <nav>
+      <p><a href='/notes/'>notes</a> <a href='/gallery/'>gallery</a> <a href='/about/'>about</a></p>
+
+    </nav>
+  </header>
+  <main>
+    
+
+
+<p>欢迎来到 Colin & Tingtal 的自留地。</p>
+<p>这里会回忆一些过往，也试图记录一些当下——一些让我们成为我们的瞬间。</p>
+<h2 id=lately>lately</h2><div class="notes">
+  
+
+<ul class="embedded blog-posts">
+    
+    <li data-tags="featured,gallery,notes">
+        <span>
+            <i>
+                <time datetime="2026-04-25T17:26Z">
+    25 Apr, 2026
+</time>
+            </i>
+        </span>
+        <a href="/how-time-flies/">时间好快呀</a>
+        
+
+        
+
+        
+        <div><p><img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/ct/tingtal-2024-06-22.jpeg" alt="Tingtal 2024-06-22" title="2024-06-22，时间好快，转眼就快两年了" /></p>
+</div>
+        
+    </li>
+    
+    <li data-tags="featured,gallery,notes">
+        <span>
+            <i>
+                <time datetime="2026-04-18T16:25Z">
+    18 Apr, 2026
+</time>
+            </i>
+        </span>
+        <a href="/here-we-are/">here we are</a>
+        
+
+        
+
+        
+        <div><p><em><strong><a href='https://tt.sidenotes.cc'>Sidenotes of C&T</a></strong></em> 正式诞生啦！</p>
+<p>2016/4/19，我们在北京，那是我们第二次见面。\<br />
+2026/4/19，我们在广州，Tingtal 在玩《潜水员戴夫》不可自拔（难得），我调整了下 <em><a href='https://sidenotes.cc'>Sidenotes</a></em> 的代码，建立了 <em>Sidenotes of C&T</em>。</p>
+<p>先发张十周年的纪念合照嘻嘻～</p>
+<p><img src="https://bear-images.sfo2.cdn.digitaloceanspaces.com/ct/ct-10th-anniversary-1.jpeg" alt="C&T 10th anniversary" title="2026-03-11 📍广州酒家" /></p>
+<p style="text-align: right;">Colin</p>
+</div>
+        
+    </li>
+    
+</ul>
+</div>
+<div class="section-footer"><a href="/notes/">>> more</a></div>
+
+
+
+
+
+
+
+    <script>
+    window.addEventListener("load", () => {
+        if (navigator.webdriver !== true) {
+            const sendHit = score => {
+                const params = new URLSearchParams({
+                    blog: "ct",
+                    token: "/",
+                    referrer: document.referrer.includes("tt.sidenotes.cc") ? "" : document.referrer,
+                    title: "",
+                    score: score
+                });
+                new Image().src = `/hit/?${params.toString()}`;
+            };
+
+            document.addEventListener('touchmove', () => sendHit(100), { once: true });
+            document.addEventListener('mousemove', () => sendHit(100), { once: true });
+        }
+    });
+    </script>
+
+
+
+  </main>
+  <footer>
+    
+
+<span id="footer-directive">
+    <script type="module">
+    import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js';
+    // headroom.js 没有官方 ESM 包，用 jsDelivr 的 /+esm 端点让 Rollup 即时转换 UMD → ESM
+    import Headroom from 'https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/+esm';
+
+    // 【V17】空闲时预加载 PhotoSwipe 核心模块，消除首次点击的网络延迟
+    const pswpModuleUrl = 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.esm.min.js';
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => import(pswpModuleUrl));
+    } else {
+        setTimeout(() => import(pswpModuleUrl), 1500);
+    }
+
+    const BlogApp = {
+        // ════════════════════════════════════════════════════════════════
+        //  0. 启动母线 (主信号链)
+        // ════════════════════════════════════════════════════════════════
+        init() {
+        this.initSubtitle();
+    this.initNavigation();
+    this.initAutoHideHeader();
+    this.initFigcaption();
+    this.initGallery();
+    this.initExactTime();
+    this.initYouTube();
+    this.initExternalLinks();
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  1. 副标题注入 (真正解决了重影问题的 SEO 解析)
+    // ════════════════════════════════════════════════════════════════
+    initSubtitle() {
+        const h1 = document.querySelector('header .title h1');
+    if (!h1 || h1.querySelector('.site-tagline')) return;
+
+    const subtitle = document.createElement('span');
+    subtitle.className = 'site-tagline';
+    subtitle.textContent = ' / 爱你。';
+    h1.appendChild(subtitle);
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  2. 响应式导航栏
+    // ════════════════════════════════════════════════════════════════
+    initNavigation() {
+        const nav = document.querySelector('nav');
+    const header = document.querySelector('header');
+    if (!nav || !header) return;
+
+    const navLinks = Array.from(nav.querySelectorAll('p a'));
+    if (navLinks.length === 0) return;
+
+    const hamburger = document.createElement('button');
+    hamburger.className = 'nav-hamburger';
+    hamburger.setAttribute('aria-label', '展开菜单');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.textContent = '☰';
+    nav.appendChild(hamburger);
+
+    const mobileMenu = document.createElement('div');
+    mobileMenu.className = 'nav-mobile-menu';
+        navLinks.forEach(a => {
+            const link = document.createElement('a');
+    link.href = a.href;
+    link.textContent = a.textContent;
+    if (a.title) link.title = a.title;
+    if (a.rel) link.rel = a.rel;
+    mobileMenu.appendChild(link);
+        });
+    document.body.appendChild(mobileMenu);
+
+    function positionMenu() {
+            const rect = header.getBoundingClientRect();
+    // 它是 fixed 定位，直接使用视口相对的 rect.bottom 即可。原先加 scrollY 会导致滚屏时菜单飞出屏幕外。
+    mobileMenu.style.top   = rect.bottom + 'px';
+    mobileMenu.style.left  = rect.left   + 'px';
+    mobileMenu.style.width = rect.width  + 'px';
+        }
+
+        // 监听滚动和缩放，确保打开状态下的菜单紧跟随 sticky 的 header 浮动
+        window.addEventListener('scroll', () => {
+            if (mobileMenu.classList.contains('open')) {
+        // 使用 requestAnimationFrame 优化性能
+        window.requestAnimationFrame(positionMenu);
+            }
+        });
+        window.addEventListener('resize', () => {
+            if (mobileMenu.classList.contains('open')) {
+        window.requestAnimationFrame(positionMenu);
+            }
+        });
+
+        hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.textContent = isOpen ? '✕' : '☰';
+    hamburger.setAttribute('aria-expanded', isOpen);
+    if (isOpen) positionMenu();
+        });
+        
+        document.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+    hamburger.textContent = '☰';
+    hamburger.setAttribute('aria-expanded', 'false');
+        });
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  3. 滚动隐藏顶部导航栏 (基于 Headroom.js)
+    //     向下滚动 → header 上滑隐藏；向上滚动 → header 滑回。
+    //     底层逻辑由 Headroom.js 处理（CSS 类切换），动画交给 CSS transition。
+    // ════════════════════════════════════════════════════════════════
+    initAutoHideHeader() {
+        const header = document.querySelector('header');
+        if (!header) return;
+
+        const headroom = new Headroom(header, {
+            // 顶部安全区：滚动距离小于 80px 时 header 永远显示
+            // 与 CSS 中 scroll-padding-top: 80px 保持一致，确保锚点跳转不被 header 遮挡
+            offset: 80,
+            // 容差：向上滚动需 5px 才显示（过滤手指自然抖动），向下立即隐藏（手感更利落）
+            tolerance: { up: 5, down: 0 },
+            // header 隐藏前的钩子：同步关闭可能正打开的移动端菜单
+            // 否则菜单会跟随 header 一起滑出屏幕外（mobile menu 用 getBoundingClientRect 定位）
+            onUnpin() {
+                const menu = document.querySelector('.nav-mobile-menu');
+                if (!menu || !menu.classList.contains('open')) return;
+                menu.classList.remove('open');
+                const hamburger = document.querySelector('.nav-hamburger');
+                if (hamburger) {
+                    hamburger.textContent = '☰';
+                    hamburger.setAttribute('aria-expanded', 'false');
+                }
+            }
+        });
+        headroom.init();
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  4. 图注生成与语义化包裹 (Figcaption & Figure)
+    //     从 Markdown title 属性提取图注，统一包裹 <figure> 结构。
+    //     必须在 initGallery() 之前执行，确保 PhotoSwipe 处理时结构已就位。
+    // ════════════════════════════════════════════════════════════════
+    initFigcaption() {
+        // 第一步：从 img[title] 提取图注，生成 <figcaption> 插到所在 <p> 后面
+        const processed = new Set();
+        document.querySelectorAll('main img[title]').forEach(img => {
+            const p = img.closest('p');
+            if (!p || processed.has(p)) {
+                img.removeAttribute('title');
+                return;
+            }
+            processed.add(p);
+
+            const caption = document.createElement('figcaption');
+            caption.textContent = img.title;
+            p.after(caption);
+            img.removeAttribute('title');
+        });
+
+        // 第二步：统一 <figure> 包裹（覆盖 title 生成与手写 HTML 两种来源）
+        document.querySelectorAll('main > figcaption').forEach(caption => {
+            const prev = caption.previousElementSibling;
+            if (!prev || prev.tagName !== 'P' || !prev.querySelector('img')) return;
+
+            const figure = document.createElement('figure');
+            prev.parentNode.insertBefore(figure, prev);
+            figure.appendChild(prev);
+            figure.appendChild(caption);
+        });
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  5. 工业级图片画廊 (基于 PhotoSwipe v5)
+    // ════════════════════════════════════════════════════════════════
+    initGallery() {
+        // 过滤掉被 CSS 隐藏的图片
+        const images = Array.from(document.querySelectorAll('main img:not([style*="display:none"])'));
+    if (images.length === 0) return;
+
+        images.forEach(img => {
+            if (img.parentElement.tagName === 'A' && img.parentElement.classList.contains('pswp-gallery__item')) return;
+
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.className = 'pswp-gallery__item';
+    link.target = '_blank';
+    link.setAttribute('data-cropped', 'true');
+    link.setAttribute('data-pswp-width', img.naturalWidth || 1600);
+    link.setAttribute('data-pswp-height', img.naturalHeight || 1200);
+
+    if (!img.complete) {
+        img.onload = () => {
+            link.setAttribute('data-pswp-width', img.naturalWidth);
+            link.setAttribute('data-pswp-height', img.naturalHeight);
+        };
+    }
+
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+        });
+
+    const groups = new Map();
+        document.querySelectorAll('main .pswp-gallery__item').forEach(item => {
+            // 利用 closest 向上查找到单篇 Post 的容器。解决跨 p 标签无法连贯滑动的问题。
+            const container = item.closest('.notes ul > li, .gallery ul > li, main');
+    if (container) {
+                if (!groups.has(container)) groups.set(container, []);
+    groups.get(container).push(item);
+            }
+        });
+
+        groups.forEach((items, container) => {
+        container.classList.add('pswp-gallery');
+        });
+
+    const lightbox = new PhotoSwipeLightbox({
+        gallery: '.pswp-gallery',
+    children: '.pswp-gallery__item',
+            pswpModule: () => import(pswpModuleUrl),
+    bgOpacity: 0.95,
+    spacing: 0.1,
+    showHideOpacity: true,       // 【V17】zoom 动画叠加 opacity 淡入，柔化裁切缩略图的宽高比跳变
+    maxWidthToAnimate: 10000,    // 【V17】默认 4000 导致 7008px 巨图动画被禁用，提升阈值修复
+    padding: {top: 20, bottom: 20, left: 0, right: 0 },
+    errorMsg: '图片加载失败'
+        });
+
+    lightbox.on('uiRegister', function() {
+        lightbox.pswp.ui.registerElement({
+            name: 'custom-caption',
+            order: 9,
+            isButton: false,
+            appendTo: 'wrapper',
+            html: '',
+            onInit: (el, pswp) => {
+                lightbox.pswp.on('change', () => {
+                    const currSlideElement = lightbox.pswp.currSlide.data.element;
+                    let captionHTML = '';
+                    if (currSlideElement) {
+                        const container = currSlideElement.parentElement;
+                        const nextEl = container.nextElementSibling;
+                        if (nextEl && nextEl.tagName === 'FIGCAPTION') {
+                            captionHTML = nextEl.innerHTML;
+                        } else {
+                            const img = currSlideElement.querySelector('img');
+                            if (img && img.alt) {
+                                captionHTML = img.alt;
+                            }
+                        }
+                    }
+                    el.innerHTML = captionHTML || '';
+                });
+            }
+        });
+        });
+
+        // 【V16.1 修复】动态提取点击一刻的大图真实尺寸，专门对付 10MB 级别缓存巨图在解析极微小时差内导致的 1600 占位符死锁！
+        lightbox.on('itemData', (e) => {
+            const { itemData } = e;
+            if (itemData.element) {
+                const img = itemData.element.querySelector('img');
+                if (img && img.naturalWidth) {
+                    itemData.width = img.naturalWidth;
+                    itemData.height = img.naturalHeight;
+                }
+            }
+        });
+
+    lightbox.init();
+
+
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  6. 动态提取并注入具体时间 (取代 CSS 强行定时动画)
+    // ════════════════════════════════════════════════════════════════
+    initExactTime() {
+        const timeNodes = document.querySelectorAll('time');
+        
+        timeNodes.forEach(timeNode => {
+        // 所有 time 元素在匹配的最新的 CSS 中被设置为 opacity: 0。在这里由 JS 判定执行就绪后一并赋予 loaded 显现
+        timeNode.classList.add('loaded');
+
+    const datetimeStr = timeNode.getAttribute('datetime');
+    if (!datetimeStr) return;
+
+    const dateObj = new Date(datetimeStr);
+    // 增加 aria 属性为盲人阅读器提供格式化语音支持
+    const options = {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
+    timeNode.setAttribute('aria-label', `发布时间：${dateObj.toLocaleString('zh-CN', options)}`);
+
+    // 如果不是特定的信息流列表中的 time，就不需要做附加的精准时间提取
+    if (!timeNode.closest('.notes ul li') && !timeNode.closest('.gallery ul li')) return;
+
+    const hours = dateObj.getHours().toString().padStart(2, '0');
+    const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+
+    const timeSpan = document.createElement('span');
+    timeSpan.className = 'exact-time';
+    timeSpan.textContent = `${hours}:${minutes}`;
+    timeSpan.setAttribute('aria-hidden', 'true');
+
+    const dateContainer = timeNode.closest('span');
+    if (dateContainer) {
+        dateContainer.appendChild(timeSpan);
+            }
+        });
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  7. YouTube 解析与装载底包
+    // ════════════════════════════════════════════════════════════════
+    async loadYouTube({el, videoId, isBare, customText, placeholder}) {
+        let captionText = customText;
+    if (isBare) {
+            try {
+                // 这里的网络请求被挪动到了进入视带时才会发配，省下了巨大的初始流量
+                const resp = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`);
+    if (resp.ok) {
+                    const data = await resp.json();
+    captionText = data.title;
+                }
+            } catch { }
+    captionText = captionText || '在 YouTube 上观看';
+        }
+
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${videoId}`;
+    iframe.loading = 'lazy';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+        // 兜底 UI
+        iframe.onerror = () => {
+            if (placeholder) placeholder.textContent = '视频加载失败，请点击下方链接观看';
+        };
+
+    const caption = document.createElement('figcaption');
+    const captionLink = document.createElement('a');
+    captionLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+    captionLink.target = '_blank';
+    captionLink.rel = 'noopener noreferrer';
+    captionLink.textContent = captionText;
+    caption.appendChild(captionLink);
+
+    const figure = document.createElement('figure');
+    figure.appendChild(iframe);
+    figure.appendChild(caption);
+
+    if (placeholder) {
+        placeholder.replaceWith(figure);
+        } else {
+        el.replaceWith(figure);
+        }
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  8. YouTube 懒加载调度器 (基于 IntersectionObserver)
+    // ════════════════════════════════════════════════════════════════
+    initYouTube() {
+        // 使用更健壮的正则包裹，避免参数被抛弃导致匹配不到空白纯净文本
+        const ytRegex = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]+)(?:\S*)?/;
+    const targets = [];
+
+        // 提取带文字标签的 a 链接
+        document.querySelectorAll('main a[href]').forEach(a => {
+            if (!ytRegex.test(a.href)) return;
+    const parent = a.parentElement;
+    if (!parent || parent.tagName !== 'P') return;
+    if (parent.textContent.trim() !== a.textContent.trim()) return;
+
+    const match = a.href.match(ytRegex);
+    const text = a.textContent.trim();
+    const isBare = text === a.href ||
+    text === a.href.replace(/^https?:\/\//, '') ||
+    /(?:youtube\.com|youtu\.be)/.test(text);
+
+    targets.push({el: parent, videoId: match[1], isBare, customText: isBare ? null : text });
+        });
+
+        // 提取直接贴 URL 的纯文本段落
+        document.querySelectorAll('main p').forEach(p => {
+            if (targets.some(t => t.el === p)) return;
+            if (p.children.length > 0) return;
+
+    const text = p.textContent.trim();
+    const match = text.match(ytRegex);
+    if (!match) return;
+
+    // 安全过滤周围的多余字符
+    const cleanText = text.replace(match[0], '').replace(/^https?:\/\/(www\.)?/, '').replace(/[?&].*$/, '');
+            if (cleanText.length > 5) return;
+
+    targets.push({el: p, videoId: match[1], isBare: true, customText: null });
+        });
+
+    if (targets.length === 0) return;
+
+        const createPlaceholder = (el) => {
+            const placeholder = document.createElement('div');
+    placeholder.className = 'yt-placeholder';
+    placeholder.textContent = '加载视频中...';
+    el.replaceWith(placeholder);
+    return placeholder;
+        };
+
+    if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const targetData = targets.find(t => t.el === entry.target);
+                if (targetData) {
+                    const placeholder = createPlaceholder(targetData.el);
+                    this.loadYouTube({ ...targetData, placeholder });
+                }
+                obs.unobserve(entry.target);
+            }
+        });
+            }, {rootMargin: '300px 0px' });
+
+            targets.forEach(t => observer.observe(t.el));
+        } else {
+        targets.forEach(t => {
+            const placeholder = createPlaceholder(t.el);
+            this.loadYouTube({ ...t, placeholder });
+        });
+        }
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  9. 外部链接新窗口打开 (全局)
+    // ════════════════════════════════════════════════════════════════
+    initExternalLinks() {
+    // 定义你真正的根域名
+    const myBaseDomain = 'sidenotes.cc';
+
+    document.querySelectorAll('main a[href]').forEach(a => {
+        if (a.classList.contains('pswp-gallery__item')) return;
+        try {
+            const url = new URL(a.href, location.origin);
+            const linkHost = url.hostname;
+
+            // 判断是否为「自己人」的三个条件：
+            // 1. 链接域名等于当前所在的域名（兜底平台分配的子域名）
+            // 2. 链接域名等于你的主站 sidenotes.cc
+            // 3. 链接域名是你的子站（以 .sidenotes.cc 结尾）
+            const isInternal = 
+                linkHost === location.hostname || 
+                linkHost === myBaseDomain || 
+                linkHost.endsWith('.' + myBaseDomain);
+
+            if (!isInternal) {
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+            }
+        } catch { }
+    });
+	}
+};
+
+// ════════════════════════════════════════════════════════════════
+// 启动信号 (V15 修改项)
+// 由于脚本处于 <script type="module"> 环境下，默认遵循 defer 规则，
+        // 在执行时真实 DOM 已绝对解析完成。去除了画蛇添足的 DOMContentLoaded，直接放行最稳妥。
+        // ════════════════════════════════════════════════════════════════
+        BlogApp.init();
+    </script>
+<script>
+/*
+ Plugin name: Editor shortcut
+ Description: Easily open the post or homepage editor using Ctrl + E
+ Author: Herman Martinus
+ Author URI: https://herman.bearblog.dev
+*/
+
+(function() {
+    'use strict';
+
+    window.addEventListener('keydown', function(e) {
+        // Trigger on Ctrl + E
+        if (e.ctrlKey && e.code === 'KeyE') {
+            e.preventDefault();
+
+            // 1. Get the "name" from the tag with the specific content key
+            const nameTag = document.querySelector('meta[content="look-for-the-bear-necessities"]');
+            const name = nameTag ? nameTag.getAttribute('name') : null;
+
+            // 2. Get the "token" from your new meta tag
+            const tokenTag = document.querySelector('meta[name="token"]');
+            const token = tokenTag ? tokenTag.getAttribute('content') : null;
+
+            // 3. Build URL and Redirect
+
+            let finalUrl = `https://bearblog.dev/${name}/dashboard/`
+            if (name && token) {
+                finalUrl = `https://bearblog.dev/${name}/dashboard/posts/${token}/`
+                window.open(finalUrl, '_blank');
+            } else {
+                window.open(finalUrl, '_blank');
+            }
+        }
+    });
+})();
+</script>
+
+</span>
+
+<span>
+    Powered by <a href="https://bearblog.dev">Bear <span role="img" class="bear" aria-label="ASCII bear logo">ʕ•ᴥ•ʔ</span></a>
+</span>
+
+  </footer>
+
+  
+  <script>
+        (() => {
+          "use strict";
+          const times = document.querySelectorAll('time');
+          const format_string = "Y-m-d" || "d M, Y"
+
+          times.forEach(time => {
+              time.innerText = formatDate(time.dateTime, format_string)
+          });
+
+          function formatDate(dateStr, formatStr) {
+            const date = new Date(dateStr);
+            const day = date.getDate();
+            const month = date.getMonth();
+            const year = date.getFullYear();
+            const weekday = date.getDay();
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const monthsFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            const monthsShort = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            const daysFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+            const daysShort = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+            
+            function getOrdinal(n) {
+                const s = ['th', 'st', 'nd', 'rd'];
+                const v = n % 100;
+                return s[(v - 20) % 10] || s[v] || s[0];
+            }
+            
+            const map = {
+                'd': () => day.toString().padStart(2, '0'),
+                'm': () => (month + 1).toString().padStart(2, '0'),
+                'Y': () => year.toString(),
+                'y': () => year.toString().slice(-2),
+                'F': () => monthsFull[month],
+                'j': () => day.toString(),
+                'D': () => daysShort[weekday],
+                'l': () => daysFull[weekday],
+                'S': () => getOrdinal(day),
+                'M': () => monthsShort[month],
+                'H': () => hours.toString().padStart(2, '0'),
+                'h': () => {
+                    let h = hours % 12;
+                    h = h === 0 ? 12 : h;
+                    return h.toString().padStart(2, '0');
+                },
+                'g': () => {
+                    let h = hours % 12;
+                    return h === 0 ? '12' : h.toString();
+                },
+                'i': () => minutes.toString().padStart(2, '0'),
+                'a': () => hours < 12 ? 'am' : 'pm',
+                'A': () => hours < 12 ? 'AM' : 'PM',
+            };
+            
+            let result = '';
+            for (let char of formatStr) {
+                result += map[char] ? map[char]() : char;
+            }
+            return result;
+        }
+        })();
+    </script>
+    
+</body>
+<!-- ID: ct -->
+<!-- 🐻 -->
+</html>

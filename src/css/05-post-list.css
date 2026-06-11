@@ -1,0 +1,41 @@
+/* ==========================================================================
+   5. 文章列表 (Essays List)
+   Bear Blog 的 {{ posts }} 渲染为 ul.blog-posts，日期 + 标题的双列 Grid。
+   ========================================================================== */
+ul.blog-posts {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+    margin-bottom: 2rem;
+}
+
+/* 首页嵌入式列表收紧下边距，让「查看更多」链接贴近 */
+ul.embedded.blog-posts {
+    margin-bottom: 0.5rem;
+}
+
+ul.blog-posts>li {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    column-gap: 1rem;
+    align-items: baseline;
+    margin-bottom: 0.2rem;
+}
+
+ul.blog-posts>li>span {
+    grid-column: 1 / 2;
+    color: #999;
+    font-size: 0.9rem;
+    flex: none !important;
+    font-family: var(--font-mono);
+    white-space: nowrap;
+}
+
+ul.blog-posts>li>a {
+    grid-column: 2 / 3;
+}
+
+ul.blog-posts>li a:visited {
+    color: var(--visited-color);
+}
+

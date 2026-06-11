@@ -1,0 +1,12 @@
+{
+  "name": "sidenotes-blog-assets",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "bootstrap": "node scripts/bootstrap-repo.mjs",
+    "build": "node scripts/build.mjs",
+    "verify": "node scripts/verify.mjs",
+    "diff:archive": "node scripts/diff-archive.mjs"
+  }
+}

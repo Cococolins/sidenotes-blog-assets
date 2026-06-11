@@ -1,0 +1,384 @@
+<script type="module">
+    import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js';
+
+    // 【V17】空闲时预加载 PhotoSwipe 核心模块，消除首次点击的网络延迟
+    const pswpModuleUrl = 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.esm.min.js';
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(() => import(pswpModuleUrl));
+    } else {
+        setTimeout(() => import(pswpModuleUrl), 1500);
+    }
+
+    const BlogApp = {
+        // ════════════════════════════════════════════════════════════════
+        //  0. 启动母线 (主信号链)
+        // ════════════════════════════════════════════════════════════════
+        init() {
+        this.initSubtitle();
+    this.initNavigation();
+    this.initGallery();
+    this.initExactTime();
+    this.initYouTube();
+    this.initExternalLinks();
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  1. 副标题注入 (真正解决了重影问题的 SEO 解析)
+    // ════════════════════════════════════════════════════════════════
+    initSubtitle() {
+        const h1 = document.querySelector('header .title h1');
+    if (!h1 || h1.querySelector('.site-tagline')) return;
+
+    const subtitle = document.createElement('span');
+    subtitle.className = 'site-tagline';
+    subtitle.textContent = ' / 细碎日常。';
+    h1.appendChild(subtitle);
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  2. 响应式导航栏
+    // ════════════════════════════════════════════════════════════════
+    initNavigation() {
+        const nav = document.querySelector('nav');
+    const header = document.querySelector('header');
+    if (!nav || !header) return;
+
+    const navLinks = Array.from(nav.querySelectorAll('p a'));
+    if (navLinks.length === 0) return;
+
+    const hamburger = document.createElement('button');
+    hamburger.className = 'nav-hamburger';
+    hamburger.setAttribute('aria-label', '展开菜单');
+    hamburger.setAttribute('aria-expanded', 'false');
+    hamburger.textContent = '☰';
+    nav.appendChild(hamburger);
+
+    const mobileMenu = document.createElement('div');
+    mobileMenu.className = 'nav-mobile-menu';
+        navLinks.forEach(a => {
+            const link = document.createElement('a');
+    link.href = a.href;
+    link.textContent = a.textContent;
+    if (a.title) link.title = a.title;
+    if (a.rel) link.rel = a.rel;
+    mobileMenu.appendChild(link);
+        });
+    document.body.appendChild(mobileMenu);
+
+    function positionMenu() {
+            const rect = header.getBoundingClientRect();
+    // 它是 fixed 定位，直接使用视口相对的 rect.bottom 即可。原先加 scrollY 会导致滚屏时菜单飞出屏幕外。
+    mobileMenu.style.top   = rect.bottom + 'px';
+    mobileMenu.style.left  = rect.left   + 'px';
+    mobileMenu.style.width = rect.width  + 'px';
+        }
+
+        // 监听滚动和缩放，确保打开状态下的菜单紧跟随 sticky 的 header 浮动
+        window.addEventListener('scroll', () => {
+            if (mobileMenu.classList.contains('open')) {
+        // 使用 requestAnimationFrame 优化性能
+        window.requestAnimationFrame(positionMenu);
+            }
+        });
+        window.addEventListener('resize', () => {
+            if (mobileMenu.classList.contains('open')) {
+        window.requestAnimationFrame(positionMenu);
+            }
+        });
+
+        hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+    const isOpen = mobileMenu.classList.toggle('open');
+    hamburger.textContent = isOpen ? '✕' : '☰';
+    hamburger.setAttribute('aria-expanded', isOpen);
+    if (isOpen) positionMenu();
+        });
+        
+        document.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+    hamburger.textContent = '☰';
+    hamburger.setAttribute('aria-expanded', 'false');
+        });
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  3. 工业级图片画廊 (基于 PhotoSwipe v5)
+    // ════════════════════════════════════════════════════════════════
+    initGallery() {
+        // 过滤掉被 CSS 隐藏的图片
+        const images = Array.from(document.querySelectorAll('main img:not([style*="display:none"])'));
+    if (images.length === 0) return;
+
+        images.forEach(img => {
+            if (img.parentElement.tagName === 'A' && img.parentElement.classList.contains('pswp-gallery__item')) return;
+
+    const link = document.createElement('a');
+    link.href = img.src;
+    link.className = 'pswp-gallery__item';
+    link.target = '_blank';
+    link.setAttribute('data-cropped', 'true');
+    link.setAttribute('data-pswp-width', img.naturalWidth || 1600);
+    link.setAttribute('data-pswp-height', img.naturalHeight || 1200);
+
+    if (!img.complete) {
+        img.onload = () => {
+            link.setAttribute('data-pswp-width', img.naturalWidth);
+            link.setAttribute('data-pswp-height', img.naturalHeight);
+        };
+    }
+
+    img.parentNode.insertBefore(link, img);
+    link.appendChild(img);
+        });
+
+    const groups = new Map();
+        document.querySelectorAll('main .pswp-gallery__item').forEach(item => {
+            // 利用 closest 向上查找到单篇 Post 的容器。解决跨 p 标签无法连贯滑动的问题。
+            const container = item.closest('.notes ul > li, .gallery ul > li, main');
+    if (container) {
+                if (!groups.has(container)) groups.set(container, []);
+    groups.get(container).push(item);
+            }
+        });
+
+        groups.forEach((items, container) => {
+        container.classList.add('pswp-gallery');
+        });
+
+    const lightbox = new PhotoSwipeLightbox({
+        gallery: '.pswp-gallery',
+    children: '.pswp-gallery__item',
+            pswpModule: () => import(pswpModuleUrl),
+    bgOpacity: 0.95,
+    spacing: 0.1,
+    showHideOpacity: true,       // 【V17】zoom 动画叠加 opacity 淡入，柔化裁切缩略图的宽高比跳变
+    maxWidthToAnimate: 10000,    // 【V17】默认 4000 导致 7008px 巨图动画被禁用，提升阈值修复
+    padding: {top: 20, bottom: 20, left: 0, right: 0 },
+    errorMsg: '图片加载失败'
+        });
+
+    lightbox.on('uiRegister', function() {
+        lightbox.pswp.ui.registerElement({
+            name: 'custom-caption',
+            order: 9,
+            isButton: false,
+            appendTo: 'wrapper',
+            html: '',
+            onInit: (el, pswp) => {
+                lightbox.pswp.on('change', () => {
+                    const currSlideElement = lightbox.pswp.currSlide.data.element;
+                    let captionHTML = '';
+                    if (currSlideElement) {
+                        const container = currSlideElement.parentElement;
+                        const nextEl = container.nextElementSibling;
+                        if (nextEl && nextEl.tagName === 'FIGCAPTION') {
+                            captionHTML = nextEl.innerHTML;
+                        } else {
+                            const img = currSlideElement.querySelector('img');
+                            if (img && img.alt) {
+                                captionHTML = img.alt;
+                            }
+                        }
+                    }
+                    el.innerHTML = captionHTML || '';
+                });
+            }
+        });
+        });
+
+        // 【V16.1 修复】动态提取点击一刻的大图真实尺寸，专门对付 10MB 级别缓存巨图在解析极微小时差内导致的 1600 占位符死锁！
+        lightbox.on('itemData', (e) => {
+            const { itemData } = e;
+            if (itemData.element) {
+                const img = itemData.element.querySelector('img');
+                if (img && img.naturalWidth) {
+                    itemData.width = img.naturalWidth;
+                    itemData.height = img.naturalHeight;
+                }
+            }
+        });
+
+    lightbox.init();
+
+
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  4. 动态提取并注入具体时间 (取代 CSS 强行定时动画)
+    // ════════════════════════════════════════════════════════════════
+    initExactTime() {
+        const timeNodes = document.querySelectorAll('time');
+        
+        timeNodes.forEach(timeNode => {
+        // 所有 time 元素在匹配的最新的 CSS 中被设置为 opacity: 0。在这里由 JS 判定执行就绪后一并赋予 loaded 显现
+        timeNode.classList.add('loaded');
+
+    const datetimeStr = timeNode.getAttribute('datetime');
+    if (!datetimeStr) return;
+
+    const dateObj = new Date(datetimeStr);
+    // 增加 aria 属性为盲人阅读器提供格式化语音支持
+    const options = {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
+    timeNode.setAttribute('aria-label', `发布时间：${dateObj.toLocaleString('zh-CN', options)}`);
+
+    // 如果不是特定的主页列表中的 time，就不需要做附加的精准时间提取
+    const isInPostList = timeNode.closest('.homelist ul.blog-posts li');
+if (!isInPostList) return;
+
+    const hours = dateObj.getHours().toString().padStart(2, '0');
+    const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+
+    const timeSpan = document.createElement('span');
+    timeSpan.className = 'exact-time';
+    timeSpan.textContent = `${hours}:${minutes}`;
+    timeSpan.setAttribute('aria-hidden', 'true');
+
+    const dateContainer = timeNode.closest('span');
+    if (dateContainer) {
+        dateContainer.appendChild(timeSpan);
+            }
+        });
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  5. YouTube 解析与装载底包
+    // ════════════════════════════════════════════════════════════════
+    async loadYouTube({el, videoId, isBare, customText, placeholder}) {
+        let captionText = customText;
+    if (isBare) {
+            try {
+                // 这里的网络请求被挪动到了进入视带时才会发配，省下了巨大的初始流量
+                const resp = await fetch(`https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`);
+    if (resp.ok) {
+                    const data = await resp.json();
+    captionText = data.title;
+                }
+            } catch { }
+    captionText = captionText || '在 YouTube 上观看';
+        }
+
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://www.youtube.com/embed/${videoId}`;
+    iframe.loading = 'lazy';
+    iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+    iframe.allowFullscreen = true;
+        // 兜底 UI
+        iframe.onerror = () => {
+            if (placeholder) placeholder.textContent = '视频加载失败，请点击下方链接观看';
+        };
+
+    const caption = document.createElement('figcaption');
+    const captionLink = document.createElement('a');
+    captionLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+    captionLink.target = '_blank';
+    captionLink.rel = 'noopener noreferrer';
+    captionLink.textContent = captionText;
+    caption.appendChild(captionLink);
+
+    if (placeholder) {
+        placeholder.replaceWith(iframe);
+    iframe.parentNode.insertBefore(caption, iframe.nextSibling);
+        } else {
+        el.replaceWith(iframe, caption);
+        }
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  6. YouTube 懒加载调度器 (基于 IntersectionObserver)
+    // ════════════════════════════════════════════════════════════════
+    initYouTube() {
+        // 使用更健壮的正则包裹，避免参数被抛弃导致匹配不到空白纯净文本
+        const ytRegex = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]+)(?:\S*)?/;
+    const targets = [];
+
+        // 提取带文字标签的 a 链接
+        document.querySelectorAll('main a[href]').forEach(a => {
+            if (!ytRegex.test(a.href)) return;
+    const parent = a.parentElement;
+    if (!parent || parent.tagName !== 'P') return;
+    if (parent.textContent.trim() !== a.textContent.trim()) return;
+
+    const match = a.href.match(ytRegex);
+    const text = a.textContent.trim();
+    const isBare = text === a.href ||
+    text === a.href.replace(/^https?:\/\//, '') ||
+    /(?:youtube\.com|youtu\.be)/.test(text);
+
+    targets.push({el: parent, videoId: match[1], isBare, customText: isBare ? null : text });
+        });
+
+        // 提取直接贴 URL 的纯文本段落
+        document.querySelectorAll('main p').forEach(p => {
+            if (targets.some(t => t.el === p)) return;
+            if (p.children.length > 0) return;
+
+    const text = p.textContent.trim();
+    const match = text.match(ytRegex);
+    if (!match) return;
+
+    // 安全过滤周围的多余字符
+    const cleanText = text.replace(match[0], '').replace(/^https?:\/\/(www\.)?/, '').replace(/[?&].*$/, '');
+            if (cleanText.length > 5) return;
+
+    targets.push({el: p, videoId: match[1], isBare: true, customText: null });
+        });
+
+    if (targets.length === 0) return;
+
+        const createPlaceholder = (el) => {
+            const placeholder = document.createElement('div');
+    placeholder.className = 'yt-placeholder';
+    placeholder.textContent = '加载视频中...';
+    el.replaceWith(placeholder);
+    return placeholder;
+        };
+
+    if ('IntersectionObserver' in window) {
+            const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const targetData = targets.find(t => t.el === entry.target);
+                if (targetData) {
+                    const placeholder = createPlaceholder(targetData.el);
+                    this.loadYouTube({ ...targetData, placeholder });
+                }
+                obs.unobserve(entry.target);
+            }
+        });
+            }, {rootMargin: '300px 0px' });
+
+            targets.forEach(t => observer.observe(t.el));
+        } else {
+        targets.forEach(t => {
+            const placeholder = createPlaceholder(t.el);
+            this.loadYouTube({ ...t, placeholder });
+        });
+        }
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  7. 外部链接新窗口打开 (全局)
+    // ════════════════════════════════════════════════════════════════
+    initExternalLinks() {
+        const host = location.hostname;
+        document.querySelectorAll('main a[href]').forEach(a => {
+            if (a.classList.contains('pswp-gallery__item')) return;
+    try {
+                const url = new URL(a.href, location.origin);
+    if (url.hostname !== host) {
+        a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+                }
+            } catch { }
+        });
+    }
+};
+
+// ════════════════════════════════════════════════════════════════
+// 启动信号 (V15 修改项)
+// 由于脚本处于 <script type="module"> 环境下，默认遵循 defer 规则，
+        // 在执行时真实 DOM 已绝对解析完成。去除了画蛇添足的 DOMContentLoaded，直接放行最稳妥。
+        // ════════════════════════════════════════════════════════════════
+        BlogApp.init();
+    </script>
+	

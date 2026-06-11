@@ -1,0 +1,25 @@
+/* 1. 定义一个专门用于斜体样式的复合字体 */
+@font-face {
+    font-family: 'CustomItalic';
+    /* 这里的字体对应你的 --font-secondary 的斜体版本 */
+    src: local('Times New Roman Italic'), local('TimesNewRomanPS-ItalicMT');
+    unicode-range: U+0000-00FF; /* 仅作用于西文字符 */
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'CustomItalic';
+    /* 这里指定你想用的中文字体 */
+    src: local('STKaiti'), local('KaiTi'), local('Noto Serif SC');
+    unicode-range: U+4E00-9FFF; /* 仅作用于中文字符 */
+    /* 核心：即使在 italic 状态下，也强制使用正常风格，不让浏览器对其进行人工斜化 */
+    font-style: italic; 
+}
+
+/* 2. 应用到你的 em 和 i 标签 */
+em, i {
+    font-family: 'CustomItalic', var(--font-secondary);
+    font-style: italic;
+    /* 防止浏览器强制对中文字体进行「仿斜体」处理 */
+    font-synthesis: style none;
+	} 

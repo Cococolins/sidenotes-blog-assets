@@ -1,0 +1,466 @@
+/* ==========================================================================
+   0. 第三方样式引入
+   ========================================================================== */
+@import url('https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css');
+
+/* ==========================================================================
+   1. 全局变量与主题色彩 (Variables & Theme)
+   ========================================================================== */
+:root {
+    --width: 600px; 
+    /* 标题字体：醒目清晰 */
+  	--font-main: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", 
+      "Segoe UI", "Liberation Sans", sans-serif;
+
+  	/* 正文字体：优雅 + 中文优化 */
+  	--font-secondary: Optima-Regular, -apple-system, BlinkMacSystemFont, 
+      "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", "PingFang SC", 
+      "Microsoft YaHei", sans-serif;
+
+  	/* 代码字体 */
+  	--font-mono: Menlo, Monaco, Consolas, "Courier New", monospace;
+  	--font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #222;
+    --link-color: #3273dc;
+    --visited-color:  #8b6fcb;
+    --code-background-color: #f2f2f2;
+    --code-color: #222;
+    --blockquote-color: #222;
+    --border-color: #e5e5e5; 
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #01242e;
+        --heading-color: #eee;
+        --text-color: #ddd;
+        --link-color: #8cc2dd;
+        --visited-color:  #8b6fcb;
+        --code-background-color: #000;
+        --code-color: #ddd;
+        --blockquote-color: #ccc;
+        --border-color: #2a4a5a;
+    }
+}
+
+/* ==========================================================================
+   2. 全局重置与基础版式 (Global Reset & Typography)
+   ========================================================================== */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; 
+}
+
+body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7; 
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-autospace: ideograph-alpha ideograph-numeric;
+    text-spacing-trim: normal;
+    font-feature-settings: "chws" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+}
+h1 { font-size: 1.5em; margin-top: 20px; }
+h2 { font-size: 1.3em; margin-top: 20px; }
+h3 { font-size: 1.05em; margin-top: 20px; }
+
+a { color: var(--link-color); cursor: pointer; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+strong, b { color: var(--heading-color); }
+time { font-family: var(--font-mono); font-style: normal; font-size: 15px; }
+hr {
+  border: 0;
+  width: 80%;
+  height: 1px;
+  margin: 2rem auto;
+  background-color: var(--border-color);
+}
+table { width: 100%; }
+button { margin: 0; cursor: pointer; }
+
+main { line-height: 1.6; }
+
+/* 🌟 核心修复：修复上标（如脚注）强行撑开行高、导致排版下沉的经典 Bug 🌟 */
+sup, sub {
+    line-height: 0;
+}
+
+code, .highlight, .code {
+    font-family: var(--font-mono);
+    padding: 2px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+}
+
+blockquote {
+    border-left: 1px solid #999;
+    color: var(--blockquote-color);
+    font-family: var(--font-secondary);
+    padding-left: 12px;
+    margin: 18px;
+}
+
+/* ==========================================================================
+   3. 核心布局区块 (Layout: Header & Footer)
+   ========================================================================== */
+header {
+    position: sticky; 
+    top: 0;
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 0 20px;
+    background-color: var(--background-color);
+    border-bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0 16px;
+    min-height: 52px;
+}
+
+header .title { flex: 1 1 auto; text-decoration: none; }
+header .title h1 {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    font-family: var(--font-main);
+    color: var(--heading-color);
+    white-space: nowrap;
+    margin: 0;
+    line-height: 1.1;
+}
+
+header .title h1::after {
+    content: " / 记录即反抗";
+    font-family: var(--font-main);
+    font-size: 0.9em;
+    color: var(--text-color);
+    white-space: nowrap;
+    margin-left: 0.5em;
+    font-weight: 400; 
+    opacity: 0.6;
+}
+
+footer { font-size: 0; text-align: center; }
+footer::after {
+    content: "© 2026 Cococolin";
+    font-size: 15px;
+    color: var(--text-color);
+    display: block;
+    text-align: center;
+    padding: 15px 0;
+}
+
+/* ==========================================================================
+   4. 导航栏与移动端菜单 (Navigation & Mobile Menu)
+   ========================================================================== */
+nav { margin: 0; padding: 0; flex: 0 0 auto; font-family: var(--font-main); font-weight: 400; }
+nav p { display: flex; align-items: center; margin: 0; padding: 8px 0; white-space: nowrap; }
+nav p a { margin-right: 8px; }
+
+.nav-hamburger {
+    display: none; 
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 22px; 
+    line-height: 1;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    border-radius: 6px;
+    transition: background-color 0.2s cubic-bezier(0.2, 0, 0.2, 1), transform 0.1s;
+}
+.nav-hamburger:active {
+    background-color: var(--border-color); 
+    transform: scale(0.92); 
+}
+
+.nav-mobile-menu {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: var(--background-color);
+    border-bottom: none;
+    padding: 4px 20px 10px;
+    z-index: 99;
+}
+.nav-mobile-menu.open { display: flex; }
+.nav-mobile-menu a {
+    padding: 10px 0;
+    border-bottom: none;
+    color: var(--link-color);
+    font-family: var(--font-main);
+    font-size: 0.9em;
+}
+.nav-mobile-menu a:last-child { border-bottom: none; }
+
+/* ==========================================================================
+   5. 信息流组件 (Component: Blog Posts & Notes Stream)
+   ========================================================================== */
+/* --- 长文博客列表 (Blog Posts) --- */
+ul.blog-posts {
+    list-style-type: none;
+    padding-left: 0; 
+    margin-left: 0;
+    margin-bottom: 2rem;
+}
+ul.blog-posts li {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    column-gap: 1rem;
+    align-items: baseline;
+    margin-bottom: 0.2rem;
+}
+ul.blog-posts li > span {
+    grid-column: 1 / 2;
+    color: #999;
+    font-size: 0.85em;
+    flex: none !important; 
+}
+ul.blog-posts li > a { grid-column: 2 / 3; }
+ul.blog-posts li a:visited { color: var(--visited-color); }
+
+/* --- 短内容信息流 (Notes Stream) --- */
+.notes-stream ul { padding-left: 0; margin-left: 0; }
+.notes-stream ul li {
+    list-style-type: none;
+    margin-bottom: 1.6rem;
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    column-gap: 1rem;
+    align-items: baseline;
+}
+.notes-stream ul li > * { grid-column: 2 / 3; margin-top: 0; }
+.notes-stream ul li > div > p:first-child { margin-top: 0; }
+
+.notes-stream ul li > span {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    color: #999;
+    font-size: 0.85em;
+    flex: none !important; 
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+.notes-stream ul li > span .exact-time {
+    font-family: monospace; 
+    font-size: 1.1em;
+    color: #999; 
+}
+.notes-stream ul li > a { display: none !important; }
+
+/* 动态多图网格 (Dynamic Image Grid - 适配 PhotoSwipe)*/
+
+/* 1. 容器：匹配直接包含 img，或包含 PhotoSwipe a 标签的段落 */
+.notes-stream p:has(> img),
+.notes-stream p:has(> a.pswp-gallery__item) {
+  display: grid;
+  gap: 6px; 
+  margin-top: 10px;
+}
+
+/* 2. 核心补丁：让 PhotoSwipe 动态生成的 a 标签化身为网格细胞 */
+.notes-stream p > a.pswp-gallery__item {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* 3. 统一缩略图表现：无论是直接的 img，还是被 a 包裹的 img，都裁切为 1:1 */
+.notes-stream p > img,
+.notes-stream p > a.pswp-gallery__item > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+  aspect-ratio: 1 / 1; 
+  margin: 0 !important; 
+  border-radius: 4px;
+  display: block; /* 消除 a 标签底部的幽灵空白 */
+}
+
+/* 4. 动态数量查询 (Quantity Queries) 分支逻辑 */
+
+/* 【场景 A】只有 1 张图：恢复原本比例，限制最大宽高 */
+.notes-stream p:has(> img:only-of-type),
+.notes-stream p:has(> a.pswp-gallery__item:only-of-type) {
+  display: block; /* 单图取消 Grid */
+}
+.notes-stream p:has(> img:only-of-type) > img,
+.notes-stream p:has(> a.pswp-gallery__item:only-of-type) > a.pswp-gallery__item > img {
+/*  aspect-ratio: auto;
+  object-fit: contain; */
+  max-width: 100%;
+  max-height: 300px;
+}
+
+/* 【场景 B】刚好 2 张图：平分两列 */
+.notes-stream p:has(> img:nth-of-type(2):last-of-type),
+.notes-stream p:has(> a.pswp-gallery__item:nth-of-type(2):last-of-type) {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* 【场景 C】刚好 3 张图：平分三列 */
+.notes-stream p:has(> img:nth-of-type(3):last-of-type),
+.notes-stream p:has(> a.pswp-gallery__item:nth-of-type(3):last-of-type) {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* 【场景 D】刚好 4 张图：排成 2x2 的田字格 */
+.notes-stream p:has(> img:nth-of-type(4):last-of-type),
+.notes-stream p:has(> a.pswp-gallery__item:nth-of-type(4):last-of-type) {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* 【场景 E】5 张图及以上：进入九宫格模式，默认三列等宽 */
+.notes-stream p:has(> img:nth-of-type(n+5)),
+.notes-stream p:has(> a.pswp-gallery__item:nth-of-type(n+5)) {
+  grid-template-columns: repeat(3, 1fr);
+}
+
+/* ==========================================================================
+   6. 图片排版与图注系统 (Images & Figcaption)
+   ========================================================================== */
+main img {
+  cursor: zoom-in; 
+  display: block;
+  max-width: 100%;
+  height: auto;
+  margin: 1.2rem auto; 
+}
+
+/* 正文直接段落里的大图拓宽 */
+main > p:has(img),
+main > p:has(.pswp-gallery__item) {
+  max-width: calc(100% + 40px);
+  margin-left: -20px;
+  margin-right: -20px;
+}
+
+/* 强制：引用、列表、脚注里的图片永远不拓宽 */
+main blockquote img,
+main li img,
+.footnotes img {
+  max-width: 100%;
+  margin: 1.2rem auto;
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* 统一图注排版：居中、小字、弱化颜色 */
+main figcaption {
+    display: block;
+    text-align: center;
+    font-size: 0.85em;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-style: normal;
+    line-height: 1.5;
+    margin-top: 0; 
+    margin-bottom: 1.6rem; 
+}
+
+/* 智能判定：当图片下方紧跟图注时，自动收紧距离 */
+main p:has(img):has(+ figcaption) { margin-bottom: 0; }
+main p:has(img):has(+ figcaption) img { margin-bottom: 0.5rem; }
+main p:has(img + figcaption) img { margin-bottom: 0.5rem; }
+
+/* ==========================================================================
+   7. 第三方插件样式定制 (Plugins & Overrides)
+   ========================================================================== */
+.netease-mini-player { height: 100px; }
+.netease-mini-player iframe { width: 100%; height: 100px; }
+/* 彻底清除错误的描边，用缩放比例实现真正的简约 */
+.pswp__button--close svg,
+.pswp__button--arrow svg {
+    transform: scale(0.65); 
+    transition: transform 0.2s ease;
+}
+
+/* 按键悬浮时微微放大的交互反馈 */
+.pswp__button--close:hover svg,
+.pswp__button--arrow:hover svg {
+    transform: scale(0.75);
+}
+.inline { width: auto !important; }
+
+/* ==========================================================================
+   8. 折叠面板定制 (Details & Summary)
+   ========================================================================== */
+details {
+    margin-bottom: 1.6rem;
+    border-left: 2px solid var(--border-color);
+    padding-left: 1rem;
+}
+details summary {
+    cursor: pointer;
+    color: var(--heading-color);
+    font-weight: 500;
+    outline: none;
+    transition: color 0.2s ease;
+}
+details summary:hover { color: var(--link-color); }
+details > :not(summary) {
+    margin-top: 0.8rem;
+    font-size: 0.85em; 
+    color: var(--text-color);
+    opacity: 0.7; 
+    text-align: left; 
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   9. 统一的响应式媒体查询 (Global Media Queries)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+    /* 导航栏适配 */
+    nav p { display: none; } 
+    .nav-hamburger { display: flex; } 
+
+    /* 短内容信息流适配：废弃 Grid 采用单列 Flex 堆叠 */
+    .notes-stream ul li {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem; 
+    }
+    .notes-stream ul li > * { margin-top: 0; }
+    
+    /* 日期时间重排为一行显示 */
+    .notes-stream ul li > span {
+        margin-bottom: 0;
+        display: flex;
+        flex-direction: row; 
+        align-items: baseline; 
+        gap: 0.5rem; 
+    }  
+	}

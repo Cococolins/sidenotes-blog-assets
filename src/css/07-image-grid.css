@@ -1,0 +1,73 @@
+/* ==========================================================================
+   7. 图片网格 (Image Grid · Quantity Queries)
+   挂在 main 上，不绑定任何页面类型。
+   同一 <p> 内多张图片自动并排（Markdown 里不留空行即可触发）。
+
+   :is() 使用规则：
+   - :has() 内可以安全使用 :is(img, a.pswp-gallery__item)，
+     因为两者都是 <p> 的直接子元素。
+   - 但样式规则中不能用 p > :is(img, a.pswp-gallery__item > img)，
+     因为 img 在 <a> 内部时不是 <p> 的直接子元素。
+     必须写成逗号分隔的两条选择器。
+
+   布局规则：
+   1 张 → 自然流（不启用 Grid）  2 张 → 两列  3 张 → 三列
+   4 张 → 2×2 田字格            5+ 张 → 三列九宫格
+   ========================================================================== */
+
+/* 含 2+ 张图片的段落启用 Grid */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2)) {
+    display: grid;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+/* PhotoSwipe 生成的 <a> 填满网格单元 */
+main p>a.pswp-gallery__item {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* 对抗 Safari 闪烁：强制开启独立渲染层 */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+}
+
+/* 多图缩略图统一裁切为 1:1 正方形 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2))>img,
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2))>a.pswp-gallery__item>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    margin: 0 !important;
+    border-radius: 3px;
+    display: block;
+    /* 对抗 Safari 闪烁：强制 GPU 渲染 */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* 2 张图：两列 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2):last-of-type) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 3 张图：三列 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(3):last-of-type) {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* 4 张图：2×2 田字格 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(4):last-of-type) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 5+ 张图：三列九宫格 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(n+5)) {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+

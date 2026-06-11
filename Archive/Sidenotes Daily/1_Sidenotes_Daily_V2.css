@@ -1,0 +1,1234 @@
+/* ==========================================================================
+   0. 第三方样式 (Vendor)
+   PhotoSwipe v5 灯箱核心样式，压缩内联以减少请求数。
+   ========================================================================== */
+/*! PhotoSwipe main CSS by Dmytro Semenov | photoswipe.com */
+.pswp,
+.pswp:focus,
+.pswp__icn:focus {
+    outline: 0
+}
+
+.pswp,
+.pswp__button,
+.pswp__icn,
+.pswp__item,
+.pswp__scroll-wrap {
+    overflow: hidden
+}
+
+.pswp {
+    --pswp-bg: #000;
+    --pswp-placeholder-bg: #222;
+    --pswp-root-z-index: 100000;
+    --pswp-preloader-color: rgba(79, 79, 79, 0.4);
+    --pswp-preloader-color-secondary: rgba(255, 255, 255, 0.9);
+    --pswp-icon-color: #fff;
+    --pswp-icon-color-secondary: #4f4f4f;
+    --pswp-icon-stroke-color: #4f4f4f;
+    --pswp-icon-stroke-width: 2px;
+    --pswp-error-text-color: var(--pswp-icon-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: var(--pswp-root-z-index);
+    display: none;
+    touch-action: none;
+    opacity: .003;
+    contain: layout style size;
+    -webkit-tap-highlight-color: transparent
+}
+
+.pswp * {
+    box-sizing: border-box
+}
+
+.pswp img {
+    max-width: none
+}
+
+.pswp--open {
+    display: block
+}
+
+.pswp,
+.pswp__bg {
+    transform: translateZ(0);
+    will-change: opacity
+}
+
+.pswp__bg {
+    opacity: .005;
+    background: var(--pswp-bg)
+}
+
+.pswp__bg,
+.pswp__container,
+.pswp__content,
+.pswp__img,
+.pswp__item,
+.pswp__scroll-wrap,
+.pswp__zoom-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%
+}
+
+.pswp__img,
+.pswp__zoom-wrap {
+    width: auto;
+    height: auto
+}
+
+.pswp--click-to-zoom.pswp--zoom-allowed .pswp__img {
+    cursor: -webkit-zoom-in;
+    cursor: -moz-zoom-in;
+    cursor: zoom-in
+}
+
+.pswp--click-to-zoom .pswp--zoomed-in .pswp__img {
+    cursor: move;
+    cursor: -webkit-grab;
+    cursor: -moz-grab;
+    cursor: grab
+}
+
+.pswp--click-to-zoom.pswp--zoomed-in .pswp__img:active {
+    cursor: -webkit-grabbing;
+    cursor: -moz-grabbing;
+    cursor: grabbing
+}
+
+.pswp--no-mouse-drag.pswp--zoomed-in .pswp__img,
+.pswp--no-mouse-drag.pswp--zoomed-in .pswp__img:active,
+.pswp__img {
+    cursor: -webkit-zoom-out;
+    cursor: -moz-zoom-out;
+    cursor: zoom-out
+}
+
+.pswp__button,
+.pswp__container,
+.pswp__counter,
+.pswp__img {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.pswp__item {
+    z-index: 1
+}
+
+.pswp__hidden {
+    display: none !important
+}
+
+.pswp__content {
+    pointer-events: none
+}
+
+.pswp__content>* {
+    pointer-events: auto
+}
+
+.pswp__error-msg-container {
+    display: grid
+}
+
+.pswp__error-msg {
+    margin: auto;
+    font-size: 1em;
+    line-height: 1;
+    color: var(--pswp-error-text-color)
+}
+
+.pswp .pswp__hide-on-close {
+    opacity: .005;
+    will-change: opacity;
+    transition: opacity var(--pswp-transition-duration) cubic-bezier(.4, 0, .22, 1);
+    z-index: 10;
+    pointer-events: none
+}
+
+.pswp--ui-visible .pswp__hide-on-close {
+    opacity: 1;
+    pointer-events: auto
+}
+
+.pswp__button {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 60px;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    background: 0 0;
+    border: 0;
+    box-shadow: none;
+    opacity: .85;
+    -webkit-appearance: none;
+    -webkit-touch-callout: none
+}
+
+.pswp__button:active,
+.pswp__button:focus,
+.pswp__button:hover {
+    transition: none;
+    padding: 0;
+    background: 0 0;
+    border: 0;
+    box-shadow: none;
+    opacity: 1
+}
+
+.pswp__button:disabled {
+    opacity: .3;
+    cursor: auto
+}
+
+.pswp__icn {
+    fill: var(--pswp-icon-color);
+    color: var(--pswp-icon-color-secondary);
+    position: absolute;
+    top: 14px;
+    left: 9px;
+    width: 32px;
+    height: 32px;
+    pointer-events: none
+}
+
+.pswp__icn-shadow {
+    stroke: var(--pswp-icon-stroke-color);
+    stroke-width: var(--pswp-icon-stroke-width);
+    fill: none
+}
+
+.pswp__img--with-bg,
+div .pswp__img--placeholder {
+    background: var(--pswp-placeholder-bg)
+}
+
+.pswp__top-bar {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    z-index: 10;
+    pointer-events: none !important
+}
+
+.pswp--one-slide .pswp__button--arrow,
+.pswp--zoomed-in .pswp__zoom-icn-bar-v,
+.pswp__button--zoom {
+    display: none
+}
+
+.pswp__top-bar>* {
+    pointer-events: auto;
+    will-change: opacity
+}
+
+.pswp__button--close {
+    margin-right: 6px
+}
+
+.pswp__button--arrow {
+    position: absolute;
+    width: 75px;
+    height: 100px;
+    top: 50%;
+    margin-top: -50px
+}
+
+.pswp__button--arrow:disabled {
+    display: none;
+    cursor: default
+}
+
+.pswp__button--arrow .pswp__icn {
+    top: 50%;
+    margin-top: -30px;
+    width: 60px;
+    height: 60px;
+    background: 0 0;
+    border-radius: 0
+}
+
+.pswp--touch .pswp__button--arrow {
+    visibility: hidden
+}
+
+.pswp--has_mouse .pswp__button--arrow {
+    visibility: visible
+}
+
+.pswp__button--arrow--prev {
+    right: auto;
+    left: 0
+}
+
+.pswp__button--arrow--next {
+    right: 0
+}
+
+.pswp__button--arrow--next .pswp__icn {
+    left: auto;
+    right: 14px;
+    transform: scale(-1, 1)
+}
+
+.pswp--zoom-allowed .pswp__button--zoom {
+    display: block
+}
+
+.pswp__preloader {
+    position: relative;
+    overflow: hidden;
+    width: 50px;
+    height: 60px;
+    margin-right: auto
+}
+
+.pswp__preloader .pswp__icn {
+    opacity: 0;
+    transition: opacity .2s linear;
+    animation: .6s linear infinite pswp-clockwise
+}
+
+.pswp__preloader--active .pswp__icn {
+    opacity: .85
+}
+
+@keyframes pswp-clockwise {
+    0% {
+        transform: rotate(0)
+    }
+
+    100% {
+        transform: rotate(360deg)
+    }
+}
+
+.pswp__counter {
+    height: 30px;
+    margin-top: 15px;
+    margin-inline-start: 20px;
+    font-size: 14px;
+    line-height: 30px;
+    color: var(--pswp-icon-color);
+    text-shadow: 1px 1px 3px var(--pswp-icon-color-secondary);
+    opacity: .85
+}
+
+.pswp--one-slide .pswp__counter {
+    display: none
+}
+
+/* ==========================================================================
+   1. 设计令牌 (Design Tokens)
+   CSS 自定义属性：颜色、字体、尺寸。亮/暗主题通过 prefers-color-scheme 切换。
+   ========================================================================== */
+
+/* Noto Serif 可变字体：通过 jsDelivr fontsource CDN 加载
+   全球可用（含中国大陆节点），单文件覆盖 100–900 全部字重 */
+@font-face {
+    font-family: 'Noto Serif';
+    font-style: normal;
+    font-display: swap;
+    font-weight: 100 900;
+    src:
+        url(https://cdn.jsdelivr.net/fontsource/fonts/noto-serif:vf@latest/latin-wght-normal.woff2) format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153,
+        U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F,
+        U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+    font-family: 'Noto Serif';
+    font-style: italic;
+    font-display: swap;
+    font-weight: 100 900;
+    src:
+        url(https://cdn.jsdelivr.net/fontsource/fonts/noto-serif:vf@latest/latin-wght-italic.woff2) format('woff2-variations');
+    unicode-range:
+        U+0000-00FF, U+0131, U+0152-0153,
+        U+02BB-02BC, U+02C6, U+02DA, U+02DC,
+        U+0304, U+0308, U+0329, U+2000-206F,
+        U+20AC, U+2122, U+2191, U+2193,
+        U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 强制中文标点使用 CJK 字体渲染（修复破折号、省略号断裂与下沉问题） */
+@font-face {
+    font-family: "CJK Dash Fix";
+    src: local("PingFang SC"),
+        local("PingFangSC-Regular"),
+        local("Noto Sans CJK SC"),
+        local("Microsoft YaHei"),
+        local("微软雅黑");
+    unicode-range: U+2013-2015, U+2026;
+    /* 覆盖 En Dash, Em Dash, Horizontal Bar, Ellipsis */
+}
+
+
+:root {
+    --width: 660px;
+
+    /* 标题字体：系统 UI，醒目清晰 */
+    --font-main: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
+        "Segoe UI", "Liberation Sans", sans-serif;
+
+    /* 正文字体：Noto Serif 优先（jsDelivr CDN），Optima 备用（本地），中文回退 PingFang / 微软雅黑 */
+    --font-secondary: "CJK Dash Fix", 'Noto Serif', "Optima", system-ui,
+        -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI",
+        "Liberation Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+
+    /* 等宽字体：代码块、日期时间 */
+    --font-mono: Menlo, Monaco, Consolas, "Courier New", monospace;
+
+    --font-scale: 1em;
+    --background-color: #FFFFFF;
+    --heading-color: #222;
+    --text-color: #2B3831;
+    --link-color: #1f7a4f;
+    --link-hover-color: #16603d;
+    --visited-color: #467856;
+    --code-background-color: #f2f2f2;
+    --code-color: #5f6f64;
+    --blockquote-color: #222;
+    --border-color: #d9e3d8;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #0c0a09;
+        --heading-color: #eee;
+        --text-color: #e5e5e5;
+        --link-color: #8cc2dd;
+        --visited-color: #8b6fcb;
+        --code-background-color: #000;
+        --code-color: #ddd;
+        --blockquote-color: #ccc;
+        --border-color: #2a4a5a;
+    }
+}
+
+/* ==========================================================================
+   2. 全局与基础版式 (Reset & Typography)
+   ========================================================================== */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-autospace: ideograph-alpha ideograph-numeric;
+    text-spacing-trim: normal;
+    font-feature-settings: "chws" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+}
+
+h1 {
+    font-size: 1.5em;
+    margin-top: 1rem;
+}
+
+h2 {
+    font-size: 1.3em;
+    margin-top: 2.5rem;
+}
+
+h3 {
+    font-size: 1.05em;
+    margin-top: 1rem;
+}
+
+/* --- 通用排版组件：区块标题与页脚 --- */
+
+/* 去标签化的区块标题，可挂载于任何 h1~h6 */
+.section-title {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.section-title span {
+    font-size: 0.9em;
+    opacity: 0.6;
+    font-weight: 400;
+    margin-left: 0.5em;
+}
+
+/* 列表下方的统一页脚与「>> more」链接 */
+.section-footer {
+    text-align: right;
+    margin-bottom: 1.5rem;
+}
+
+.section-footer a {
+    font-size: 0.85em;
+    color: #999;
+    font-family: var(--font-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.section-footer a:hover {
+    color: var(--link-color);
+}
+
+a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration-line: none;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 1px;
+    /* 默认稍贴近文字 */
+    text-decoration-color: transparent;
+    /* 先藏起来 */
+    transition:
+        color 0.2s ease,
+        text-decoration-color 0.2s ease,
+        text-underline-offset 0.2s ease;
+    /* 让 offset 也有过渡 */
+}
+
+a:hover {
+    color: var(--link-hover-color);
+    /* hover 颜色 */
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+    /* 显示下划线 */
+    text-underline-offset: 4px;
+    /* 比默认再往下 2px */
+}
+
+mark {
+    background-color: transparent;
+    color: inherit;
+    -webkit-text-emphasis-style: dot;
+    text-emphasis-style: dot;
+    -webkit-text-emphasis-position: under right;
+    text-emphasis-position: under right;
+    -webkit-text-emphasis-color: var(--link-color);
+    text-emphasis-color: var(--link-color);
+    line-height: 0;
+}
+
+/* 斜体定制：中文斜体用楷体，英文斜体继承 Noto Serif italic */
+/* 建立楷体白名单，并将其伪装成斜体供浏览器调用 */
+@font-face {
+    font-family: 'CustomCJKItalic';
+    src: local('STKaiti'),
+        local('KaiTi'),
+        local('BiauKai');
+    unicode-range: U+4E00-9FFF, U+3000-303F, U+FF00-FFEF;
+    font-style: italic;
+}
+
+em,
+i {
+    font-family: 'CustomCJKItalic', var(--font-secondary);
+    font-style: italic;
+    font-synthesis: none;
+}
+
+/* 修复 Bear Blog 客户端 JS 替换日期文本造成的行内闪烁*/
+time {
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-variant-numeric: tabular-nums;
+    /* 默认隐藏，等待 JS 解析确实完成后赋予 .loaded 类再显示 */
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+time.loaded {
+    opacity: 1;
+}
+
+hr {
+    border: 0;
+    width: 80%;
+    height: 1px;
+    margin: 3.3rem auto;
+    background-color: var(--border-color);
+}
+
+table {
+    width: 100%;
+}
+
+button {
+    margin: 0;
+    cursor: pointer;
+}
+
+main {
+    line-height: 1.6;
+}
+
+/* YouTube / 视频嵌入自适应 */
+main iframe[src*="youtube"] {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+    display: block;
+    margin: 1.2rem auto;
+}
+
+main iframe[src*="youtube"]:has(+ figcaption) {
+    margin-bottom: 0;
+}
+
+main iframe[src*="youtube"]+figcaption a {
+    color: inherit;
+}
+
+sup,
+sub {
+    line-height: 0;
+}
+
+code {
+    font-family: var(--font-mono);
+    padding: 2px 5px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+pre,
+.highlight,
+.code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    padding: 2px 15px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+    font-size: 0.85em;
+
+}
+
+/* pre 内的 code 重置行内样式，避免双重背景与 padding */
+pre code {
+    padding: 0;
+    background: none;
+}
+
+blockquote {
+    border-left: 1px solid #999;
+    color: var(--blockquote-color);
+    font-family: var(--font-secondary);
+    padding-left: 12px;
+    margin: 18px;
+}
+
+/* 正文列表缩进：文字起始位置约两个汉字宽（浏览器默认约 40px） */
+main ul,
+main ol {
+    padding-left: 2em;
+}
+
+ruby {
+    ruby-align: center;
+    /* 注音与汉字居中对齐 */
+}
+
+rt {
+    user-select: none;
+    /* 防止读者复制文字时误选中拼音 */
+}
+
+/* ==========================================================================
+   3. 页面骨架 (Layout: Header & Footer)
+   ========================================================================== */
+header {
+    position: sticky;
+    top: 0;
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 0 20px;
+    background-color: var(--background-color);
+    border-bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0 16px;
+    min-height: 52px;
+}
+
+header .title {
+    flex: 1 1 auto;
+    text-decoration: none;
+}
+
+header .title h1 {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    font-family: var(--font-main);
+    color: var(--heading-color);
+    white-space: nowrap;
+    margin: 0;
+    line-height: 1.1;
+}
+
+/* 副标题：真实 DOM，由 Footer Script 动态注入 */
+.site-tagline {
+    font-family: var(--font-main);
+    font-size: 0.9em;
+    color: var(--text-color);
+    white-space: nowrap;
+    margin-left: 0.5em;
+    font-weight: 400;
+    opacity: 0.6;
+}
+
+/* 版权信息：同样用伪元素生成，footer 原生内容清零 */
+footer {
+    font-size: 0;
+    text-align: center;
+}
+
+footer::after {
+    content: "© 2026 Cococolin";
+    font-size: 15px;
+    color: var(--text-color);
+    display: block;
+    text-align: center;
+    padding: 15px 0;
+}
+
+/* ==========================================================================
+   4. 导航栏 (Navigation)
+   桌面端：水平链接行。移动端（≤768px）：汉堡菜单 + 下拉面板。
+   DOM 由 Footer Script 动态生成。
+   ========================================================================== */
+nav {
+    margin: 0;
+    padding: 0;
+    flex: 0 0 auto;
+    font-family: var(--font-main);
+    font-weight: 500;
+}
+
+nav p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 8px 0;
+    white-space: nowrap;
+}
+
+nav p a {
+    margin-right: 8px;
+}
+
+/* --- 汉堡按钮（移动端显示，桌面端隐藏） --- */
+.nav-hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 22px;
+    line-height: 1;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    border-radius: 6px;
+    transition: background-color 0.2s cubic-bezier(0.2, 0, 0.2, 1), transform 0.1s;
+}
+
+.nav-hamburger:active {
+    background-color: var(--border-color);
+    transform: scale(0.92);
+}
+
+/* --- 移动端下拉菜单 --- */
+.nav-mobile-menu {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: var(--background-color);
+    border-bottom: none;
+    padding: 4px 20px 10px;
+    z-index: 99;
+}
+
+.nav-mobile-menu.open {
+    display: flex;
+}
+
+.nav-mobile-menu a {
+    padding: 5px 0;
+    border-bottom: none;
+    color: var(--link-color);
+    font-family: var(--font-main);
+    font-size: 1em;
+}
+
+.nav-mobile-menu a:last-child {
+    border-bottom: none;
+}
+
+/* ==========================================================================
+   5. 主页列表
+   Bear Blog 的 {{ posts }} 渲染为 ul.blog-posts，日期 + 标题的双列 Grid。
+   ========================================================================== */
+ul.blog-posts {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+    margin-bottom: 2rem;
+}
+
+ul.blog-posts>li {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    column-gap: 1rem;
+    align-items: baseline;
+    margin-bottom: 0.2rem;
+}
+
+ul.blog-posts>li>span {
+    grid-column: 1 / 2;
+  	grid-row: 1 / span 5;
+    color: #999;
+    font-size: 0.9rem;
+    font-family: var(--font-mono);
+  	display: flex;
+    flex-direction: column; 
+    gap: 0.1rem; /* 日期和时间之间的微小垂直间距，你可以微调 */
+}
+ul.blog-posts>li>span :is(time, .exact-time) {
+    color: #999;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: #999;
+    line-height: 2;
+}
+
+ul.blog-posts>li>* {
+    grid-column: 2 / 3;
+  	align-items: flex-start;
+}
+
+.homelist ul.blog-posts>li>a {
+    font-weight: 600;
+}
+
+ul.blog-posts > li > p {
+    margin-top: 0.35rem;   
+}
+
+.homelist ul.blog-posts>li {
+    margin-bottom: 1rem;
+}
+
+ul.blog-posts>li a:visited {
+    color: var(--visited-color);
+}
+
+/* ==========================================================================
+   6. 图片与图注、脚注 (Images, Figcaption & footnote)
+   让页面级覆盖（Notes / Gallery 的 aspect-ratio、height 等）自然胜出。
+   ========================================================================== */
+main img {
+    cursor: zoom-in;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.2rem auto;
+}
+
+/* <figure> 基础重置：清除浏览器默认的 margin: 1em 40px */
+main figure {
+    margin: 0;
+}
+
+/* 正文顶层段落里的大图向两侧各拓宽 20px，突破 --width 限制 */
+main>p:has(:is(img, .pswp-gallery__item)) {
+    max-width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+/* <figure> 包裹的图片同样拓宽（由 Footer Script 动态生成） */
+main>figure:has(:is(img, .pswp-gallery__item)) {
+    max-width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+/* 引用、列表、脚注里的图片不拓宽 */
+main :is(blockquote, li, .footnotes) img {
+    max-width: 100%;
+    margin: 1.2rem auto;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* 图注：居中、小字、弱化 */
+main figcaption {
+    display: block;
+    text-align: center;
+    font-size: 0.85em;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-style: normal;
+    line-height: 1.5;
+    margin-top: 0.5rem;
+    margin-bottom: 1.6rem;
+}
+
+/* 图片 + 图注间距智能收紧：当 <p> 含图片且紧跟 <figcaption> 时自动贴合 */
+main p:has(img):has(+ figcaption) {
+    margin-bottom: 0;
+}
+
+main p:has(img):has(+ figcaption) img {
+    margin-bottom: 0;
+}
+
+main p:has(img + figcaption) img {
+    margin-bottom: 0;
+}
+
+/* 多图网格后的图注：网格内图片的 margin 被 !important 清零，
+   需要通过 figcaption 自身的 margin-top 补回间距 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2))+figcaption {
+    margin-top: 0.5rem;
+}
+
+/* 脚注整体排版：略小于正文，带一条分隔线 */
+.footnotes {
+    font-size: 0.85em;
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.footnotes::before {
+    content: "";
+    display: block;
+    width: 36%;
+    height: 1px;
+    margin: 0 0 0 1em;
+    /* 上 右 下 左：左邊對齊腳注文字 */
+    background-color: var(--border-color);
+}
+
+.footnotes ol {
+    padding-left: 2.5em;
+}
+
+.footnotes li {
+    margin-bottom: 0.4rem;
+}
+
+/* ==========================================================================
+   7. 图片网格 (Image Grid · Quantity Queries)
+   挂在 main 上，不绑定任何页面类型。
+   同一 <p> 内多张图片自动并排（Markdown 里不留空行即可触发）。
+
+   :is() 使用规则：
+   - :has() 内可以安全使用 :is(img, a.pswp-gallery__item)，
+     因为两者都是 <p> 的直接子元素。
+   - 但样式规则中不能用 p > :is(img, a.pswp-gallery__item > img)，
+     因为 img 在 <a> 内部时不是 <p> 的直接子元素。
+     必须写成逗号分隔的两条选择器。
+
+   布局规则：
+   1 张 → 自然流（不启用 Grid）  2 张 → 两列  3 张 → 三列
+   4 张 → 2×2 田字格            5+ 张 → 三列九宫格
+   ========================================================================== */
+
+/* 含 2+ 张图片的段落启用 Grid */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2)) {
+    display: grid;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+/* PhotoSwipe 生成的 <a> 填满网格单元 */
+main p>a.pswp-gallery__item {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* 对抗 Safari 闪烁：强制开启独立渲染层 */
+    -webkit-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-backface-visibility: hidden;
+}
+
+/* 多图缩略图统一裁切为 1:1 正方形 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2))>img,
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2))>a.pswp-gallery__item>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    margin: 0 !important;
+    border-radius: 3px;
+    display: block;
+    /* 对抗 Safari 闪烁：强制 GPU 渲染 */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+}
+
+/* 2 张图：两列 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2):last-of-type) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 3 张图：三列 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(3):last-of-type) {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+/* 4 张图：2×2 田字格 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(4):last-of-type) {
+    grid-template-columns: repeat(2, 1fr);
+}
+
+/* 5+ 张图：三列九宫格 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(n+5)) {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+/* ==========================================================================
+   8. 插件定制 (Plugin Overrides)
+   PhotoSwipe 灯箱 UI + 网易云迷你播放器 + 工具类。
+   ========================================================================== */
+
+/* --- PhotoSwipe 灯箱按钮 --- */
+.pswp__button svg {
+    width: 25px !important;
+    height: 25px !important;
+    transition: opacity 0.2s ease;
+}
+
+.pswp__button {
+    opacity: 0.8;
+}
+
+.pswp__button:hover {
+    opacity: 1 !important;
+}
+
+/* 灯箱底部图注（由 Footer Script 动态注入） */
+.pswp__custom-caption {
+    position: absolute;
+    bottom: 25px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #eee;
+    font-size: 0.85em;
+    font-family: var(--font-secondary);
+    text-align: center;
+    opacity: 0.9;
+    max-width: 85%;
+    pointer-events: none;
+    text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+    z-index: 100;
+}
+
+/* --- 网易云音乐迷你播放器 --- */
+.netease-mini-player {
+    height: 100px;
+}
+
+.netease-mini-player iframe {
+    width: 100%;
+    height: 100px;
+}
+
+.netease-mobile-link {
+    display: none;
+}
+
+@media screen and (max-width: 768px) {
+    .netease-mini-player {
+        height: auto;
+        /* 覆盖固定高度 */
+    }
+
+    .netease-mini-player iframe {
+        display: none;
+    }
+
+    .netease-mobile-link {
+        display: block;
+        text-align: center;
+        padding: 10px 16px;
+        border: 1px solid var(--border-color);
+        border-radius: 6px;
+        color: var(--link-color);
+        font-size: 0.9em;
+        text-decoration: none;
+        margin-bottom: 1.6rem;
+        /* ← 补回行间距 */
+
+    }
+}
+
+/* --- 工具类 --- */
+.inline {
+    width: auto !important;
+}
+
+/* ==========================================================================
+   9. 折叠面板 (Details & Summary)
+   ========================================================================== */
+details {
+    margin-bottom: 1.6rem;
+    border-left: 2px solid var(--border-color);
+    padding-left: 1rem;
+}
+
+details summary {
+    cursor: pointer;
+    color: var(--heading-color);
+    font-weight: 500;
+    outline: none;
+    transition: color 0.2s ease;
+}
+
+details summary:hover {
+    color: var(--link-color);
+}
+
+details> :not(summary) {
+    margin-top: 0.8rem;
+    font-size: 0.85em;
+    color: var(--text-color);
+    opacity: 0.7;
+    text-align: left;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   10. 响应式 (Responsive · ≤768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+
+    /* 导航栏：隐藏水平链接，显示汉堡按钮 */
+    nav p {
+        display: none;
+    }
+    .nav-hamburger {
+        display: flex;
+    }
+
+    /* Notes：Grid 改为单列堆叠 */
+    .homelist ul.blog-posts>li {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+    }
+  
+	/* 第一层：标题 */
+    .homelist ul.blog-posts>li>a {
+        order: -1; /* 核心魔法：负数 order 会将其提取到最上方 */
+        margin-bottom: 0.2rem; /* 标题与下方时间的间隙，可微调 */
+    }
+	/* 第二层：日期与时间 */
+    .homelist ul.blog-posts>li>span {
+        order: 0; /* 保持默认，排在标题之后 */
+        margin-bottom: 0.8rem; /* 时间与下方正文的间隙，可微调 */
+        flex-direction: row;
+        align-items: baseline;
+        gap: 0.5rem;
+        white-space: nowrap;
+        overflow: visible;
+    }
+	/* 第三层：正文摘录 */
+   .homelist ul.blog-posts>li>p {
+        order: 1; /* 确保稳居底部 */
+        margin-top: 0;
+    }
+}
+
+/* ==========================================================================
+   11. 体验增强 (UX Enhancements)
+   ========================================================================== */
+/* 外部链接优雅提示，忽略图片画廊项与处理过的 YouTube 包 */
+main a[target="_blank"]:not(.pswp-gallery__item):not(.yt-processed)::after {
+    content: '↗';
+    font-size: 0.7em;
+    margin-left: 0.15rem;
+    opacity: 0.6;
+    position: relative;
+    top: -0.3em;
+}
+
+/* 弱网下图片保护与占位底色 */
+main img {
+    background-color: var(--code-background-color);
+}
+
+/* YouTube 等待加载或失败时的占位符 */
+.yt-placeholder {
+    padding: 3rem 1rem;
+    text-align: center;
+    color: #999;
+    border: 1px dashed var(--border-color);
+    border-radius: 4px;
+    margin: 1.2rem auto;
+    background: var(--code-background-color);
+    font-size: 0.9em;
+	}

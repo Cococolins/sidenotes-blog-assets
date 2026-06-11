@@ -1,0 +1,107 @@
+/* ==========================================================================
+   9. Gallery 信息流 (Gallery Feed)
+   「相」页面专属：左侧日期（无时间），右侧标题，正文隐藏但图片显示。
+   Flex 流式网格让分散在不同 <p> 中的单图自动并列为两列。
+   ========================================================================== */
+.gallery ul.blog-posts {
+    padding-left: 0;
+    margin-left: 0;
+}
+
+.gallery ul.blog-posts>li {
+    list-style-type: none;
+    margin-bottom: 1.6rem;
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    column-gap: 1rem;
+    align-items: start;
+}
+
+.gallery ul.blog-posts>li>* {
+    grid-column: 2 / 3;
+    margin-top: 0;
+}
+
+/* 标题：显示在日期右侧 */
+.gallery ul.blog-posts>li>a {
+    display: inline;
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+}
+
+/* 左侧日期区：只留日期，隐藏精确时间 */
+.gallery ul.blog-posts>li>span {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    flex: none !important;
+    align-self: baseline;
+    margin-top: 2px;
+}
+
+.gallery ul.blog-posts>li>span time {
+    font-family: var(--font-mono);
+    color: #999;
+    line-height: 1.2;
+}
+
+.gallery ul.blog-posts>li>span .exact-time {
+    display: none;
+}
+
+/* 反向隐藏策略：先隐藏内容区一切子元素，再单独放出含图片的元素 */
+.gallery ul.blog-posts>li>div>* {
+    display: none;
+}
+
+.gallery ul.blog-posts>li>div>p:has(:is(img, .pswp-gallery__item)) {
+    display: grid;
+}
+
+/* 兼容手动嵌套的 div（display:contents 让子元素直接参与外层 flex 流） */
+.gallery ul.blog-posts>li>div>div:has(:is(img, .pswp-gallery__item)) {
+    display: contents;
+}
+
+/* Flex 流式网格：让分散在不同 <p> 中的图片自动并列 */
+.gallery ul.blog-posts>li>div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding-top: 0.4rem;
+}
+
+/* 单图段落：两列等分 */
+.gallery ul.blog-posts>li>div>p:has(> :is(img, a.pswp-gallery__item):only-of-type) {
+    flex: 0 0 calc(50% - 3px);
+    margin: 0;
+}
+
+/* 多图段落：占满整行，内部由第 7 节 Quantity Queries 控制网格 */
+.gallery ul.blog-posts>li>div>p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2)) {
+    flex: 0 0 100%;
+    margin: 0;
+}
+
+/* Gallery 单图段落也启用 Grid（覆盖第 7 节「1 张不启用」的默认行为） */
+.gallery p:has(> :is(img, a.pswp-gallery__item):only-of-type) {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+/* Gallery 所有图片强制正方形裁切（含单图） */
+.gallery p>img,
+.gallery p>a.pswp-gallery__item>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
+    margin: 0 !important;
+    border-radius: 4px;
+    display: block;
+    /* 对抗 Safari 闪烁：强制 GPU 渲染 */
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    -webkit-backface-visibility: hidden;
+    will-change: transform;
+}
+

@@ -1,0 +1,7 @@
+{
+  "css": [
+    "src/sites/tt/legacy.css"
+  ],
+  "header": "src/header.html",
+  "footer": "src/sites/tt/footer.html"
+}

@@ -1,0 +1,444 @@
+--- CSS Changelog Analysis ---
+
+[CSS v1 -> v2]
+Added lines: 216, Deleted lines: 116
+Key comments added: ['+/* 博客名链接：左侧撑开 */', '+    display: flex; /* 转换为弹性布局 */', '+    margin-left: 0.5em; /* 增加一点间距，避免过于拥挤 */', '+/* <nav>：右侧，不伸展 */', '+/* 汉堡按钮：电脑端隐藏 */']...
+Additions snippet (first 10):
++@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@700;900&family=Noto+Serif+SC:wght@400;500;700&display=swap');
++    --width: 620px;
++    --visited-color: #8b6fcb;
++    --blockquote-color: #222;
++}
++        --visited-color: #8b6fcb;
++  	font-weight: 500;
++}
++
++header {
+
+[CSS v2 -> v3]
+Added lines: 62, Deleted lines: 155
+Key comments added: ['+/* 引入基础字体与 PhotoSwipe 核心样式 */', '+    --border-color: rgba(0, 0, 0, 0.12); /* 替代原本模糊的 color-mix */', '+        --border-color: rgba(255, 255, 255, 0.15); /* 暗色模式下的清晰边界 */', '+    /* 核心修正 1：剥夺字符宽度控制权，设定死容器的宽高，强制形成一个正方形 */', '+    /* 核心修正 2：为内部字符准备 Flex 居中环境（在媒体查询中被激活） */']...
+Additions snippet (first 10):
++/* 引入基础字体与 PhotoSwipe 核心样式 */
++@import url('https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css');
++    --border-color: rgba(0, 0, 0, 0.12); /* 替代原本模糊的 color-mix */
++        --border-color: rgba(255, 255, 255, 0.15); /* 暗色模式下的清晰边界 */
++    line-height: 1.7;
++    color: var(--text-color);
++    font-weight: 500;
++    margin-top: -20px;
++    border-bottom: 1px solid var(--border-color);
++    display: flex;
+
+[CSS v3 -> v4]
+Added lines: 96, Deleted lines: 46
+Key comments added: ['+/* blog post list */']...
+Additions snippet (first 10):
++@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@1.1.0/style.css');
++@import url('https://fonts.googleapis.com/css2?family=Bree+Serif&family=Bungee+Shade&display=swap');
++    --width: 660px;
++    --font-main: Verdana, sans-serif;
++    --font-secondary: 'Bree Serif', Verdana, sans-serif;
++    --text-color: #222;
++    --visited-color:  #8b6fcb;
++    --code-background-color: #f2f2f2;
++	--border-color: #e5e5e5;
++        --visited-color:  #8b6fcb;
+
+[CSS v4 -> v5]
+Added lines: 17, Deleted lines: 7
+Additions snippet:
++@import url('https://cdn.jsdelivr.net/npm/lxgw-wenkai-screen-webfont@latest/style.css');
++    --font-secondary: 'Bree Serif', Serif;
++    font-family:  var(--font-secondary);
++    font-family: var(--font-secondary);
++    font-family: var(--font-secondary);
++  	font-family: "LXGW WenKai Screen", Serif, var(--font-secondary) ;
++    text-autospace: normal;
++    text-spacing-trim: normal;
++	font-feature-settings: "chws" 1;
++    -webkit-font-smoothing: antialiased;
+
+[CSS v5 -> v6]
+Added lines: 75, Deleted lines: 20
+Key comments added: ['+/*    text-autospace: normal;', '+\tfont-feature-settings: "chws" 1;*/', '+/* 基础布局：电脑端宽屏（CSS Grid 二维网格） */', '+  /* 启用 Grid 布局 */', '+/* 核心操作：将所有子元素默认划归到第二列（右侧正文区） */']...
+Additions snippet (first 10):
++    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", sans-serif;
++    --font-secondary: Optima-Regular, -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", 'Bree Serif', sans-Serif;
++	--border-color: #transparent;
++		--border-color: #transparent;
++    line-height: 1.7;
++/*    text-autospace: normal;
++	font-feature-settings: "chws" 1;*/
++    font-family:  var(--font-main);
++    font-family: var(--font-main);
++    font-family: var(--font-main);
+
+[CSS v6 -> v7]
+Added lines: 23, Deleted lines: 12
+Key comments added: ['+/* 🌟 核心修复：解除全局样式对 span 的 130px 高度锁定 🌟 */', '+/* 这一步防御极为关键，防止 flex: 0 0 130px 在纵向 Flex 中变为畸形高度 */', '+    /* 彻底抛弃 Grid，改用 Flex 避免占位冲突 */', '+    gap: 0.8rem; /* 日期时间和正文之间的间距 */', '+    /* 满足你的精确需求：手机端日期和时间依然分两行垂直显示 */']...
+Additions snippet:
++  margin-bottom: 2rem;
++  padding-bottom: 1.5rem;
++}
++
++/* 🌟 核心修复：解除全局样式对 span 的 130px 高度锁定 🌟 */
++/* 这一步防御极为关键，防止 flex: 0 0 130px 在纵向 Flex 中变为畸形高度 */
++.thoughts-stream ul li span {
++  flex: none !important;
++  gap: 0.3rem;
++  font-family: monospace;
+
+[CSS v7 -> v8]
+Added lines: 15, Deleted lines: 7
+Key comments added: ['+/* 消除正文容器内第一个段落的默认顶部外边距 */', '+    gap: 0.6rem; /* 日期时间和正文之间的间距 */']...
+Additions snippet:
++    margin-bottom: 2rem;
++  display: grid;
++  grid-template-columns: 130px 1fr;
++  column-gap: 1.6rem;
++  align-items: baseline;
++    color: #888;
++  	font-size: 0.85em;
++  color: #222;
++}
++
+
+[CSS v8 -> v9]
+Added lines: 260, Deleted lines: 294
+Key comments added: ['+/* ==========================================================================', '+   ========================================================================== */', '+/* ==========================================================================', '+   ========================================================================== */', '+    /* 标题字体：醒目清晰 */']...
+Additions snippet (first 10):
++/* ==========================================================================
++   0. 第三方样式引入
++   ========================================================================== */
++/* ==========================================================================
++   1. 全局变量与主题色彩 (Variables & Theme)
++   ========================================================================== */
++    --width: 600px;
++    /* 标题字体：醒目清晰 */
++  	--font-main: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
++      "Segoe UI", "Liberation Sans", sans-serif;
+
+[CSS v9 -> v10]
+Added lines: 2, Deleted lines: 5
+Additions snippet:
++  	--font-main: "SF Pro Display", "Segoe UI", sans-serif;
++  	--font-secondary: Optima-Regular, "PingFang SC", "Microsoft YaHei", sans-serif;
+
+[CSS v10 -> v11]
+Added lines: 5, Deleted lines: 2
+Additions snippet:
++  	--font-main: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
++      "Segoe UI", "Liberation Sans", sans-serif;
++  	--font-secondary: Optima-Regular, -apple-system, BlinkMacSystemFont,
++      "Segoe UI Adjusted", "Segoe UI", "Liberation Sans", "PingFang SC",
++      "Microsoft YaHei", sans-serif;
+
+[CSS v11 -> v12]
+Added lines: 99, Deleted lines: 15
+Key comments added: ['+/* --- 短内容信息流 (Notes Stream) --- */', '+/* 动态多图网格 (Dynamic Image Grid - 适配 PhotoSwipe)*/', '+/* 1. 容器：匹配直接包含 img，或包含 PhotoSwipe a 标签的段落 */', '+/* 2. 核心补丁：让 PhotoSwipe 动态生成的 a 标签化身为网格细胞 */', '+/* 3. 统一缩略图表现：无论是直接的 img，还是被 a 包裹的 img，都裁切为 1:1 */']...
+Additions snippet (first 10):
++hr {
++  border: 0;
++  width: 80%;
++  height: 1px;
++  margin: 2rem auto;
++  background-color: var(--border-color);
++}
++   5. 信息流组件 (Component: Blog Posts & Notes Stream)
++/* --- 短内容信息流 (Notes Stream) --- */
++.notes-stream ul { padding-left: 0; margin-left: 0; }
+
+[CSS v12 -> v13]
+Added lines: 43, Deleted lines: 25
+Key comments added: ['+/*! PhotoSwipe main CSS by Dmytro Semenov | photoswipe.com */.pswp,.pswp:focus,.pswp__icn:focus{outline:0}.pswp,.pswp__button,.pswp__icn,.pswp__item,.pswp__scroll-wrap{overflow:hidden}.pswp{--pswp-bg:#000;--pswp-placeholder-bg:#222;--pswp-root-z-index:100000;--pswp-preloader-color:rgba(79, 79, 79, 0.4);--pswp-preloader-color-secondary:rgba(255, 255, 255, 0.9);--pswp-icon-color:#fff;--pswp-icon-color-secondary:#4f4f4f;--pswp-icon-stroke-color:#4f4f4f;--pswp-icon-stroke-width:2px;--pswp-error-text-color:var(--pswp-icon-color);position:fixed;top:0;left:0;width:100%;height:100%;z-index:var(--pswp-root-z-index);display:none;touch-action:none;opacity:.003;contain:layout style size;-webkit-tap-highlight-color:transparent}.pswp *{box-sizing:border-box}.pswp img{max-width:none}.pswp--open{display:block}.pswp,.pswp__bg{transform:translateZ(0);will-change:opacity}.pswp__bg{opacity:.005;background:var(--pswp-bg)}.pswp__bg,.pswp__container,.pswp__content,.pswp__img,.pswp__item,.pswp__scroll-wrap,.pswp__zoom-wrap{position:absolute;top:0;left:0;width:100%;height:100%}.pswp__img,.pswp__zoom-wrap{width:auto;height:auto}.pswp--click-to-zoom.pswp--zoom-allowed .pswp__img{cursor:-webkit-zoom-in;cursor:-moz-zoom-in;cursor:zoom-in}.pswp--click-to-zoom.pswp--zoomed-in .pswp__img{cursor:move;cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.pswp--click-to-zoom.pswp--zoomed-in .pswp__img:active{cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.pswp--no-mouse-drag.pswp--zoomed-in .pswp__img,.pswp--no-mouse-drag.pswp--zoomed-in .pswp__img:active,.pswp__img{cursor:-webkit-zoom-out;cursor:-moz-zoom-out;cursor:zoom-out}.pswp__button,.pswp__container,.pswp__counter,.pswp__img{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.pswp__item{z-index:1}.pswp__hidden{display:none!important}.pswp__content{pointer-events:none}.pswp__content>*{pointer-events:auto}.pswp__error-msg-container{display:grid}.pswp__error-msg{margin:auto;font-size:1em;line-height:1;color:var(--pswp-error-text-color)}.pswp .pswp__hide-on-close{opacity:.005;will-change:opacity;transition:opacity var(--pswp-transition-duration) cubic-bezier(.4, 0, .22, 1);z-index:10;pointer-events:none}.pswp--ui-visible .pswp__hide-on-close{opacity:1;pointer-events:auto}.pswp__button{position:relative;display:block;width:50px;height:60px;padding:0;margin:0;cursor:pointer;background:0 0;border:0;box-shadow:none;opacity:.85;-webkit-appearance:none;-webkit-touch-callout:none}.pswp__button:active,.pswp__button:focus,.pswp__button:hover{transition:none;padding:0;background:0 0;border:0;box-shadow:none;opacity:1}.pswp__button:disabled{opacity:.3;cursor:auto}.pswp__icn{fill:var(--pswp-icon-color);color:var(--pswp-icon-color-secondary);position:absolute;top:14px;left:9px;width:32px;height:32px;pointer-events:none}.pswp__icn-shadow{stroke:var(--pswp-icon-stroke-color);stroke-width:var(--pswp-icon-stroke-width);fill:none}.pswp__img--with-bg,div.pswp__img--placeholder{background:var(--pswp-placeholder-bg)}.pswp__top-bar{position:absolute;left:0;top:0;width:100%;height:60px;display:flex;flex-direction:row;justify-content:flex-end;z-index:10;pointer-events:none!important}.pswp--one-slide .pswp__button--arrow,.pswp--zoomed-in .pswp__zoom-icn-bar-v,.pswp__button--zoom{display:none}.pswp__top-bar>*{pointer-events:auto;will-change:opacity}.pswp__button--close{margin-right:6px}.pswp__button--arrow{position:absolute;width:75px;height:100px;top:50%;margin-top:-50px}.pswp__button--arrow:disabled{display:none;cursor:default}.pswp__button--arrow .pswp__icn{top:50%;margin-top:-30px;width:60px;height:60px;background:0 0;border-radius:0}.pswp--touch .pswp__button--arrow{visibility:hidden}.pswp--has_mouse .pswp__button--arrow{visibility:visible}.pswp__button--arrow--prev{right:auto;left:0}.pswp__button--arrow--next{right:0}.pswp__button--arrow--next .pswp__icn{left:auto;right:14px;transform:scale(-1,1)}.pswp--zoom-allowed .pswp__button--zoom{display:block}.pswp__preloader{position:relative;overflow:hidden;width:50px;height:60px;margin-right:auto}.pswp__preloader .pswp__icn{opacity:0;transition:opacity .2s linear;animation:.6s linear infinite pswp-clockwise}.pswp__preloader--active .pswp__icn{opacity:.85}@keyframes pswp-clockwise{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.pswp__counter{height:30px;margin-top:15px;margin-inline-start:20px;font-size:14px;line-height:30px;color:var(--pswp-icon-color);text-shadow:1px 1px 3px var(--pswp-icon-color-secondary);opacity:.85}.pswp--one-slide .pswp__counter{display:none}', '+/* 左侧日期时间区的排版逻辑 */', '+/* 🌟 终极镇压：强制日期和时间使用完全一致的字体库和绝对字号 */', '+    line-height: 1.2; /* 锁定行高，防止内部字符上下偏移 */', '+/* 注入的灯箱底部文字说明样式 */']...
+Additions snippet (first 10):
++/*! PhotoSwipe main CSS by Dmytro Semenov | photoswipe.com */.pswp,.pswp:focus,.pswp__icn:focus{outline:0}.pswp,.pswp__button,.pswp__icn,.pswp__item,.pswp__scroll-wrap{overflow:hidden}.pswp{--pswp-bg:#000;--pswp-placeholder-bg:#222;--pswp-root-z-index:100000;--pswp-preloader-color:rgba(79, 79, 79, 0.4);--pswp-preloader-color-secondary:rgba(255, 255, 255, 0.9);--pswp-icon-color:#fff;--pswp-icon-color-secondary:#4f4f4f;--pswp-icon-stroke-color:#4f4f4f;--pswp-icon-stroke-width:2px;--pswp-error-text-color:var(--pswp-icon-color);position:fixed;top:0;left:0;width:100%;height:100%;z-index:var(--pswp-root-z-index);display:none;touch-action:none;opacity:.003;contain:layout style size;-webkit-tap-highlight-color:transparent}.pswp *{box-sizing:border-box}.pswp img{max-width:none}.pswp--open{display:block}.pswp,.pswp__bg{transform:translateZ(0);will-change:opacity}.pswp__bg{opacity:.005;background:var(--pswp-bg)}.pswp__bg,.pswp__container,.pswp__content,.pswp__img,.pswp__item,.pswp__scroll-wrap,.pswp__zoom-wrap{position:absolute;top:0;left:0;width:100%;height:100%}.pswp__img,.pswp__zoom-wrap{width:auto;height:auto}.pswp--click-to-zoom.pswp--zoom-allowed .pswp__img{cursor:-webkit-zoom-in;cursor:-moz-zoom-in;cursor:zoom-in}.pswp--click-to-zoom.pswp--zoomed-in .pswp__img{cursor:move;cursor:-webkit-grab;cursor:-moz-grab;cursor:grab}.pswp--click-to-zoom.pswp--zoomed-in .pswp__img:active{cursor:-webkit-grabbing;cursor:-moz-grabbing;cursor:grabbing}.pswp--no-mouse-drag.pswp--zoomed-in .pswp__img,.pswp--no-mouse-drag.pswp--zoomed-in .pswp__img:active,.pswp__img{cursor:-webkit-zoom-out;cursor:-moz-zoom-out;cursor:zoom-out}.pswp__button,.pswp__container,.pswp__counter,.pswp__img{-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.pswp__item{z-index:1}.pswp__hidden{display:none!important}.pswp__content{pointer-events:none}.pswp__content>*{pointer-events:auto}.pswp__error-msg-container{display:grid}.pswp__error-msg{margin:auto;font-size:1em;line-height:1;color:var(--pswp-error-text-color)}.pswp .pswp__hide-on-close{opacity:.005;will-change:opacity;transition:opacity var(--pswp-transition-duration) cubic-bezier(.4, 0, .22, 1);z-index:10;pointer-events:none}.pswp--ui-visible .pswp__hide-on-close{opacity:1;pointer-events:auto}.pswp__button{position:relative;display:block;width:50px;height:60px;padding:0;margin:0;cursor:pointer;background:0 0;border:0;box-shadow:none;opacity:.85;-webkit-appearance:none;-webkit-touch-callout:none}.pswp__button:active,.pswp__button:focus,.pswp__button:hover{transition:none;padding:0;background:0 0;border:0;box-shadow:none;opacity:1}.pswp__button:disabled{opacity:.3;cursor:auto}.pswp__icn{fill:var(--pswp-icon-color);color:var(--pswp-icon-color-secondary);position:absolute;top:14px;left:9px;width:32px;height:32px;pointer-events:none}.pswp__icn-shadow{stroke:var(--pswp-icon-stroke-color);stroke-width:var(--pswp-icon-stroke-width);fill:none}.pswp__img--with-bg,div.pswp__img--placeholder{background:var(--pswp-placeholder-bg)}.pswp__top-bar{position:absolute;left:0;top:0;width:100%;height:60px;display:flex;flex-direction:row;justify-content:flex-end;z-index:10;pointer-events:none!important}.pswp--one-slide .pswp__button--arrow,.pswp--zoomed-in .pswp__zoom-icn-bar-v,.pswp__button--zoom{display:none}.pswp__top-bar>*{pointer-events:auto;will-change:opacity}.pswp__button--close{margin-right:6px}.pswp__button--arrow{position:absolute;width:75px;height:100px;top:50%;margin-top:-50px}.pswp__button--arrow:disabled{display:none;cursor:default}.pswp__button--arrow .pswp__icn{top:50%;margin-top:-30px;width:60px;height:60px;background:0 0;border-radius:0}.pswp--touch .pswp__button--arrow{visibility:hidden}.pswp--has_mouse .pswp__button--arrow{visibility:visible}.pswp__button--arrow--prev{right:auto;left:0}.pswp__button--arrow--next{right:0}.pswp__button--arrow--next .pswp__icn{left:auto;right:14px;transform:scale(-1,1)}.pswp--zoom-allowed .pswp__button--zoom{display:block}.pswp__preloader{position:relative;overflow:hidden;width:50px;height:60px;margin-right:auto}.pswp__preloader .pswp__icn{opacity:0;transition:opacity .2s linear;animation:.6s linear infinite pswp-clockwise}.pswp__preloader--active .pswp__icn{opacity:.85}@keyframes pswp-clockwise{0%{transform:rotate(0)}100%{transform:rotate(360deg)}}.pswp__counter{height:30px;margin-top:15px;margin-inline-start:20px;font-size:14px;line-height:30px;color:var(--pswp-icon-color);text-shadow:1px 1px 3px var(--pswp-icon-color-secondary);opacity:.85}.pswp--one-slide .pswp__counter{display:none}
++nav { margin: 0; padding: 0; flex: 0 0 auto; font-family: var(--font-main); font-weight: 500; }
++    padding: 5px 0;
++    font-size: 1em;
++    align-items: start;
++/* 左侧日期时间区的排版逻辑 */
++    margin-top: 2px;
++}
++
++/* 🌟 终极镇压：强制日期和时间使用完全一致的字体库和绝对字号 */
+
+[CSS v13 -> v14]
+Added lines: 67, Deleted lines: 30
+Key comments added: ['+/* --- 短内容信息流 & 画廊共享基础 (Notes & Gallery Base) --- */', '+   ========================================================================== */', '+/* 🌟 Gallery 模式：显示日期 + 标题 + 正方形图片网格，隐藏正文 🌟 */', '+/* 标题：恢复显示，排在图片上方 */', '+/* 日期下移到第二行，与标题错开 */']...
+Additions snippet (first 10):
++/* --- 短内容信息流 & 画廊共享基础 (Notes & Gallery Base) --- */
++.notes ul, .gallery ul { padding-left: 0; margin-left: 0; }
++.notes ul li, .gallery ul li {
++.notes ul li > *, .gallery ul li > * { grid-column: 2 / 3; margin-top: 0; }
++.notes ul li > div > p:first-child, .gallery ul li > div > p:first-child { margin-top: 0; }
++.notes ul li > span, .gallery ul li > span {
++.notes ul li > span time, .gallery ul li > span time,
++.notes ul li > span .exact-time, .gallery ul li > span .exact-time {
++.notes ul li > a, .gallery ul li > a { display: none; }
++.notes p:has(> img), .gallery p:has(> img),
+
+[CSS v14 -> v15]
+Added lines: 246, Deleted lines: 194
+Key comments added: ['+    /* 标题字体：系统 UI，醒目清晰 */', '+    /* 正文字体：Optima 优先，中文回退 PingFang / 微软雅黑 */', '+    /* 等宽字体：代码块、日期时间 */', '+    /* 🌟 中文排版三件套：标点压缩 + 中英自动加空 + 标点宽度修剪 */', '+/* 🌟 修复上标（如脚注标记 [1]）撑开行高导致段落行距不均的经典 Bug */']...
+Additions snippet (first 10):
++   0. 第三方样式 (Vendor)
++   PhotoSwipe v5 灯箱核心样式，压缩内联以减少请求数。
++   定制样式见第 9 节。
++   1. 设计令牌 (Design Tokens)
++   CSS 自定义属性：颜色、字体、尺寸。亮/暗主题通过 prefers-color-scheme 切换。
++    --width: 600px;
++
++    /* 标题字体：系统 UI，醒目清晰 */
++    --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted",
++        "Segoe UI", "Liberation Sans", sans-serif;
+
+[CSS v15 -> v16]
+Added lines: 177, Deleted lines: 160
+Key comments added: ['+   ========================================================================== */', '+/* 含 2+ 张图片的段落启用 Grid */', '+/* PhotoSwipe 生成的 <a> 填满网格单元 */', '+/* 多图缩略图统一裁切为 1:1 正方形 */', '+/* 2 张图：两列 */']...
+Additions snippet (first 10):
++   定制样式见第 10 节。
++    --width: 660px;
++   6. 图片网格 (Image Grid · Quantity Queries)
++   挂在 main 上，不绑定任何页面类型。
++   同一 <p> 内多张图片自动并排（Markdown 里不留空行即可触发）。
++   PhotoSwipe JS 会将 <img> 包装为 <a.pswp-gallery__item>，
++   因此用 :is() 同时匹配两种 DOM 状态。
++
++   布局规则：
++   1 张 → 自然流（不启用 Grid）  2 张 → 两列  3 张 → 三列
+
+[CSS v16 -> v17]
+Added lines: 128, Deleted lines: 76
+Key comments added: ['+\t/* 强制中文标点使用 CJK 字体渲染（修复破折号断裂问题） */', '+    unicode-range: U+2014, U+2015; /* em dash + horizontal bar */', '+/* YouTube / 视频嵌入自适应 */', '+   ========================================================================== */', '+/* 正文顶层段落里的大图向两侧各拓宽 20px，突破 --width 限制 */']...
+Additions snippet (first 10):
++	/* 强制中文标点使用 CJK 字体渲染（修复破折号断裂问题） */
++@font-face {
++    font-family: "CJK Dash Fix";
++    src: local("PingFang SC"), local("Noto Sans CJK SC"), local("Microsoft YaHei");
++    unicode-range: U+2014, U+2015; /* em dash + horizontal bar */
++}
++
++
++
++
+
+[CSS v17 -> v18]
+Added lines: 82, Deleted lines: 38
+Key comments added: ['+\t/* 强制中文标点使用 CJK 字体渲染（修复破折号、省略号断裂与下沉问题） */', '+    unicode-range: U+2013-2015, U+2026; /* 覆盖 En Dash, Em Dash, Horizontal Bar, Ellipsis */', '+  \t-webkit-text-size-adjust: 100% !important; /* 或 none */', '+/* --- 通用排版组件：区块标题与页脚 --- */', '+/* 去标签化的区块标题，可挂载于任何 h1~h6 */']...
+Additions snippet (first 10):
++@import url('https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
++@import url('https://fonts.googleapis.cn/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,700;1,400;1,500;1,700&display=swap');
++
++	/* 强制中文标点使用 CJK 字体渲染（修复破折号、省略号断裂与下沉问题） */
++    src: local("PingFang SC"),
++         local("PingFangSC-Regular"),
++         local("Noto Sans CJK SC"),
++         local("Microsoft YaHei"),
++         local("微软雅黑");
++    unicode-range: U+2013-2015, U+2026; /* 覆盖 En Dash, Em Dash, Horizontal Bar, Ellipsis */
+
+[CSS v18 -> v19]
+Added lines: 2, Deleted lines: 4
+Additions snippet:
++	font-family: var(--font-mono);
++	}
+
+[CSS v19 -> v20]
+Added lines: 107, Deleted lines: 14
+Key comments added: ['+/*! PhotoSwipe main CSS by Dmytro Semenov | photoswipe.com */', '+\t/* 修复 Bear Blog 客户端 JS 替换日期文本造成的行内闪烁*/', '+    /* 在页面加载的前几十毫秒保持透明，让 JS 在「暗中」完成文本替换，然后再显示 */', '+\t/* 掩蔽动画的关键帧 */', '+    0%, 30% { opacity: 0; } /* 前 30% 的时间（约 90ms）保持不可见，给 JS 留出执行窗口 */']...
+Additions snippet (first 10):
++/*! PhotoSwipe main CSS by Dmytro Semenov | photoswipe.com */
++.pswp,.pswp:focus,.pswp__icn:focus{outline:0}.pswp,.pswp__button,.pswp__icn,.pswp__item,
++.pswp__scroll-wrap{overflow:hidden}
++.pswp{--pswp-bg:#000;--pswp-placeholder-bg:#222;--pswp-root-z-index:100000;
++  --pswp-preloader-color:rgba(79, 79, 79, 0.4);
++  --pswp-preloader-color-secondary:rgba(255, 255, 255, 0.9);
++  --pswp-icon-color:#fff;--pswp-icon-color-secondary:#4f4f4f;
++  --pswp-icon-stroke-color:#4f4f4f;--pswp-icon-stroke-width:2px;
++  --pswp-error-text-color:var(--pswp-icon-color);
++  position:fixed;top:0;left:0;width:100%;height:100%;z-index:var(--pswp-root-z-index);
+
+[CSS v20 -> v21]
+Added lines: 48, Deleted lines: 5
+Key comments added: ['+/* 🌟 Noto Serif 可变字体：通过 jsDelivr fontsource CDN 加载', '+   全球可用（含中国大陆节点），单文件覆盖 100–900 全部字重 */', '+    /* 正文字体：Noto Serif 优先（jsDelivr CDN），Optima 备用（macOS 本地），中文回退 PingFang / 微软雅黑 */', '+/* YouTube 嵌入 + 图注间距收紧 */', '+/* 🌟 行内代码与代码块分治：行内 code 收窄 padding，块级由 pre 接管 */']...
+Additions snippet (first 10):
++
++/* 🌟 Noto Serif 可变字体：通过 jsDelivr fontsource CDN 加载
++   全球可用（含中国大陆节点），单文件覆盖 100–900 全部字重 */
++@font-face {
++    font-family: 'Noto Serif';
++    font-style: normal;
++    font-display: swap;
++    font-weight: 100 900;
++    src: url(https://cdn.jsdelivr.net/fontsource/fonts/noto-serif:vf@latest/latin-wght-normal.woff2)
++	format('woff2-variations');
+
+[CSS v21 -> v22]
+Added lines: 13, Deleted lines: 5
+Key comments added: ['+/* 正文列表缩进：文字起始位置约两个汉字宽（浏览器默认约 40px，此处收窄） */']...
+Additions snippet:
++main iframe[src*="youtube"]:has(+ figcaption) {
++    margin-bottom: 0;
++}
++
++main iframe[src*="youtube"] + figcaption a {
++    color: inherit;
++}
++
++/* 正文列表缩进：文字起始位置约两个汉字宽（浏览器默认约 40px，此处收窄） */
++main ul,
+--- JS Changelog Analysis ---
+
+[JS v1 -> v2]
+Added lines: 369, Deleted lines: 43
+Additions snippet:
++// ════════════════════════════════════════════════════════════════
++//  1. 响应式导航栏
++// ════════════════════════════════════════════════════════════════
++(function () {
++    const nav    = document.querySelector('nav');
++    const header = document.querySelector('header');
++    if (!nav || !header) return;
++
++    const navLinks = Array.from(nav.querySelectorAll('p a'));
++    if (navLinks.length === 0) return;
++
++    const hamburger = document.createElement('button');
++    hamburger.className = 'nav-hamburger';
++    hamburger.setAttribute('aria-label', '展开菜单');
++    hamburger.textContent = '☰';
+
+[JS v2 -> v3]
+Added lines: 53, Deleted lines: 334
+Additions snippet:
++<script type="module">
++//  1. 响应式导航栏 (保留原有优秀逻辑)
++// ════════════════════════════════════════════════════════════════
++//  2. 工业级图片画廊 (基于 PhotoSwipe v5)
++// ════════════════════════════════════════════════════════════════
++import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js';
++    const images = Array.from(document.querySelectorAll('main img'));
++    if (images.length === 0) return;
++    // 步骤一：动态重构 DOM 结构，以符合 PhotoSwipe 的严格要求
++    images.forEach(img => {
++        // 防止由于路由变化等原因导致的重复包装
++        if (img.parentElement.tagName === 'A' && img.parentElement.classList.contains('pswp-gallery__item')) return;
++
++        const link = document.createElement('a');
++        link.href = img.src;
+
+[JS v3 -> v4]
+Added lines: 0, Deleted lines: 0
+
+[JS v4 -> v5]
+Added lines: 0, Deleted lines: 0
+
+[JS v5 -> v6]
+Added lines: 33, Deleted lines: 1
+Additions snippet:
++        padding: { top: 20, bottom: 20, left: 0, right: 0 }, // 安全边距
++
++// ════════════════════════════════════════════════════════════════
++//  3. 动态提取并注入具体时间 (Thoughts 页面专用)
++// ════════════════════════════════════════════════════════════════
++(function () {
++    // 仅捕获 thoughts 页面的时间节点，避免误伤其他页面
++    const timeNodes = document.querySelectorAll('.thoughts-stream ul li time');
++    if (timeNodes.length === 0) return;
++
++    timeNodes.forEach(timeNode => {
++        const datetimeStr = timeNode.getAttribute('datetime');
++        if (!datetimeStr) return;
++
++        // 解析时间字符串，浏览器会自动将其转换为访问者的本地时区时间
+
+[JS v6 -> v7]
+Added lines: 3, Deleted lines: 3
+Additions snippet:
++//  3. 动态提取并注入具体时间 (Notes 页面专用)
++    // 仅捕获 notes 页面的时间节点，避免误伤其他页面
++    const timeNodes = document.querySelectorAll('.notes-stream ul li time');
+
+[JS v7 -> v8]
+Added lines: 32, Deleted lines: 0
+Additions snippet:
++// 动态劫持并注入底部图注
++    lightbox.on('uiRegister', function() {
++        lightbox.pswp.ui.registerElement({
++            name: 'custom-caption',
++            order: 9, // 显示层级
++            isButton: false,
++            appendTo: 'wrapper',
++            html: '',
++            onInit: (el, pswp) => {
++                // 监听图片的切换事件
++                lightbox.pswp.on('change', () => {
++                    const currSlideElement = lightbox.pswp.currSlide.data.element;
++                    let captionHTML = '';
++                    if (currSlideElement) {
++                        // 优先寻找我们规范化使用的 figcaption
+
+[JS v8 -> v9]
+Added lines: 1, Deleted lines: 1
+Additions snippet:
++    const timeNodes = document.querySelectorAll('.notes ul li time, .gallery ul li time');
+
+[JS v9 -> v10]
+Added lines: 1, Deleted lines: 1
+Additions snippet:
++    const timeNodes = document.querySelectorAll('.notes ul li time');
+
+[JS v10 -> v11]
+Added lines: 20, Deleted lines: 1
+Additions snippet:
++    const timeNodes = document.querySelectorAll('.notes ul li time, .gallery ul li time');
++// ════════════════════════════════════════════════════════════════
++//  4. 外部链接新窗口打开 (全局)
++//     站内链接保持页内跳转，外部链接自动 target="_blank"。
++// ════════════════════════════════════════════════════════════════
++(function () {
++    const host = location.hostname;
++    document.querySelectorAll('main a[href]').forEach(a => {
++        // 跳过 PhotoSwipe 生成的图片链接（它们由灯箱接管）
++        if (a.classList.contains('pswp-gallery__item')) return;
++        try {
++            const url = new URL(a.href, location.origin);
++            if (url.hostname !== host) {
++                a.target = '_blank';
++                a.rel = 'noopener noreferrer';
+
+[JS v11 -> v12]
+Added lines: 11, Deleted lines: 8
+Additions snippet:
++import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js';
++
++    // 动态劫持并注入底部图注
++                        // 🌟 修复：figcaption 是 <p> 的兄弟节点，不是子节点
++                        // DOM 结构：<p> → <a.pswp-gallery__item> → <img>
++                        //           <figcaption>（紧跟 <p> 之后）
++                        const container = currSlideElement.parentElement;
++                        const nextEl = container.nextElementSibling;
++                        if (nextEl && nextEl.tagName === 'FIGCAPTION') {
++                            captionHTML = nextEl.innerHTML;
++</script>
+
+[JS v12 -> v13]
+Added lines: 84, Deleted lines: 2
+Additions snippet:
++
++// ════════════════════════════════════════════════════════════════
++//  4. YouTube 链接自动转嵌入播放器，支持两种写法：
++//    1) 裸贴 URL（纯文本）→ 自动获取视频标题
++//    2) [自定义文字](youtube-url) → 使用自定义文字
++//    底部 figcaption 显示可跳转标题，复用现有图注样式。
++// ════════════════════════════════════════════════════════════════
++(async function () {
++    const ytRegex = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]+)/;
++
++    // ── 收集所有需要转换的目标 ──
++    const targets = [];
++
++    // 情况一：Markdown 超链接 [文字](youtube-url)
++    document.querySelectorAll('main a[href]').forEach(a => {

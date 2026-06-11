@@ -1,0 +1,105 @@
+/* ==========================================================================
+   6. 图片与图注、脚注 (Images, Figcaption & footnote)
+   让页面级覆盖（Notes / Gallery 的 aspect-ratio、height 等）自然胜出。
+   ========================================================================== */
+main img {
+    cursor: zoom-in;
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: 1.2rem auto;
+}
+
+/* 竖版主图：全局通用 */
+img.hero-portrait {
+    display: block;
+    max-height: 500px;
+    width: auto;
+    margin: 1.2rem auto;  /* 上下与原本图片间距一致，左右居中 */
+}
+
+/* <figure> 基础重置：清除浏览器默认的 margin: 1em 40px */
+main figure {
+    margin: 0;
+}
+
+/* 正文顶层段落里的大图向两侧各拓宽 20px，突破 --width 限制 */
+main>p:has(:is(img, .pswp-gallery__item)) {
+    max-width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+/* <figure> 包裹的图片同样拓宽（由 Footer Script 动态生成） */
+main>figure:has(:is(img, .pswp-gallery__item)) {
+    max-width: calc(100% + 40px);
+    margin-left: -20px;
+    margin-right: -20px;
+}
+
+/* 引用、列表、脚注里的图片不拓宽 */
+main :is(blockquote, li, .footnotes) img {
+    max-width: 100%;
+    margin: 1.2rem auto;
+    margin-left: 0;
+    margin-right: 0;
+}
+
+/* 图注：居中、小字、弱化 */
+main figcaption {
+    display: block;
+    text-align: center;
+    font-size: 0.85em;
+    color: var(--text-color);
+    opacity: 0.7;
+    font-style: normal;
+    line-height: 1.5;
+    margin-top: 0.5rem;
+    margin-bottom: 1.6rem;
+}
+
+/* 图片 + 图注间距智能收紧：当 <p> 含图片且紧跟 <figcaption> 时自动贴合 */
+main p:has(img):has(+ figcaption) {
+    margin-bottom: 0;
+}
+
+main p:has(img):has(+ figcaption) img {
+    margin-bottom: 0;
+}
+
+main p:has(img + figcaption) img {
+    margin-bottom: 0;
+}
+
+/* 多图网格后的图注：网格内图片的 margin 被 !important 清零，
+   需要通过 figcaption 自身的 margin-top 补回间距 */
+main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2))+figcaption {
+    margin-top: 0.5rem;
+}
+
+/* 脚注整体排版：略小于正文，带一条分隔线 */
+.footnotes {
+    font-size: 0.85em;
+    line-height: 1.6;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+.footnotes::before {
+    content: "";
+    display: block;
+    width: 36%;
+    height: 1px;
+    margin: 0 0 0 1em;
+    /* 上 右 下 左：左邊對齊腳注文字 */
+    background-color: var(--border-color);
+}
+
+.footnotes ol {
+    padding-left: 2.5em;
+}
+
+.footnotes li {
+    margin-bottom: 0.4rem;
+}
+

@@ -1,0 +1,80 @@
+/* ==========================================================================
+   4. 导航栏 (Navigation)
+   桌面端：水平链接行。移动端（≤768px）：汉堡菜单 + 下拉面板。
+   DOM 由 Footer Script 动态生成。
+   ========================================================================== */
+nav {
+    margin: 0;
+    padding: 0;
+    flex: 0 0 auto;
+    font-family: var(--font-main);
+    font-weight: 500;
+}
+
+nav p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 8px 0;
+    white-space: nowrap;
+}
+
+nav p a {
+    margin-right: 8px;
+}
+
+/* --- 汉堡按钮（移动端显示，桌面端隐藏） --- */
+.nav-hamburger {
+    display: none;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 22px;
+    line-height: 1;
+    flex: 0 0 auto;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    border-radius: 6px;
+    transition: background-color 0.2s cubic-bezier(0.2, 0, 0.2, 1), transform 0.1s;
+}
+
+.nav-hamburger:active {
+    background-color: var(--border-color);
+    transform: scale(0.92);
+}
+
+/* --- 移动端下拉菜单 --- */
+.nav-mobile-menu {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: var(--background-color);
+    border-bottom: none;
+    padding: 4px 20px 10px;
+    z-index: 99;
+}
+
+.nav-mobile-menu.open {
+    display: flex;
+}
+
+.nav-mobile-menu a {
+    padding: 5px 0;
+    border-bottom: none;
+    color: var(--link-color);
+    font-family: var(--font-main);
+    font-size: 1em;
+}
+
+.nav-mobile-menu a:last-child {
+    border-bottom: none;
+}
+

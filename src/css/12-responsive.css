@@ -1,0 +1,47 @@
+/* ==========================================================================
+   12. 响应式 (Responsive · ≤768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+
+    /* 导航栏：隐藏水平链接，显示汉堡按钮 */
+    nav p {
+        display: none;
+    }
+
+    .nav-hamburger {
+        display: flex;
+    }
+
+    /* Notes：Grid 改为单列堆叠 */
+    .notes ul.blog-posts>li {
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+		padding-top: 1rem
+    }
+
+    .notes ul.blog-posts>li>* {
+        margin-top: 0;
+    }
+
+    .notes ul.blog-posts>li>span {
+        margin-bottom: 0;
+        flex-direction: row;
+        align-items: baseline;
+        gap: 0.5rem;
+    }
+
+    /* 为所有的日期容器在移动端上个双保险 */
+    ul.blog-posts>li>span,
+    .notes ul.blog-posts>li>span,
+    .gallery ul.blog-posts>li>span {
+        white-space: nowrap;
+        overflow: visible;
+    }
+
+    /* Gallery：图片区跨满两列，日期+标题仍保持同行 */
+    .gallery ul.blog-posts>li>div {
+        grid-column: 1 / -1;
+    }
+}
+

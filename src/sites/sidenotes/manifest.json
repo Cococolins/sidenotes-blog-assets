@@ -1,0 +1,21 @@
+{
+  "css": [
+    "src/css/00-vendor-photoswipe.css",
+    "src/css/01-tokens.css",
+    "src/css/02-base.css",
+    "src/css/03-layout.css",
+    "src/css/04-navigation.css",
+    "src/css/05-post-list.css",
+    "src/css/06-media.css",
+    "src/css/07-image-grid.css",
+    "src/css/07b-consecutive-photo-paragraphs.css",
+    "src/css/08-notes-feed.css",
+    "src/css/09-gallery-feed.css",
+    "src/css/10-plugins.css",
+    "src/css/11-details.css",
+    "src/css/12-responsive.css",
+    "src/css/13-enhancements.css"
+  ],
+  "header": "src/header.html",
+  "footer": "src/sites/sidenotes/footer.html"
+}

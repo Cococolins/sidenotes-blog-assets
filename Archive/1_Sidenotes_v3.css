@@ -1,0 +1,282 @@
+/* 引入基础字体与 PhotoSwipe 核心样式 */
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@700;900&family=Noto+Serif+SC:wght@400;500;700&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.css');
+
+:root {
+    --width: 620px;
+    --font-main: 'Noto Sans SC', -apple-system, sans-serif;
+    --font-secondary: 'Noto Serif SC', serif;
+    --font-scale: 1em;
+    --background-color: #fff;
+    --heading-color: #222;
+    --text-color: #444;
+    --link-color: #3273dc;
+    --visited-color: #8b6fcb;
+    --code-background-color: #F7F7F7;
+    --code-color: #222;
+    --blockquote-color: #222;
+    --border-color: rgba(0, 0, 0, 0.12); /* 替代原本模糊的 color-mix */
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background-color: #01242e;
+        --heading-color: #eee;
+        --text-color: #ddd;
+        --link-color: #8cc2dd;
+        --visited-color: #8b6fcb;
+        --code-background-color: #000;
+        --code-color: #ddd;
+        --blockquote-color: #ccc;
+        --border-color: rgba(255, 255, 255, 0.15); /* 暗色模式下的清晰边界 */
+    }
+}
+
+body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    text-align: left;
+    background-color: var(--background-color);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.7;
+    color: var(--text-color);
+    font-weight: 500; 
+}
+
+header {
+    position: sticky;
+    top: 0;
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 0 20px;
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0 16px;
+    min-height: 52px;
+}
+
+header .title {
+    flex: 1 1 auto;
+    text-decoration: none;
+}
+
+header .title h1 {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    font-family: var(--font-secondary);
+    color: var(--heading-color);
+    white-space: nowrap;
+    margin: 0;
+    line-height: 1.1;
+}
+
+header .title h1::after {
+    content: " / 记录即反抗";
+    font-family: var(--font-secondary);
+  	font-size: 0.9em;
+    color: var(--text-color);
+    white-space: nowrap;
+    margin-left: 0.5em;
+    font-weight: 400; 
+    opacity: 0.6;
+}
+
+nav {
+    margin: 0;
+    padding: 0;
+    flex: 0 0 auto;
+    font-family: system-ui, -apple-system, sans-serif;
+    font-weight: 400;
+}
+
+nav p {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 8px 0;
+    white-space: nowrap;
+}
+
+nav p a {
+    margin-right: 8px;
+}
+
+.nav-hamburger {
+    display: none; 
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: var(--text-color);
+    font-size: 22px; 
+    line-height: 1;
+    flex: 0 0 auto;
+
+    /* 核心修正 1：剥夺字符宽度控制权，设定死容器的宽高，强制形成一个正方形 */
+    width: 36px;
+    height: 36px;
+    padding: 0;
+
+    /* 核心修正 2：为内部字符准备 Flex 居中环境（在媒体查询中被激活） */
+    align-items: center;
+    justify-content: center;
+
+    /* 核心修正 3：干掉 iOS/Android 原生丑陋的灰色点击高光，换用优雅的背景反馈 */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+    border-radius: 6px;
+    transition: background-color 0.2s cubic-bezier(0.2, 0, 0.2, 1), transform 0.1s;
+}
+
+.nav-hamburger:active {
+    background-color: var(--border-color); 
+    transform: scale(0.92); 
+}
+
+.nav-mobile-menu {
+    display: none;
+    position: fixed;
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    background-color: var(--background-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 4px 20px 10px;
+    z-index: 99;
+}
+
+.nav-mobile-menu.open {
+    display: flex;
+}
+
+.nav-mobile-menu a {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--link-color);
+    text-decoration: none;
+    font-family: system-ui, -apple-system, sans-serif; 
+    font-weight: 400; 
+    font-size: 0.9em;
+}
+
+.nav-mobile-menu a:last-child {
+    border-bottom: none;
+}
+
+/* 手机端（≤ 540px）：隐藏横排链接，显示汉堡按钮 */
+@media (max-width: 540px) {
+    nav p {
+        display: none;
+    }
+    .nav-hamburger {
+        display: flex; /* 关键点：激活 Flex 布局，让里面的字符绝对居中 */
+    }
+}
+
+blockquote {
+    border-left: 3px solid #4B7F52;
+    color: var(--blockquote-color);
+    padding: 0 15px;
+    margin-left: 0;
+    margin-right: 0;
+    font-family: var(--font-secondary);
+    font-style: normal;
+    background-color: var(--code-background-color);
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+}
+
+h1 {
+    font-size: 1.6em;
+    margin-top: 20px;
+}
+
+a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+strong, b { color: var(--heading-color); }
+button { margin: 0; cursor: pointer; }
+
+time {
+    font-family: var(--font-secondary);
+    font-size: 15px;
+}
+
+main { line-height: 1.6; }
+table { width: 100%; }
+hr { border: 0; border-top: 1px dashed; }
+
+/* 调整了图片的鼠标样式，提示可交互 */
+img {
+    max-width: 100%;
+    display: block;
+    margin: 0.2em auto;
+}
+
+main img {
+    cursor: zoom-in;
+}
+
+code {
+    font-family: monospace;
+    padding: 2px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+}
+
+footer {
+    font-size: 0;
+    text-align: center;
+}
+
+footer::after {
+    content: "© 2026 Cococolin";
+    font-size: 15px;
+    color: var(--text-color);
+    display: block;
+    text-align: center;
+    padding: 15px 0;
+}
+
+.inline { width: auto !important; }
+
+.highlight, .code {
+    padding: 1px 15px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+}
+
+ul.blog-posts {
+    list-style-type: none;
+    padding: unset;
+}
+
+ul.blog-posts li { display: flex; }
+ul.blog-posts li span { flex: 0 0 130px; }
+ul.blog-posts li a:visited { color: var(--visited-color); }
+
+.netease-mini-player { height: 100px; }
+.netease-mini-player iframe { width: 100%; height: 100px; }

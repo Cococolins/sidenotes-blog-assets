@@ -1,0 +1,84 @@
+/* ==========================================================================
+   3. 页面骨架 (Layout: Header & Footer)
+   ========================================================================== */
+header {
+    position: sticky;
+    top: 0;
+    margin-top: -20px;
+    margin-left: -20px;
+    margin-right: -20px;
+    padding: 0 20px;
+    background-color: var(--background-color);
+    border-bottom: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    gap: 0 16px;
+    min-height: 52px;
+    /* 滚动隐藏过渡（配合 Headroom.js）：cubic-bezier 缓动避免线性带来的「弹弓感」 */
+    will-change: transform;
+    transition: transform 250ms cubic-bezier(0.215, 0.610, 0.355, 1.000);
+}
+
+/* --- Headroom.js 状态类 ---
+   由 Footer Script 中的 Headroom 实例在滚动时动态切换。
+   .headroom            初始挂载（library 自动添加）
+   .headroom--pinned    向上滚动 → 显示
+   .headroom--unpinned  向下滚动 → 隐藏（向上平移自身高度） */
+header.headroom--unpinned {
+    transform: translateY(-100%);
+}
+
+header.headroom--pinned {
+    transform: translateY(0);
+}
+
+/* 尊重用户的「减少动效」系统偏好：保留隐藏/显示行为，但去掉滑动过渡 */
+@media (prefers-reduced-motion: reduce) {
+    header {
+        transition: none;
+    }
+}
+
+header .title {
+    flex: 1 1 auto;
+    text-decoration: none;
+}
+
+header .title h1 {
+    display: flex;
+    align-items: center;
+    font-size: 1.2em;
+    font-family: var(--font-main);
+    color: var(--heading-color);
+    white-space: nowrap;
+    margin: 0;
+    line-height: 1.1;
+}
+
+/* 副标题：真实 DOM，由 Footer Script 动态注入 */
+.site-tagline {
+    font-family: var(--font-main);
+    font-size: 0.9em;
+    color: var(--text-color);
+    white-space: nowrap;
+    margin-left: 0.5em;
+    font-weight: 400;
+    opacity: 0.6;
+}
+
+/* 版权信息：同样用伪元素生成，footer 原生内容清零 */
+footer {
+    font-size: 0;
+    text-align: center;
+}
+
+footer::after {
+    content: "© 2026 Cococolin";
+    font-size: 15px;
+    color: var(--text-color);
+    display: block;
+    text-align: center;
+    padding: 15px 0;
+}
+

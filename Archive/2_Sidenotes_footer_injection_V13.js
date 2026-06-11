@@ -1,0 +1,279 @@
+<script type="module">
+import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js';
+
+// ════════════════════════════════════════════════════════════════
+//  1. 响应式导航栏 (保留原有优秀逻辑)
+// ════════════════════════════════════════════════════════════════
+(function () {
+    const nav    = document.querySelector('nav');
+    const header = document.querySelector('header');
+    if (!nav || !header) return;
+
+    const navLinks = Array.from(nav.querySelectorAll('p a'));
+    if (navLinks.length === 0) return;
+
+    const hamburger = document.createElement('button');
+    hamburger.className = 'nav-hamburger';
+    hamburger.setAttribute('aria-label', '展开菜单');
+    hamburger.textContent = '☰';
+    nav.appendChild(hamburger);
+
+    const mobileMenu = document.createElement('div');
+    mobileMenu.className = 'nav-mobile-menu';
+    navLinks.forEach(a => {
+        const link = document.createElement('a');
+        link.href = a.href;
+        link.textContent = a.textContent;
+        mobileMenu.appendChild(link);
+    });
+    document.body.appendChild(mobileMenu);
+
+    function positionMenu() {
+        const rect = header.getBoundingClientRect();
+        mobileMenu.style.top   = rect.bottom + 'px';
+        mobileMenu.style.left  = rect.left   + 'px';
+        mobileMenu.style.width = rect.width  + 'px';
+    }
+
+    hamburger.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = mobileMenu.classList.toggle('open');
+        hamburger.textContent = isOpen ? '✕' : '☰';
+        if (isOpen) positionMenu();
+    });
+    document.addEventListener('click', () => {
+        mobileMenu.classList.remove('open');
+        hamburger.textContent = '☰';
+    });
+})();
+
+// ════════════════════════════════════════════════════════════════
+//  2. 工业级图片画廊 (基于 PhotoSwipe v5)
+// ════════════════════════════════════════════════════════════════
+(function () {
+    const images = Array.from(document.querySelectorAll('main img'));
+    if (images.length === 0) return;
+
+    // 步骤一：动态重构 DOM 结构，以符合 PhotoSwipe 的严格要求
+    images.forEach(img => {
+        // 防止由于路由变化等原因导致的重复包装
+        if (img.parentElement.tagName === 'A' && img.parentElement.classList.contains('pswp-gallery__item')) return;
+
+        const link = document.createElement('a');
+        link.href = img.src;
+        link.className = 'pswp-gallery__item';
+        link.target = '_blank';
+        link.setAttribute('data-cropped', 'true'); // 优化点击动画的起点
+        
+        // 赋予默认的后备尺寸
+        link.setAttribute('data-pswp-width', img.naturalWidth || 1600);
+        link.setAttribute('data-pswp-height', img.naturalHeight || 1200);
+
+        // 图片加载完毕后，获取最真实的物理尺寸以保证动画的完美映射
+        if (!img.complete) {
+            img.onload = () => {
+                link.setAttribute('data-pswp-width', img.naturalWidth);
+                link.setAttribute('data-pswp-height', img.naturalHeight);
+            };
+        }
+
+        // 插入到 DOM 中
+        img.parentNode.insertBefore(link, img);
+        link.appendChild(img);
+    });
+
+    // 步骤二：按父级元素进行自动分组（还原你原本「同段落图片左右滑动」的设计意图）
+    const groups = new Map();
+    document.querySelectorAll('main .pswp-gallery__item').forEach(item => {
+        const parent = item.parentElement;
+        if (!groups.has(parent)) groups.set(parent, []);
+        groups.get(parent).push(item);
+    });
+
+    groups.forEach((items, parent) => {
+        parent.classList.add('pswp-gallery');
+    });
+
+    // 步骤三：引擎初始化与物理参数设置
+    const lightbox = new PhotoSwipeLightbox({
+        gallery: '.pswp-gallery',
+        children: '.pswp-gallery__item',
+        // 动态加载核心模块，避免首屏阻塞
+        pswpModule: () => import('https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.esm.min.js'),
+        bgOpacity: 0.95, // 沉浸式暗化背景
+        spacing: 0.1,    // 图片间距
+        padding: { top: 20, bottom: 20, left: 0, right: 0 }, // 安全边距
+        errorMsg: '图片加载失败'
+    });
+
+    // 动态劫持并注入底部图注
+    lightbox.on('uiRegister', function() {
+        lightbox.pswp.ui.registerElement({
+            name: 'custom-caption',
+            order: 9, // 显示层级
+            isButton: false,
+            appendTo: 'wrapper',
+            html: '',
+            onInit: (el, pswp) => {
+                // 监听图片的切换事件
+                lightbox.pswp.on('change', () => {
+                    const currSlideElement = lightbox.pswp.currSlide.data.element;
+                    let captionHTML = '';
+                    if (currSlideElement) {
+                        // 🌟 修复：figcaption 是 <p> 的兄弟节点，不是子节点
+                        // DOM 结构：<p> → <a.pswp-gallery__item> → <img>
+                        //           <figcaption>（紧跟 <p> 之后）
+                        const container = currSlideElement.parentElement;
+                        const nextEl = container.nextElementSibling;
+                        if (nextEl && nextEl.tagName === 'FIGCAPTION') {
+                            captionHTML = nextEl.innerHTML;
+                        } else {
+                            // 退一步寻找普通图片的 alt 属性
+                            const img = currSlideElement.querySelector('img');
+                            if (img && img.alt) {
+                                captionHTML = img.alt;
+                            }
+                        }
+                    }
+                    el.innerHTML = captionHTML || '';
+                });
+            }
+        });
+    });
+
+    lightbox.init();
+})();
+
+// ════════════════════════════════════════════════════════════════
+//  3. 动态提取并注入具体时间 (Notes 页面专用)
+// ════════════════════════════════════════════════════════════════
+(function () {
+    // 仅捕获 notes 页面的时间节点，避免误伤其他页面
+    const timeNodes = document.querySelectorAll('.notes ul li time, .gallery ul li time');
+    if (timeNodes.length === 0) return;
+
+    timeNodes.forEach(timeNode => {
+        const datetimeStr = timeNode.getAttribute('datetime');
+        if (!datetimeStr) return;
+
+        // 解析时间字符串，浏览器会自动将其转换为访问者的本地时区时间
+        const dateObj = new Date(datetimeStr);
+        const hours = dateObj.getHours().toString().padStart(2, '0');
+        const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+        const timeStr = `${hours}:${minutes}`;
+
+        // 创建用于显示精确时间的节点
+        const timeSpan = document.createElement('span');
+        timeSpan.className = 'exact-time';
+        timeSpan.textContent = timeStr;
+
+        // 寻找外层的日期容器 (即原本设定为 grid-column: 1 / 2 的 span)
+        const dateContainer = timeNode.closest('span');
+        if (dateContainer) {
+            dateContainer.appendChild(timeSpan);
+        }
+    });
+})();
+
+
+// ════════════════════════════════════════════════════════════════
+//  4. YouTube 链接自动转嵌入播放器，支持两种写法：
+//    1) 裸贴 URL（纯文本）→ 自动获取视频标题
+//    2) [自定义文字](youtube-url) → 使用自定义文字
+//    底部 figcaption 显示可跳转标题，复用现有图注样式。
+// ════════════════════════════════════════════════════════════════
+(async function () {
+    const ytRegex = /(?:youtube\.com\/(?:watch\?v=|embed\/|shorts\/)|youtu\.be\/)([\w-]+)/;
+
+    // ── 收集所有需要转换的目标 ──
+    const targets = [];
+
+    // 情况一：Markdown 超链接 [文字](youtube-url)
+    document.querySelectorAll('main a[href]').forEach(a => {
+        if (!ytRegex.test(a.href)) return;
+        const parent = a.parentElement;
+        if (!parent || parent.tagName !== 'P') return;
+        if (parent.textContent.trim() !== a.textContent.trim()) return;
+
+        const match = a.href.match(ytRegex);
+        const text = a.textContent.trim();
+        const isBare = text === a.href ||
+                        text === a.href.replace(/^https?:\/\//, '') ||
+                        ytRegex.test(text);
+
+        targets.push({ el: parent, videoId: match[1], isBare, customText: isBare ? null : text });
+    });
+
+    // 情况二：裸贴纯文本 URL（Bear Blog 未自动转为 <a>）
+    document.querySelectorAll('main p').forEach(p => {
+        // 跳过已被情况一捕获的段落，或含有其他内容的段落
+        if (targets.some(t => t.el === p)) return;
+        if (p.children.length > 0) return; // 含子元素说明不是纯文本段落
+
+        const text = p.textContent.trim();
+        const match = text.match(ytRegex);
+        if (!match) return;
+        // 确保整段只有一个 URL，不是夹在正文中间
+        if (text.replace(match[0], '').replace(/^https?:\/\/(www\.)?/, '').replace(/[?&].*$/, '').length > 5) return;
+
+        targets.push({ el: p, videoId: match[1], isBare: true, customText: null });
+    });
+
+    if (targets.length === 0) return;
+
+    // ── 逐个替换 ──
+    for (const { el, videoId, isBare, customText } of targets) {
+        let captionText = customText;
+
+        if (isBare) {
+            try {
+                const resp = await fetch(
+                    `https://www.youtube.com/oembed?url=https://www.youtube.com/watch?v=${videoId}&format=json`
+                );
+                if (resp.ok) {
+                    const data = await resp.json();
+                    captionText = data.title;
+                }
+            } catch { /* 网络失败时静默降级 */ }
+            captionText = captionText || '在 YouTube 上观看';
+        }
+
+        const iframe = document.createElement('iframe');
+        iframe.src = `https://www.youtube.com/embed/${videoId}`;
+        iframe.loading = 'lazy';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
+        iframe.allowFullscreen = true;
+
+        const caption = document.createElement('figcaption');
+        const captionLink = document.createElement('a');
+        captionLink.href = `https://www.youtube.com/watch?v=${videoId}`;
+        captionLink.target = '_blank';
+        captionLink.rel = 'noopener noreferrer';
+        captionLink.textContent = captionText;
+        caption.appendChild(captionLink);
+
+        el.replaceWith(iframe, caption);
+    }
+})();
+
+
+// ════════════════════════════════════════════════════════════════
+//  5. 外部链接新窗口打开 (全局)
+//     站内链接保持页内跳转，外部链接自动 target="_blank"。
+// ════════════════════════════════════════════════════════════════
+(function () {
+    const host = location.hostname;
+    document.querySelectorAll('main a[href]').forEach(a => {
+        // 跳过 PhotoSwipe 生成的图片链接（它们由灯箱接管）
+        if (a.classList.contains('pswp-gallery__item')) return;
+        try {
+            const url = new URL(a.href, location.origin);
+            if (url.hostname !== host) {
+                a.target = '_blank';
+                a.rel = 'noopener noreferrer';
+            }
+        } catch {}
+    });
+})();
+
+</script>
