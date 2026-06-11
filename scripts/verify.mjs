@@ -95,6 +95,13 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     } else {
       console.log(`PASS ${site} external JS includes clickable excerpt behavior`);
     }
+
+    if (!js.includes("post-excerpt-link") || !js.includes("excerptLink.href = link.href")) {
+      failed = true;
+      console.error(`FAIL ${site} external JS wraps hydrated excerpts as one link`);
+    } else {
+      console.log(`PASS ${site} external JS wraps hydrated excerpts as one link`);
+    }
   }
 
   if (!js.includes("BlogApp.init();") || !js.includes("Plugin name: Editor shortcut")) {
@@ -123,6 +130,9 @@ for (const site of ["sidenotes", "daily", "tt"]) {
   if (site === "daily") {
     const dailyHomeChecks = [
       ["title hover arrow rule", ".homelist ul.blog-posts>li>span + a::after"],
+      ["title link excludes PhotoSwipe wrapper", ".homelist ul.blog-posts>li>span + a:not(.pswp-gallery__item)"],
+      ["PhotoSwipe home image wrapper rule", ".homelist ul.blog-posts>li>a.pswp-gallery__item"],
+      ["whole excerpt link rule", ".homelist ul.blog-posts>li>.post-excerpt-link"],
       ["clickable excerpt cursor rule", ".homelist ul.blog-posts>li>p"],
     ];
     for (const [label, needle] of dailyHomeChecks) {

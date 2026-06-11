@@ -888,7 +888,7 @@ ul.blog-posts>li>* {
   	align-items: flex-start;
 }
 
-.homelist ul.blog-posts>li>a {
+.homelist ul.blog-posts>li>span + a:not(.pswp-gallery__item) {
     display: inline-flex;
     align-items: baseline;
     width: max-content;
@@ -921,6 +921,32 @@ ul.blog-posts > li > p {
 
 .homelist ul.blog-posts>li>p:hover {
     color: var(--link-hover-color);
+}
+
+.homelist ul.blog-posts>li>.post-excerpt-link {
+    display: block;
+    color: inherit;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.homelist ul.blog-posts>li>.post-excerpt-link:hover {
+    color: var(--link-hover-color);
+    text-decoration: none;
+}
+
+.homelist ul.blog-posts>li>.post-excerpt-link>p {
+    margin-top: 0.35rem;
+}
+
+.homelist ul.blog-posts>li>.post-excerpt-link>p:last-child {
+    margin-bottom: 0;
+}
+
+.homelist ul.blog-posts>li>a.pswp-gallery__item {
+    display: block;
+    width: 100%;
+    max-width: 100%;
 }
 
 .homelist ul.blog-posts>li {
@@ -1293,7 +1319,7 @@ details> :not(summary) {
     }
   
 	/* 第一层：标题 */
-    .homelist ul.blog-posts>li>a {
+    .homelist ul.blog-posts>li>span + a:not(.pswp-gallery__item) {
         order: -1; /* 核心魔法：负数 order 会将其提取到最上方 */
         margin-bottom: 0.2rem; /* 标题与下方时间的间隙，可微调 */
     }
@@ -1308,12 +1334,12 @@ details> :not(summary) {
         overflow: visible;
     }
 	/* 第三层：正文摘录 */
-   .homelist ul.blog-posts>li>p {
+   .homelist ul.blog-posts>li>p,
+   .homelist ul.blog-posts>li>.post-excerpt-link {
         order: 1; /* 确保稳居底部 */
         margin-top: 0;
     }
 }
-
 /* ==========================================================================
    11. 体验增强 (UX Enhancements)
    ========================================================================== */

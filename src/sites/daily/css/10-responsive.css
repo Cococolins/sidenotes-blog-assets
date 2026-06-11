@@ -20,7 +20,7 @@
     }
   
 	/* 第一层：标题 */
-    .homelist ul.blog-posts>li>a {
+    .homelist ul.blog-posts>li>span + a:not(.pswp-gallery__item) {
         order: -1; /* 核心魔法：负数 order 会将其提取到最上方 */
         margin-bottom: 0.2rem; /* 标题与下方时间的间隙，可微调 */
     }
@@ -35,9 +35,9 @@
         overflow: visible;
     }
 	/* 第三层：正文摘录 */
-   .homelist ul.blog-posts>li>p {
+   .homelist ul.blog-posts>li>p,
+   .homelist ul.blog-posts>li>.post-excerpt-link {
         order: 1; /* 确保稳居底部 */
         margin-top: 0;
     }
 }
-

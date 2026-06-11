@@ -362,14 +362,19 @@ const SITE_CONFIG = __SITE_CONFIG__;
             const excerpt = this.extractPostExcerpt(doc, config);
             if (!excerpt.paragraphs.length) return;
 
-            const fragment = document.createDocumentFragment();
+            const excerptLink = document.createElement('a');
+            excerptLink.className = 'post-excerpt-link';
+            excerptLink.href = link.href;
             excerpt.paragraphs.forEach((paragraph, index) => {
                 const cloned = paragraph.cloneNode(true);
                 cloned.classList.add('post-excerpt');
+                cloned.querySelectorAll('a').forEach(nestedLink => {
+                    nestedLink.replaceWith(nestedLink.textContent);
+                });
                 if (excerpt.truncated && index === excerpt.paragraphs.length - 1) {
                     this.appendEllipsis(cloned);
                 }
-                fragment.appendChild(cloned);
+                excerptLink.appendChild(cloned);
             });
 
             if (config.overrideExistingDescription) {
@@ -378,9 +383,9 @@ const SITE_CONFIG = __SITE_CONFIG__;
 
             const media = item.querySelector(':scope > img, :scope > a.pswp-gallery__item');
             if (media) {
-                item.insertBefore(fragment, media);
+                item.insertBefore(excerptLink, media);
             } else {
-                item.appendChild(fragment);
+                item.appendChild(excerptLink);
             }
         } catch { }
     },
