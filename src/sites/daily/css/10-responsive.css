@@ -1,0 +1,43 @@
+/* ==========================================================================
+   10. 响应式 (Responsive · ≤768px)
+   ========================================================================== */
+@media screen and (max-width: 768px) {
+
+    /* 导航栏：隐藏水平链接，显示汉堡按钮 */
+    nav p {
+        display: none;
+    }
+    .nav-hamburger {
+        display: flex;
+    }
+
+    /* Notes：Grid 改为单列堆叠 */
+    .homelist ul.blog-posts>li {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      	padding-top: 1rem
+    }
+  
+	/* 第一层：标题 */
+    .homelist ul.blog-posts>li>a {
+        order: -1; /* 核心魔法：负数 order 会将其提取到最上方 */
+        margin-bottom: 0.2rem; /* 标题与下方时间的间隙，可微调 */
+    }
+	/* 第二层：日期与时间 */
+    .homelist ul.blog-posts>li>span {
+        order: 0; /* 保持默认，排在标题之后 */
+        margin-bottom: 0.8rem; /* 时间与下方正文的间隙，可微调 */
+        flex-direction: row;
+        align-items: baseline;
+        gap: 0.5rem;
+        white-space: nowrap;
+        overflow: visible;
+    }
+	/* 第三层：正文摘录 */
+   .homelist ul.blog-posts>li>p {
+        order: 1; /* 确保稳居底部 */
+        margin-top: 0;
+    }
+}
+

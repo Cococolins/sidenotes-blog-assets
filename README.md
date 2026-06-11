@@ -17,23 +17,41 @@
 
 ## 日常改哪里
 
-主站 `sidenotes.cc` 的 CSS 已拆成模块：
+CSS 按「共享范围」拆分。
+
+改这里会影响三个站：
 
 ```text
-src/css/01-tokens.css                    # 字体、颜色、宽度等设计变量
-src/css/02-base.css                      # 基础排版、正文、链接、斜体定制
-src/css/03-layout.css                    # header / footer / 页面骨架
-src/css/04-navigation.css                # 导航栏和移动端菜单样式
-src/css/05-post-list.css                 # 普通文章列表
-src/css/06-media.css                     # 图片、图注、脚注
-src/css/07-image-grid.css                # 多图网格
-src/css/07b-consecutive-photo-paragraphs.css
-src/css/08-notes-feed.css                # notes 信息流
-src/css/09-gallery-feed.css              # gallery 信息流
-src/css/10-plugins.css                   # PhotoSwipe / 网易云等插件样式
-src/css/11-details.css                   # details / summary
-src/css/12-responsive.css                # 移动端
-src/css/13-enhancements.css              # 小体验增强
+src/shared/css/all/00-vendor-photoswipe.css
+src/shared/css/all/03-layout.css
+src/shared/css/all/04-navigation.css
+src/shared/css/all/06-media.css
+src/shared/css/all/07-image-grid.css
+src/shared/css/all/07b-consecutive-photo-paragraphs.css
+```
+
+改这里会影响 `sidenotes.cc` 和 `tt.sidenotes.cc`：
+
+```text
+src/shared/css/sidenotes-tt/05-post-list.css
+src/shared/css/sidenotes-tt/09-gallery-feed.css
+src/shared/css/sidenotes-tt/10-plugins.css
+src/shared/css/sidenotes-tt/11-details.css
+```
+
+改这里会影响 `daily.sidenotes.cc` 和 `tt.sidenotes.cc`：
+
+```text
+src/shared/css/daily-tt/01-tokens.css
+src/shared/css/daily-tt/02-base.css
+```
+
+只改单个站时，到对应站点目录：
+
+```text
+src/sites/sidenotes/css/
+src/sites/daily/css/
+src/sites/tt/css/
 ```
 
 脚本改这里：
@@ -42,13 +60,6 @@ src/css/13-enhancements.css              # 小体验增强
 src/js/sidenotes.js
 src/js/daily.js
 src/js/tt.js
-```
-
-`daily` 和 `tt` 的 CSS 目前还没有拆模块，先保留为：
-
-```text
-src/sites/daily/legacy.css
-src/sites/tt/legacy.css
 ```
 
 不要手动改 `dist/`。改完 `src/` 后运行 `npm run build`，确认没问题再发布。
@@ -113,13 +124,7 @@ npm run release:major -- "Release note"
 
 ## 当前策略
 
-主站 `sidenotes` 的 CSS 已按现有章节拆进 `src/css/`，并由 `src/sites/sidenotes/manifest.json` 组合生成。
-
-`daily` 和 `tt` 目前先以线上快照作为 legacy source 接入构建，避免在第一次入库时误改行为。后续可以逐步把它们改成：
-
-```text
-共享基础模块 + 站点专属覆盖
-```
+三个站点都由 `src/sites/<site>/manifest.json` 组合生成。shared 模块优先从当前线上 CSS 完全一致的 section 提取；确认属于漏同步的通用 bugfix 时，也会提升到 shared。
 
 每次发布前先跑：
 

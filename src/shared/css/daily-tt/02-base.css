@@ -1,0 +1,253 @@
+/* ==========================================================================
+   2. 全局与基础版式 (Reset & Typography)
+   ========================================================================== */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
+}
+
+body {
+    font-family: var(--font-secondary);
+    font-size: var(--font-scale);
+    margin: auto;
+    padding: 20px;
+    max-width: var(--width);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.7;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-autospace: ideograph-alpha ideograph-numeric;
+    text-spacing-trim: normal;
+    font-feature-settings: "chws" 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100% !important;
+    text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-main);
+    color: var(--heading-color);
+}
+
+h1 {
+    font-size: 1.5em;
+    margin-top: 1rem;
+}
+
+h2 {
+    font-size: 1.3em;
+    margin-top: 2.5rem;
+}
+
+h3 {
+    font-size: 1.05em;
+    margin-top: 1rem;
+}
+
+/* --- 通用排版组件：区块标题与页脚 --- */
+
+/* 去标签化的区块标题，可挂载于任何 h1~h6 */
+.section-title {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
+
+.section-title span {
+    font-size: 0.9em;
+    opacity: 0.6;
+    font-weight: 400;
+    margin-left: 0.5em;
+}
+
+/* 列表下方的统一页脚与「>> more」链接 */
+.section-footer {
+    text-align: right;
+    margin-bottom: 1.5rem;
+}
+
+.section-footer a {
+    font-size: 0.85em;
+    color: #999;
+    font-family: var(--font-secondary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.section-footer a:hover {
+    color: var(--link-color);
+}
+
+a {
+    color: var(--link-color);
+    cursor: pointer;
+    text-decoration-line: none;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 1px;
+    /* 默认稍贴近文字 */
+    text-decoration-color: transparent;
+    /* 先藏起来 */
+    transition:
+        color 0.2s ease,
+        text-decoration-color 0.2s ease,
+        text-underline-offset 0.2s ease;
+    /* 让 offset 也有过渡 */
+}
+
+a:hover {
+    color: var(--link-hover-color);
+    /* hover 颜色 */
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+    /* 显示下划线 */
+    text-underline-offset: 4px;
+    /* 比默认再往下 2px */
+}
+
+mark {
+    background-color: transparent;
+    color: inherit;
+    -webkit-text-emphasis-style: dot;
+    text-emphasis-style: dot;
+    -webkit-text-emphasis-position: under right;
+    text-emphasis-position: under right;
+    -webkit-text-emphasis-color: var(--link-color);
+    text-emphasis-color: var(--link-color);
+    line-height: 0;
+}
+
+/* 斜体定制：中文斜体用楷体，英文斜体继承 Noto Serif italic */
+/* 建立楷体白名单，并将其伪装成斜体供浏览器调用 */
+@font-face {
+    font-family: 'CustomCJKItalic';
+    src: local('STKaiti'),
+        local('KaiTi'),
+        local('BiauKai');
+    unicode-range: U+4E00-9FFF, U+3000-303F, U+FF00-FFEF;
+    font-style: italic;
+}
+
+em,
+i {
+    font-family: 'CustomCJKItalic', var(--font-secondary);
+    font-style: italic;
+    font-synthesis: none;
+}
+
+/* 修复 Bear Blog 客户端 JS 替换日期文本造成的行内闪烁*/
+time {
+    font-family: var(--font-mono);
+    font-style: normal;
+    font-variant-numeric: tabular-nums;
+    /* 默认隐藏，等待 JS 解析确实完成后赋予 .loaded 类再显示 */
+    opacity: 0;
+    transition: opacity 0.2s ease-out;
+}
+
+time.loaded {
+    opacity: 1;
+}
+
+hr {
+    border: 0;
+    width: 80%;
+    height: 1px;
+    margin: 3.3rem auto;
+    background-color: var(--border-color);
+}
+
+table {
+    width: 100%;
+}
+
+button {
+    margin: 0;
+    cursor: pointer;
+}
+
+main {
+    line-height: 1.6;
+}
+
+/* YouTube / 视频嵌入自适应 */
+main iframe[src*="youtube"] {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border: none;
+    display: block;
+    margin: 1.2rem auto;
+}
+
+main iframe[src*="youtube"]:has(+ figcaption) {
+    margin-bottom: 0;
+}
+
+main iframe[src*="youtube"]+figcaption a {
+    color: inherit;
+}
+
+sup,
+sub {
+    line-height: 0;
+}
+
+code {
+    font-family: var(--font-mono);
+    padding: 2px 5px;
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    font-size: 0.85em;
+}
+
+pre,
+.highlight,
+.code {
+    background-color: var(--code-background-color);
+    color: var(--code-color);
+    border-radius: 3px;
+    padding: 2px 15px;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    overflow-x: auto;
+    font-size: 0.85em;
+
+}
+
+/* pre 内的 code 重置行内样式，避免双重背景与 padding */
+pre code {
+    padding: 0;
+    background: none;
+}
+
+blockquote {
+    border-left: 1px solid var(--border-color);
+    color: var(--blockquote-color);
+    font-family: var(--font-secondary);
+    padding-left: 12px;
+    margin: 18px;
+}
+
+/* 正文列表缩进：文字起始位置约两个汉字宽（浏览器默认约 40px） */
+main ul,
+main ol {
+    padding-left: 2em;
+}
+
+ruby {
+    ruby-align: center;
+    /* 注音与汉字居中对齐 */
+}
+
+rt {
+    user-select: none;
+    /* 防止读者复制文字时误选中拼音 */
+}
+

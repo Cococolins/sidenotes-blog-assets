@@ -1,0 +1,58 @@
+/* ==========================================================================
+   5. 主页列表
+   Bear Blog 的 {{ posts }} 渲染为 ul.blog-posts，日期 + 标题的双列 Grid。
+   ========================================================================== */
+ul.blog-posts {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+    margin-bottom: 2rem;
+}
+
+ul.blog-posts>li {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    column-gap: 1rem;
+    align-items: baseline;
+    margin-bottom: 0.2rem;
+}
+
+ul.blog-posts>li>span {
+    grid-column: 1 / 2;
+  	grid-row: 1 / span 5;
+    color: #999;
+    font-size: 0.9rem;
+    font-family: var(--font-mono);
+  	display: flex;
+    flex-direction: column; 
+    gap: 0.1rem; /* 日期和时间之间的微小垂直间距，你可以微调 */
+}
+ul.blog-posts>li>span :is(time, .exact-time) {
+    color: #999;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: #999;
+    line-height: 2;
+}
+
+ul.blog-posts>li>* {
+    grid-column: 2 / 3;
+  	align-items: flex-start;
+}
+
+.homelist ul.blog-posts>li>a {
+    font-weight: 600;
+}
+
+ul.blog-posts > li > p {
+    margin-top: 0.35rem;   
+}
+
+.homelist ul.blog-posts>li {
+    margin-bottom: 1rem;
+}
+
+ul.blog-posts>li a:visited {
+    color: var(--visited-color);
+}
+

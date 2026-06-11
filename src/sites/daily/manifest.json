@@ -1,6 +1,18 @@
 {
   "css": [
-    "src/sites/daily/legacy.css"
+    "src/shared/css/all/00-vendor-photoswipe.css",
+    "src/shared/css/daily-tt/01-tokens.css",
+    "src/shared/css/daily-tt/02-base.css",
+    "src/shared/css/all/03-layout.css",
+    "src/shared/css/all/04-navigation.css",
+    "src/sites/daily/css/05-home-list.css",
+    "src/shared/css/all/06-media.css",
+    "src/shared/css/all/07-image-grid.css",
+    "src/shared/css/all/07b-consecutive-photo-paragraphs.css",
+    "src/sites/daily/css/08-plugins.css",
+    "src/sites/daily/css/09-details.css",
+    "src/sites/daily/css/10-responsive.css",
+    "src/sites/daily/css/11-enhancements.css"
   ],
   "header": "src/header.html",
   "js": "src/js/daily.js"

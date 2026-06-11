@@ -1,6 +1,20 @@
 {
   "css": [
-    "src/sites/tt/legacy.css"
+    "src/shared/css/all/00-vendor-photoswipe.css",
+    "src/shared/css/daily-tt/01-tokens.css",
+    "src/shared/css/daily-tt/02-base.css",
+    "src/shared/css/all/03-layout.css",
+    "src/shared/css/all/04-navigation.css",
+    "src/shared/css/sidenotes-tt/05-post-list.css",
+    "src/shared/css/all/06-media.css",
+    "src/shared/css/all/07-image-grid.css",
+    "src/shared/css/all/07b-consecutive-photo-paragraphs.css",
+    "src/sites/tt/css/08-notes-feed.css",
+    "src/shared/css/sidenotes-tt/09-gallery-feed.css",
+    "src/shared/css/sidenotes-tt/10-plugins.css",
+    "src/shared/css/sidenotes-tt/11-details.css",
+    "src/sites/tt/css/12-responsive.css",
+    "src/sites/tt/css/13-enhancements.css"
   ],
   "header": "src/header.html",
   "js": "src/js/tt.js"

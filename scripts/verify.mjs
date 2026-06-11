@@ -24,8 +24,6 @@ function extractScriptBodies(footerHtml) {
 const checks = [
   ["sidenotes CSS equals current archived v34", "dist/sidenotes.css", "Archive/Current/1_Sidenotes_theme_css_v34.css"],
   ["sidenotes header equals current archived V3", "dist/sidenotes.header.html", "Archive/Current/3_Sidenotes_header_injection_V3.js"],
-  ["daily CSS equals live snapshot", "dist/daily.css", `snapshots/${snapshotDate}/daily.css`],
-  ["tt CSS equals live snapshot", "dist/tt.css", `snapshots/${snapshotDate}/tt.css`],
 ];
 
 let failed = false;
@@ -45,6 +43,7 @@ for (const [label, actualPath, expectedPath] of checks) {
 
 for (const site of ["sidenotes", "daily", "tt"]) {
   const js = read(`dist/${site}.js`);
+  const css = read(`dist/${site}.css`);
   const oldFooterPath = site === "sidenotes"
     ? "Archive/Current/2_Sidenotes_footer_injection_V20.js"
     : `snapshots/${snapshotDate}/${site}.footer.html`;
@@ -68,6 +67,20 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     console.error(`FAIL ${site} external JS contains expected custom scripts`);
   } else {
     console.log(`PASS ${site} external JS contains expected custom scripts (${sha(js)})`);
+  }
+
+  const imageFixes = [
+    ["hero portrait image rule", "img.hero-portrait"],
+    ["consecutive image paragraph rule", "7B. 多段图片连排"],
+    ["figure-after-image spacing rule", "main p:has(> :is(img, a.pswp-gallery__item)) + figure > p:has(> :is(img, a.pswp-gallery__item))"],
+  ];
+  for (const [label, needle] of imageFixes) {
+    if (!css.includes(needle)) {
+      failed = true;
+      console.error(`FAIL ${site} CSS includes shared ${label}`);
+    } else {
+      console.log(`PASS ${site} CSS includes shared ${label}`);
+    }
   }
 
   const expectedCssUrl = `${cdnBase}/dist/${site}.css`;

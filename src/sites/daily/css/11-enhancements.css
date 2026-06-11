@@ -1,0 +1,29 @@
+/* ==========================================================================
+   11. 体验增强 (UX Enhancements)
+   ========================================================================== */
+/* 外部链接优雅提示，忽略图片画廊项与处理过的 YouTube 包 */
+main a[target="_blank"]:not(.pswp-gallery__item):not(.yt-processed)::after {
+    content: '↗';
+    font-size: 0.7em;
+    margin-left: 0.15rem;
+    opacity: 0.6;
+    position: relative;
+    top: -0.3em;
+}
+
+/* 弱网下图片保护与占位底色 */
+main img {
+    background-color: var(--code-background-color);
+}
+
+/* YouTube 等待加载或失败时的占位符 */
+.yt-placeholder {
+    padding: 3rem 1rem;
+    text-align: center;
+    color: #999;
+    border: 1px dashed var(--border-color);
+    border-radius: 4px;
+    margin: 1.2rem auto;
+    background: var(--code-background-color);
+    font-size: 0.9em;
+	}
