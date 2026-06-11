@@ -5,7 +5,8 @@ const root = process.cwd();
 const requestedSites = process.argv.slice(2);
 const sites = requestedSites.length > 0 ? requestedSites : ["sidenotes", "daily", "tt"];
 const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-const cdnBase = process.env.CDN_BASE || `https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@v${packageJson.version}`;
+const cdnVersion = process.env.CDN_VERSION || "latest";
+const cdnBase = process.env.CDN_BASE || `https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@${cdnVersion}`;
 
 const normalize = (text) => text.replace(/\r\n/g, "\n").trimEnd() + "\n";
 const read = (file) => readFileSync(join(root, file), "utf8");

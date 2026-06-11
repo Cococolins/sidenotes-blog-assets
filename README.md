@@ -12,6 +12,8 @@
 - `dist/` 是生成后贴回 Bear Blog 的产物。
 - `snapshots/` 保存线上抓取快照，用来确认迁移前后的行为没有漂移。
 - `Archive/` 保存历史手动版本，可用脚本生成 diff。
+- `Archive/Current/` 保存迁移前根目录里的当前手动版文件，仅用于对照和校验。
+- `docs/` 保存项目说明和协作背景。
 
 ## 发布产物
 
@@ -42,25 +44,33 @@ tt
 <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <link rel="preload" href="https://cdn.jsdelivr.net/fontsource/fonts/noto-serif:vf@latest/latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="https://cdn.jsdelivr.net/fontsource/fonts/noto-serif:vf@latest/latin-wght-italic.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@v0.2.0/dist/sidenotes.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@latest/dist/sidenotes.css">
 ```
 
 ```html
 <!-- Footer Script Injection -->
-<script type="module" src="https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@v0.2.0/dist/sidenotes.js"></script>
+<script type="module" src="https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@latest/dist/sidenotes.js"></script>
 ```
 
 切换到外链后，Bear Blog 的 Custom CSS 字段不需要再粘贴同一份 CSS；否则只是重复加载同样规则，维护上容易混乱。
 
-发布新版本时，更新 `package.json` 版本号，运行 `npm run build && npm run verify`，提交、打 tag、push 后，再把 Bear Blog 里的 `@vX.Y.Z` 改到新 tag。
+`@latest` 会跟随最新 tag，但 jsDelivr 和浏览器缓存可能让更新延迟一段时间。如果某次改动需要完全可控，可以把 `latest` 换成固定 tag，例如 `v0.2.1`。
 
 ## 常用命令
 
 ```bash
 npm run build
 npm run verify
+npm run release:patch -- "Release note"
 npm run diff:archive -- css 20 34
 npm run diff:archive -- footer 17 20
+```
+
+`release:patch` 会自动更新版本号、构建、校验、提交、打 tag 并 push。需要较大的版本跳跃时，可以用：
+
+```bash
+npm run release:minor -- "Release note"
+npm run release:major -- "Release note"
 ```
 
 ## 当前策略

@@ -4,17 +4,17 @@ import { join } from "node:path";
 
 const root = process.cwd();
 const snapshotDate = "2026-06-11";
-const packageJson = JSON.parse(readFileSync(join(root, "package.json"), "utf8"));
-const cdnBase = `https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@v${packageJson.version}`;
+const cdnVersion = process.env.CDN_VERSION || "latest";
+const cdnBase = `https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@${cdnVersion}`;
 
 const normalize = (text) => text.replace(/\r\n/g, "\n").trimEnd() + "\n";
 const read = (file) => normalize(readFileSync(join(root, file), "utf8"));
 const sha = (text) => createHash("sha256").update(normalize(text)).digest("hex").slice(0, 12);
 
 const checks = [
-  ["sidenotes CSS equals local v34", "dist/sidenotes.css", "1_Sidenotes_theme_css_v34.css"],
-  ["sidenotes header equals local V3", "dist/sidenotes.header.html", "3_Sidenotes_header_injection_V3.js"],
-  ["sidenotes footer equals local V20", "dist/sidenotes.footer.html", "2_Sidenotes_footer_injection_V20.js"],
+  ["sidenotes CSS equals current archived v34", "dist/sidenotes.css", "Archive/Current/1_Sidenotes_theme_css_v34.css"],
+  ["sidenotes header equals current archived V3", "dist/sidenotes.header.html", "Archive/Current/3_Sidenotes_header_injection_V3.js"],
+  ["sidenotes footer equals current archived V20", "dist/sidenotes.footer.html", "Archive/Current/2_Sidenotes_footer_injection_V20.js"],
   ["daily CSS equals live snapshot", "dist/daily.css", `snapshots/${snapshotDate}/daily.css`],
   ["daily footer equals live snapshot", "dist/daily.footer.html", `snapshots/${snapshotDate}/daily.footer.html`],
   ["tt CSS equals live snapshot", "dist/tt.css", `snapshots/${snapshotDate}/tt.css`],
@@ -54,13 +54,13 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     failed = true;
     console.error(`FAIL ${site} external header references ${expectedCssUrl}`);
   } else {
-    console.log(`PASS ${site} external header references tagged CSS`);
+    console.log(`PASS ${site} external header references CDN CSS`);
   }
   if (!footerExternal.includes(expectedJsUrl)) {
     failed = true;
     console.error(`FAIL ${site} external footer references ${expectedJsUrl}`);
   } else {
-    console.log(`PASS ${site} external footer references tagged JS`);
+    console.log(`PASS ${site} external footer references CDN JS`);
   }
 }
 

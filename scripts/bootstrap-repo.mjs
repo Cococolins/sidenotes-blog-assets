@@ -103,9 +103,9 @@ ensureDir("src/css");
 ensureDir("src/sites");
 ensureDir("dist");
 
-const localMainCss = readRequired("1_Sidenotes_theme_css_v34.css");
-const localHeader = readRequired("3_Sidenotes_header_injection_V3.js");
-const localFooter = readRequired("2_Sidenotes_footer_injection_V20.js");
+const localMainCss = readRequired("Archive/Current/1_Sidenotes_theme_css_v34.css");
+const localHeader = readRequired("Archive/Current/3_Sidenotes_header_injection_V3.js");
+const localFooter = readRequired("Archive/Current/2_Sidenotes_footer_injection_V20.js");
 
 const liveInputs = {
   sidenotes: "/tmp/sidenotes-live.html",
