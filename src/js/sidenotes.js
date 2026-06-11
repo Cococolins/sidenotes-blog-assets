@@ -1,4 +1,3 @@
-<script type="module">
 import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js';
     // headroom.js 没有官方 ESM 包，用 jsDelivr 的 /+esm 端点让 Rollup 即时转换 UMD → ESM
     import Headroom from 'https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/+esm';
@@ -35,7 +34,7 @@ import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/di
 
     const subtitle = document.createElement('span');
     subtitle.className = 'site-tagline';
-    subtitle.textContent = ' / 爱你。';
+    subtitle.textContent = ' / 记录即反抗。';
     h1.appendChild(subtitle);
     },
 
@@ -464,8 +463,7 @@ import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/di
         // 在执行时真实 DOM 已绝对解析完成。去除了画蛇添足的 DOMContentLoaded，直接放行最稳妥。
         // ════════════════════════════════════════════════════════════════
         BlogApp.init();
-</script>
-<script>
+
 /*
  Plugin name: Editor shortcut
  Description: Easily open the post or homepage editor using Ctrl + E
@@ -501,4 +499,3 @@ import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/di
         }
     });
 })();
-</script>

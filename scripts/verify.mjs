@@ -11,14 +11,21 @@ const normalize = (text) => text.replace(/\r\n/g, "\n").trimEnd() + "\n";
 const read = (file) => normalize(readFileSync(join(root, file), "utf8"));
 const sha = (text) => createHash("sha256").update(normalize(text)).digest("hex").slice(0, 12);
 
+function extractScriptBodies(footerHtml) {
+  const scripts = [...footerHtml.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
+    .map((match) => ({ attrs: match[1], body: match[2].trim() }));
+  const moduleScript = scripts.find((script) => /type=["']module["']/.test(script.attrs));
+  if (!moduleScript) throw new Error("Footer injection is missing a module script.");
+
+  const inlineScripts = scripts.filter((script) => script !== moduleScript);
+  return normalize([moduleScript.body, ...inlineScripts.map((script) => script.body)].join("\n\n"));
+}
+
 const checks = [
   ["sidenotes CSS equals current archived v34", "dist/sidenotes.css", "Archive/Current/1_Sidenotes_theme_css_v34.css"],
   ["sidenotes header equals current archived V3", "dist/sidenotes.header.html", "Archive/Current/3_Sidenotes_header_injection_V3.js"],
-  ["sidenotes footer equals current archived V20", "dist/sidenotes.footer.html", "Archive/Current/2_Sidenotes_footer_injection_V20.js"],
   ["daily CSS equals live snapshot", "dist/daily.css", `snapshots/${snapshotDate}/daily.css`],
-  ["daily footer equals live snapshot", "dist/daily.footer.html", `snapshots/${snapshotDate}/daily.footer.html`],
   ["tt CSS equals live snapshot", "dist/tt.css", `snapshots/${snapshotDate}/tt.css`],
-  ["tt footer equals live snapshot", "dist/tt.footer.html", `snapshots/${snapshotDate}/tt.footer.html`],
 ];
 
 let failed = false;
@@ -38,8 +45,23 @@ for (const [label, actualPath, expectedPath] of checks) {
 
 for (const site of ["sidenotes", "daily", "tt"]) {
   const js = read(`dist/${site}.js`);
+  const oldFooterPath = site === "sidenotes"
+    ? "Archive/Current/2_Sidenotes_footer_injection_V20.js"
+    : `snapshots/${snapshotDate}/${site}.footer.html`;
+  const expectedJs = extractScriptBodies(read(oldFooterPath));
   const headerExternal = read(`dist/${site}.header.external.html`);
   const footerExternal = read(`dist/${site}.footer.external.html`);
+  const snippetHeader = read(`dist/snippets/${site}-header.html`);
+  const snippetFooter = read(`dist/snippets/${site}-footer.html`);
+
+  if (js !== expectedJs) {
+    failed = true;
+    console.error(`FAIL ${site} external JS equals source footer scripts`);
+    console.error(`  dist/${site}.js: ${sha(js)}`);
+    console.error(`  ${oldFooterPath}: ${sha(expectedJs)}`);
+  } else {
+    console.log(`PASS ${site} external JS equals source footer scripts (${sha(js)})`);
+  }
 
   if (!js.includes("BlogApp.init();") || !js.includes("Plugin name: Editor shortcut")) {
     failed = true;
@@ -61,6 +83,13 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     console.error(`FAIL ${site} external footer references ${expectedJsUrl}`);
   } else {
     console.log(`PASS ${site} external footer references CDN JS`);
+  }
+
+  if (snippetHeader !== headerExternal || snippetFooter !== footerExternal) {
+    failed = true;
+    console.error(`FAIL ${site} snippets mirror external compatibility files`);
+  } else {
+    console.log(`PASS ${site} snippets mirror external compatibility files`);
   }
 }
 

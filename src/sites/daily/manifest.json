@@ -3,5 +3,5 @@
     "src/sites/daily/legacy.css"
   ],
   "header": "src/header.html",
-  "footer": "src/sites/daily/footer.html"
+  "js": "src/js/daily.js"
 }

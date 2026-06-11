@@ -17,5 +17,5 @@
     "src/css/13-enhancements.css"
   ],
   "header": "src/header.html",
-  "footer": "src/sites/sidenotes/footer.html"
+  "js": "src/js/sidenotes.js"
 }

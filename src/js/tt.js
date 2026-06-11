@@ -1,4 +1,3 @@
-<script type="module">
 import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js';
     // headroom.js 没有官方 ESM 包，用 jsDelivr 的 /+esm 端点让 Rollup 即时转换 UMD → ESM
     import Headroom from 'https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/+esm';
@@ -35,7 +34,7 @@ import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/di
 
     const subtitle = document.createElement('span');
     subtitle.className = 'site-tagline';
-    subtitle.textContent = ' / 细碎日常。';
+    subtitle.textContent = ' / 爱你。';
     h1.appendChild(subtitle);
     },
 
@@ -290,9 +289,8 @@ import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/di
     const options = {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
     timeNode.setAttribute('aria-label', `发布时间：${dateObj.toLocaleString('zh-CN', options)}`);
 
-    // 如果不是特定的主页列表中的 time，就不需要做附加的精准时间提取
-    const isInPostList = timeNode.closest('.homelist ul.blog-posts li');
-if (!isInPostList) return;
+    // 如果不是特定的信息流列表中的 time，就不需要做附加的精准时间提取
+    if (!timeNode.closest('.notes ul li') && !timeNode.closest('.gallery ul li')) return;
 
     const hours = dateObj.getHours().toString().padStart(2, '0');
     const minutes = dateObj.getMinutes().toString().padStart(2, '0');
@@ -465,8 +463,7 @@ if (!isInPostList) return;
         // 在执行时真实 DOM 已绝对解析完成。去除了画蛇添足的 DOMContentLoaded，直接放行最稳妥。
         // ════════════════════════════════════════════════════════════════
         BlogApp.init();
-</script>
-<script>
+
 /*
  Plugin name: Editor shortcut
  Description: Easily open the post or homepage editor using Ctrl + E
@@ -502,4 +499,3 @@ if (!isInPostList) return;
         }
     });
 })();
-</script>

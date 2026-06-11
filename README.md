@@ -15,6 +15,44 @@
 - `Archive/Current/` 保存迁移前根目录里的当前手动版文件，仅用于对照和校验。
 - `docs/` 保存项目说明和协作背景。
 
+## 日常改哪里
+
+主站 `sidenotes.cc` 的 CSS 已拆成模块：
+
+```text
+src/css/01-tokens.css                    # 字体、颜色、宽度等设计变量
+src/css/02-base.css                      # 基础排版、正文、链接、斜体定制
+src/css/03-layout.css                    # header / footer / 页面骨架
+src/css/04-navigation.css                # 导航栏和移动端菜单样式
+src/css/05-post-list.css                 # 普通文章列表
+src/css/06-media.css                     # 图片、图注、脚注
+src/css/07-image-grid.css                # 多图网格
+src/css/07b-consecutive-photo-paragraphs.css
+src/css/08-notes-feed.css                # notes 信息流
+src/css/09-gallery-feed.css              # gallery 信息流
+src/css/10-plugins.css                   # PhotoSwipe / 网易云等插件样式
+src/css/11-details.css                   # details / summary
+src/css/12-responsive.css                # 移动端
+src/css/13-enhancements.css              # 小体验增强
+```
+
+脚本改这里：
+
+```text
+src/js/sidenotes.js
+src/js/daily.js
+src/js/tt.js
+```
+
+`daily` 和 `tt` 的 CSS 目前还没有拆模块，先保留为：
+
+```text
+src/sites/daily/legacy.css
+src/sites/tt/legacy.css
+```
+
+不要手动改 `dist/`。改完 `src/` 后运行 `npm run build`，确认没问题再发布。
+
 ## 发布产物
 
 每个站点会生成两套调用方式：
@@ -22,11 +60,11 @@
 ```text
 dist/<site>.css                  # 外链 CSS
 dist/<site>.js                   # 外链 ES module 脚本
-dist/<site>.header.external.html # Bear Blog Header Injection 外链片段
-dist/<site>.footer.external.html # Bear Blog Footer Script 外链片段
+dist/snippets/<site>-header.html # Bear Blog Header Injection 外链片段
+dist/snippets/<site>-footer.html # Bear Blog Footer Script 外链片段
 
 dist/<site>.header.html          # 旧方式：整段 header injection
-dist/<site>.footer.html          # 旧方式：整段 footer injection
+dist/<site>.footer.html          # 旧方式：整段 module footer injection
 ```
 
 其中 `<site>` 是：

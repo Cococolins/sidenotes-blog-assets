@@ -15,16 +15,6 @@ const write = (file, text) => {
   writeFileSync(join(root, file), normalize(text));
 };
 
-function extractScriptBodies(footerHtml) {
-  const scripts = [...footerHtml.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
-    .map((match) => ({ attrs: match[1], body: match[2].trim() }));
-  const moduleScript = scripts.find((script) => /type=["']module["']/.test(script.attrs));
-  if (!moduleScript) throw new Error("Footer injection is missing a module script.");
-
-  const inlineScripts = scripts.filter((script) => script !== moduleScript);
-  return [moduleScript.body, ...inlineScripts.map((script) => script.body)].join("\n\n");
-}
-
 function externalHeader(headerHtml, site) {
   return `${headerHtml.trim()}\n<link rel="stylesheet" href="${cdnBase}/dist/${site}.css">`;
 }
@@ -44,15 +34,19 @@ for (const site of sites) {
   const manifest = JSON.parse(read(manifestPath));
   const css = manifest.css.map((file) => read(file)).join("");
   const headerHtml = read(manifest.header);
-  const footerHtml = read(manifest.footer);
-  const moduleJs = extractScriptBodies(footerHtml);
+  const moduleJs = read(manifest.js);
+  const inlineFooterHtml = `<script type="module">\n${moduleJs.trim()}\n</script>`;
+  const externalHeaderHtml = externalHeader(headerHtml, site);
+  const externalFooterHtml = externalFooter(site);
 
   write(`dist/${site}.css`, css);
   write(`dist/${site}.js`, moduleJs);
   write(`dist/${site}.header.html`, headerHtml);
-  write(`dist/${site}.footer.html`, footerHtml);
-  write(`dist/${site}.header.external.html`, externalHeader(headerHtml, site));
-  write(`dist/${site}.footer.external.html`, externalFooter(site));
+  write(`dist/${site}.footer.html`, inlineFooterHtml);
+  write(`dist/${site}.header.external.html`, externalHeaderHtml);
+  write(`dist/${site}.footer.external.html`, externalFooterHtml);
+  write(`dist/snippets/${site}-header.html`, externalHeaderHtml);
+  write(`dist/snippets/${site}-footer.html`, externalFooterHtml);
 
   console.log(`Built ${site}: dist/${site}.css, dist/${site}.js, inline and external snippets`);
 }
