@@ -1,0 +1,6 @@
+{
+  "tagline": " / 细碎日常。",
+  "exactTimeSelectors": [
+    ".homelist ul.blog-posts li"
+  ]
+}

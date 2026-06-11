@@ -1,0 +1,7 @@
+{
+  "tagline": " / 记录即反抗。",
+  "exactTimeSelectors": [
+    ".notes ul li",
+    ".gallery ul li"
+  ]
+}

@@ -2,6 +2,8 @@ import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/di
     // headroom.js 没有官方 ESM 包，用 jsDelivr 的 /+esm 端点让 Rollup 即时转换 UMD → ESM
     import Headroom from 'https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/+esm';
 
+const SITE_CONFIG = __SITE_CONFIG__;
+
     // 【V17】空闲时预加载 PhotoSwipe 核心模块，消除首次点击的网络延迟
     const pswpModuleUrl = 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe.esm.min.js';
     if ('requestIdleCallback' in window) {
@@ -34,7 +36,7 @@ import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/di
 
     const subtitle = document.createElement('span');
     subtitle.className = 'site-tagline';
-    subtitle.textContent = ' / 记录即反抗。';
+    subtitle.textContent = SITE_CONFIG.tagline;
     h1.appendChild(subtitle);
     },
 
@@ -289,8 +291,8 @@ import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/di
     const options = {year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false };
     timeNode.setAttribute('aria-label', `发布时间：${dateObj.toLocaleString('zh-CN', options)}`);
 
-    // 如果不是特定的信息流列表中的 time，就不需要做附加的精准时间提取
-    if (!timeNode.closest('.notes ul li') && !timeNode.closest('.gallery ul li')) return;
+    // 如果不是站点配置的信息流列表中的 time，就不需要做附加的精准时间提取
+    if (!SITE_CONFIG.exactTimeSelectors.some(selector => timeNode.closest(selector))) return;
 
     const hours = dateObj.getHours().toString().padStart(2, '0');
     const minutes = dateObj.getMinutes().toString().padStart(2, '0');

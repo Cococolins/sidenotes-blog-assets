@@ -17,5 +17,6 @@
     "src/sites/tt/css/13-enhancements.css"
   ],
   "header": "src/header.html",
-  "js": "src/js/tt.js"
+  "js": "src/shared/js/blog-app.js",
+  "config": "src/sites/tt/config.json"
 }

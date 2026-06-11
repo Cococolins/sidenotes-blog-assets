@@ -57,9 +57,10 @@ src/sites/tt/css/
 脚本改这里：
 
 ```text
-src/js/sidenotes.js
-src/js/daily.js
-src/js/tt.js
+src/shared/js/blog-app.js          # 共享脚本逻辑
+src/sites/sidenotes/config.json    # 主站副标题、精确时间 selector
+src/sites/daily/config.json
+src/sites/tt/config.json
 ```
 
 不要手动改 `dist/`。改完 `src/` 后运行 `npm run build`，确认没问题再发布。

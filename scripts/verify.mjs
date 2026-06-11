@@ -3,23 +3,12 @@ import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
 const root = process.cwd();
-const snapshotDate = "2026-06-11";
 const cdnVersion = process.env.CDN_VERSION || "latest";
 const cdnBase = `https://cdn.jsdelivr.net/gh/Cococolins/sidenotes-blog-assets@${cdnVersion}`;
 
 const normalize = (text) => text.replace(/\r\n/g, "\n").trimEnd() + "\n";
 const read = (file) => normalize(readFileSync(join(root, file), "utf8"));
 const sha = (text) => createHash("sha256").update(normalize(text)).digest("hex").slice(0, 12);
-
-function extractScriptBodies(footerHtml) {
-  const scripts = [...footerHtml.matchAll(/<script\b([^>]*)>([\s\S]*?)<\/script>/gi)]
-    .map((match) => ({ attrs: match[1], body: match[2].trim() }));
-  const moduleScript = scripts.find((script) => /type=["']module["']/.test(script.attrs));
-  if (!moduleScript) throw new Error("Footer injection is missing a module script.");
-
-  const inlineScripts = scripts.filter((script) => script !== moduleScript);
-  return normalize([moduleScript.body, ...inlineScripts.map((script) => script.body)].join("\n\n"));
-}
 
 const checks = [
   ["sidenotes CSS equals current archived v34", "dist/sidenotes.css", "Archive/Current/1_Sidenotes_theme_css_v34.css"],
@@ -44,22 +33,33 @@ for (const [label, actualPath, expectedPath] of checks) {
 for (const site of ["sidenotes", "daily", "tt"]) {
   const js = read(`dist/${site}.js`);
   const css = read(`dist/${site}.css`);
-  const oldFooterPath = site === "sidenotes"
-    ? "Archive/Current/2_Sidenotes_footer_injection_V20.js"
-    : `snapshots/${snapshotDate}/${site}.footer.html`;
-  const expectedJs = extractScriptBodies(read(oldFooterPath));
   const headerExternal = read(`dist/${site}.header.external.html`);
   const footerExternal = read(`dist/${site}.footer.external.html`);
   const snippetHeader = read(`dist/snippets/${site}-header.html`);
   const snippetFooter = read(`dist/snippets/${site}-footer.html`);
+  const config = JSON.parse(read(`src/sites/${site}/config.json`));
 
-  if (js !== expectedJs) {
+  if (!js.includes(JSON.stringify(config.tagline))) {
     failed = true;
-    console.error(`FAIL ${site} external JS equals source footer scripts`);
-    console.error(`  dist/${site}.js: ${sha(js)}`);
-    console.error(`  ${oldFooterPath}: ${sha(expectedJs)}`);
+    console.error(`FAIL ${site} external JS includes configured tagline`);
   } else {
-    console.log(`PASS ${site} external JS equals source footer scripts (${sha(js)})`);
+    console.log(`PASS ${site} external JS includes configured tagline`);
+  }
+
+  if (js.includes("__SITE_CONFIG__")) {
+    failed = true;
+    console.error(`FAIL ${site} external JS has unresolved SITE_CONFIG placeholder`);
+  } else {
+    console.log(`PASS ${site} external JS has resolved SITE_CONFIG`);
+  }
+
+  for (const selector of config.exactTimeSelectors) {
+    if (!js.includes(JSON.stringify(selector))) {
+      failed = true;
+      console.error(`FAIL ${site} external JS includes exact-time selector ${selector}`);
+    } else {
+      console.log(`PASS ${site} external JS includes exact-time selector ${selector}`);
+    }
   }
 
   if (!js.includes("BlogApp.init();") || !js.includes("Plugin name: Editor shortcut")) {

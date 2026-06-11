@@ -1,0 +1,7 @@
+{
+  "tagline": " / 爱你。",
+  "exactTimeSelectors": [
+    ".notes ul li",
+    ".gallery ul li"
+  ]
+}

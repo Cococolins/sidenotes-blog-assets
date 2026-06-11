@@ -23,6 +23,14 @@ function externalFooter(site) {
   return `<script type="module" src="${cdnBase}/dist/${site}.js"></script>`;
 }
 
+function buildSiteJs(manifest) {
+  const source = read(manifest.js);
+  if (!manifest.config) return source;
+
+  const config = JSON.parse(read(manifest.config));
+  return source.replace("__SITE_CONFIG__", JSON.stringify(config, null, 4));
+}
+
 mkdirSync(join(root, "dist"), { recursive: true });
 
 for (const site of sites) {
@@ -34,7 +42,7 @@ for (const site of sites) {
   const manifest = JSON.parse(read(manifestPath));
   const css = manifest.css.map((file) => read(file)).join("");
   const headerHtml = read(manifest.header);
-  const moduleJs = read(manifest.js);
+  const moduleJs = buildSiteJs(manifest);
   const inlineFooterHtml = `<script type="module">\n${moduleJs.trim()}\n</script>`;
   const externalHeaderHtml = externalHeader(headerHtml, site);
   const externalFooterHtml = externalFooter(site);
