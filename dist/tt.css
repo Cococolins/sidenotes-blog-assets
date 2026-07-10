@@ -362,8 +362,8 @@ div .pswp__img--placeholder {
     font-family: "Source Han Serif SC";
     font-style: normal;
     font-display: swap;
-    font-weight: 400;
-    src: url(https://cdn.jsdelivr.net/fontsource/fonts/noto-serif-sc@latest/chinese-simplified-400-normal.woff2) format("woff2");
+    font-weight: 500;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/noto-serif-sc@latest/chinese-simplified-500-normal.woff2) format("woff2");
 }
 
 @font-face {
@@ -673,6 +673,8 @@ blockquote {
     border-left: 1px solid var(--border-color);
     color: var(--blockquote-color);
     font-family: var(--font-blockquote);
+    font-size: 0.96em;
+    font-weight: 500;
     padding-left: 12px;
     margin: 18px;
 }
