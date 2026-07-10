@@ -113,7 +113,7 @@ for (const site of ["sidenotes", "daily", "tt"]) {
 
   const imageFixes = [
     ["hero portrait image rule", "img.hero-portrait"],
-    ["consecutive image paragraph rule", "7B. 多段图片连排"],
+    ["consecutive image paragraph rule", "多段图片连排"],
     ["figure-after-image spacing rule", "main p:has(> :is(img, a.pswp-gallery__item)) + figure > p:has(> :is(img, a.pswp-gallery__item))"],
     ["PhotoSwipe anchor line-height rule", "main a.pswp-gallery__item"],
     ["PhotoSwipe list and figure wrapper rule", "main :is(li, figure)>a.pswp-gallery__item"],

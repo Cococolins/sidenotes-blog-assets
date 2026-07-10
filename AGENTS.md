@@ -41,6 +41,10 @@ be maintained as smaller files, then built into CDN-linked assets and snippets.
 - The generated CDN URLs use jsDelivr with `@latest` by default. This is
   convenient, but can lag because of CDN or browser caching. For exact rollback
   or a cautious release, use a fixed tag like `v0.2.4`.
+- In practice, jsDelivr `@latest` can briefly resolve different asset files to
+  different tags after a release or purge. When testing urgent fixes, prefer a
+  fixed commit URL for both CSS and JS, then switch back to `@latest` after the
+  CDN catches up.
 - Header and footer snippets use `.html` because they are HTML fragments, even
   when the fragment contains CSS or JavaScript references.
 
@@ -110,6 +114,37 @@ The known site-specific JS differences are small:
 When adding a new per-site difference, prefer adding a config field before
 forking the shared JS. Fork the JS only if the behavior is genuinely different
 and cannot stay understandable as configuration.
+
+### Daily Homepage Behavior
+
+`daily` uses Bear's embedded post list plus client-side enhancement:
+
+- Bear renders dates, titles, optional `meta_description`, and `meta_image`.
+- `excerptHydrator` fetches each post page and replaces the embedded description
+  with paragraphs from the post body.
+- If a post contains `<!-- more -->`, the excerpt is everything before that
+  marker. Without the marker, it falls back to the first configured paragraphs.
+- Hydrated excerpt paragraphs are wrapped in one `.post-excerpt-link` anchor, so
+  the whole description block behaves like one link.
+- Existing embedded description paragraphs are currently overridden on `daily`
+  because `overrideExistingDescription` is true.
+
+Be careful with `daily` homepage selectors. PhotoSwipe wraps images as
+`a.pswp-gallery__item`, including images that Bear places directly under
+`li`. A broad selector such as `.homelist ul.blog-posts > li > a` will also
+hit image wrappers and can break image sizing. Title-only styles should use a
+selector like:
+
+```css
+.homelist ul.blog-posts > li > span + a:not(.pswp-gallery__item)
+```
+
+Current intentional homepage details:
+
+- post title hover reveals a small arrow via CSS
+- the whole hydrated description block links to the post
+- post-to-post spacing is larger than paragraph spacing
+- homepage PhotoSwipe image wrappers need explicit width protection
 
 ## Build And Release
 

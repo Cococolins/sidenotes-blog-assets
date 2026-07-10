@@ -28,15 +28,18 @@ src/shared/css/all/04-navigation.css
 src/shared/css/all/06-media.css
 src/shared/css/all/07-image-grid.css
 src/shared/css/all/07b-consecutive-photo-paragraphs.css
+src/shared/css/all/10-plugins.css
+src/shared/css/all/11-details.css
+src/shared/css/all/13-enhancements.css
 ```
 
 改这里会影响 `sidenotes.cc` 和 `tt.sidenotes.cc`：
 
 ```text
 src/shared/css/sidenotes-tt/05-post-list.css
+src/shared/css/sidenotes-tt/08-notes-feed.css
 src/shared/css/sidenotes-tt/09-gallery-feed.css
-src/shared/css/sidenotes-tt/10-plugins.css
-src/shared/css/sidenotes-tt/11-details.css
+src/shared/css/sidenotes-tt/12-responsive.css
 ```
 
 改这里会影响 `daily.sidenotes.cc` 和 `tt.sidenotes.cc`：

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   0. 第三方样式 (Vendor)
+   第三方样式 (Vendor)
    PhotoSwipe v5 灯箱核心样式，压缩内联以减少请求数。
    ========================================================================== */
 /*! PhotoSwipe main CSS by Dmytro Semenov | photoswipe.com */
@@ -336,7 +336,7 @@ div .pswp__img--placeholder {
 }
 
 /* ==========================================================================
-   1. 设计令牌 (Design Tokens)
+   设计令牌 (Design Tokens)
    CSS 自定义属性：颜色、字体、尺寸。亮/暗主题通过 prefers-color-scheme 切换。
    ========================================================================== */
 
@@ -355,6 +355,15 @@ div .pswp__img--placeholder {
         U+0304, U+0308, U+0329, U+2000-206F,
         U+20AC, U+2122, U+2191, U+2193,
         U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* 思源宋体简体中文，仅在引用中按需加载 */
+@font-face {
+    font-family: "Source Han Serif SC";
+    font-style: normal;
+    font-display: swap;
+    font-weight: 400;
+    src: url(https://cdn.jsdelivr.net/fontsource/fonts/noto-serif-sc@latest/chinese-simplified-400-normal.woff2) format("woff2");
 }
 
 @font-face {
@@ -397,6 +406,9 @@ div .pswp__img--placeholder {
         -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI",
         "Liberation Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
 
+    /* 引用字体：中文使用思源宋体，其他字符沿用正文字体 */
+    --font-blockquote: "Source Han Serif SC", var(--font-secondary);
+
     /* 等宽字体：代码块、日期时间 */
     --font-mono: Menlo, Monaco, Consolas, "Courier New", monospace;
 
@@ -428,9 +440,8 @@ div .pswp__img--placeholder {
         --border-color: #2E2E26;
     }
 }
-
 /* ==========================================================================
-   2. 全局与基础版式 (Reset & Typography)
+   全局与基础版式 (Reset & Typography)
    ========================================================================== */
 html {
     scroll-behavior: smooth;
@@ -661,7 +672,7 @@ pre code {
 blockquote {
     border-left: 1px solid var(--border-color);
     color: var(--blockquote-color);
-    font-family: var(--font-secondary);
+    font-family: var(--font-blockquote);
     padding-left: 12px;
     margin: 18px;
 }
@@ -681,9 +692,8 @@ rt {
     user-select: none;
     /* 防止读者复制文字时误选中拼音 */
 }
-
 /* ==========================================================================
-   3. 页面骨架 (Layout: Header & Footer)
+   页面骨架 (Layout: Header & Footer)
    ========================================================================== */
 header {
     position: sticky;
@@ -766,8 +776,24 @@ footer::after {
     padding: 15px 0;
 }
 
+/* 博客分隔符 feed-divider - 复刻版 */
+.feed-divider {
+    width: 30px;
+    height: 9px;
+    margin: 24px auto;
+    background: #999;
+    border: none;
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 45 13'%3E%3Cpath fill='black' transform='translate(0,0) rotate(90 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3Cpath fill='black' transform='translate(16,0) rotate(100 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3Cpath fill='black' transform='translate(32,0) rotate(80 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 45 13'%3E%3Cpath fill='black' transform='translate(0,0) rotate(90 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3Cpath fill='black' transform='translate(16,0) rotate(100 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3Cpath fill='black' transform='translate(32,0) rotate(80 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3C/svg%3E");
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+}
 /* ==========================================================================
-   4. 导航栏 (Navigation)
+   导航栏 (Navigation)
    桌面端：水平链接行。移动端（≤768px）：汉堡菜单 + 下拉面板。
    DOM 由 Footer Script 动态生成。
    ========================================================================== */
@@ -847,7 +873,7 @@ nav p a {
 }
 
 /* ==========================================================================
-   5. 主页列表
+   主页列表
    Bear Blog 的 {{ posts }} 渲染为 ul.blog-posts，日期 + 标题的双列 Grid。
    ========================================================================== */
 ul.blog-posts {
@@ -957,7 +983,7 @@ ul.blog-posts>li a:visited {
     color: var(--visited-color);
 }
 /* ==========================================================================
-   6. 图片与图注、脚注 (Images, Figcaption & footnote)
+   图片与图注、脚注 (Images, Figcaption & footnote)
    让页面级覆盖（Notes / Gallery 的 aspect-ratio、height 等）自然胜出。
    ========================================================================== */
 main img {
@@ -974,6 +1000,19 @@ img.hero-portrait {
     max-height: 500px;
     width: auto;
     margin: 1.2rem auto;  /* 上下与原本图片间距一致，左右居中 */
+}
+
+/* Notes 信息流里，第一张 hero-portrait 作为整行头图 */
+.notes ul.blog-posts > li > div > figure:first-of-type img.hero-portrait {
+    display: block;
+    margin: 1.2rem auto;
+    max-height: 400px;
+    width: auto;
+}
+
+/* 让这个 figure 本身跨满两列，而不是只在右侧内容列 */
+.notes ul.blog-posts > li > div > figure:first-of-type {
+    grid-column: 1 / -1;
 }
 
 /* <figure> 基础重置：清除浏览器默认的 margin: 1em 40px */
@@ -1078,7 +1117,7 @@ main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(2))+figcaption {
     margin-bottom: 0.4rem;
 }
 /* ==========================================================================
-   7. 图片网格 (Image Grid · Quantity Queries)
+   图片网格 (Image Grid · Quantity Queries)
    挂在 main 上，不绑定任何页面类型。
    同一 <p> 内多张图片自动并排（Markdown 里不留空行即可触发）。
 
@@ -1151,7 +1190,7 @@ main p:has(> :is(img, a.pswp-gallery__item):nth-of-type(n+5)) {
 
 
 /* ==========================================================================
-   7B. 多段图片连排 (Consecutive Photo Paragraphs)
+   多段图片连排 (Consecutive Photo Paragraphs)
    通过「先清零所有图片段 margin-bottom，再反向恢复」绕过 :has() 嵌套限制。
    ========================================================================== */
 
@@ -1187,7 +1226,7 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
 }
 
 /* ==========================================================================
-   8. 插件定制 (Plugin Overrides)
+   插件定制 (Plugin Overrides)
    PhotoSwipe 灯箱 UI + 网易云迷你播放器 + 工具类。
    ========================================================================== */
 
@@ -1266,9 +1305,8 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
 .inline {
     width: auto !important;
 }
-
 /* ==========================================================================
-   9. 折叠面板 (Details & Summary)
+   折叠面板 (Details & Summary)
    ========================================================================== */
 details {
     margin-bottom: 1.6rem;
@@ -1296,9 +1334,8 @@ details> :not(summary) {
     text-align: left;
     line-height: 1.6;
 }
-
 /* ==========================================================================
-   10. 响应式 (Responsive · ≤768px)
+   响应式 (Responsive · ≤768px)
    ========================================================================== */
 @media screen and (max-width: 768px) {
 
@@ -1342,14 +1379,14 @@ details> :not(summary) {
     }
 }
 /* ==========================================================================
-   11. 体验增强 (UX Enhancements)
+   体验增强 (UX Enhancements)
    ========================================================================== */
 /* 外部链接优雅提示，忽略图片画廊项与处理过的 YouTube 包 */
 main a[target="_blank"]:not(.pswp-gallery__item):not(.yt-processed)::after {
-    content: '↗';
+    content: '\2060↗';
     font-size: 0.7em;
     margin-left: 0.15rem;
-    opacity: 0.6;
+    /*opacity: 0.6;*/
     position: relative;
     top: -0.3em;
 }

@@ -1,5 +1,5 @@
 /* ==========================================================================
-   2. 全局与基础版式 (Reset & Typography)
+   全局与基础版式 (Reset & Typography)
    ========================================================================== */
 html {
     scroll-behavior: smooth;
@@ -230,7 +230,7 @@ pre code {
 blockquote {
     border-left: 1px solid var(--border-color);
     color: var(--blockquote-color);
-    font-family: var(--font-secondary);
+    font-family: var(--font-blockquote);
     padding-left: 12px;
     margin: 18px;
 }
@@ -250,4 +250,3 @@ rt {
     user-select: none;
     /* 防止读者复制文字时误选中拼音 */
 }
-

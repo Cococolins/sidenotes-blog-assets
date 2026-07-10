@@ -1,5 +1,5 @@
 /* ==========================================================================
-   2. 全局与基础版式 (Reset & Typography)
+   全局与基础版式 (Reset & Typography)
    ========================================================================== */
 html {
     scroll-behavior: smooth;
@@ -230,7 +230,7 @@ pre code {
 blockquote {
     border-left: 1px solid var(--border-color);
     color: var(--blockquote-color);
-    font-family: var(--font-secondary);
+    font-family: var(--font-blockquote);
     padding-left: 12px;
     margin: 18px;
 }
@@ -250,21 +250,3 @@ rt {
     user-select: none;
     /* 防止读者复制文字时误选中拼音 */
 }
-
-/* 博客分隔符 feed-divider - 复刻版 */
-.feed-divider {
-  width: 30px;
-  height: 9px;
-  margin: 24px auto; /* 上下间距、居中 */
-  background: #999;
-  border: none;
-  -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 45 13'%3E%3Cpath fill='black' transform='translate(0,0) rotate(90 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3Cpath fill='black' transform='translate(16,0) rotate(100 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3Cpath fill='black' transform='translate(32,0) rotate(80 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3C/svg%3E");
-  mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 45 13'%3E%3Cpath fill='black' transform='translate(0,0) rotate(90 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3Cpath fill='black' transform='translate(16,0) rotate(100 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3Cpath fill='black' transform='translate(32,0) rotate(80 6 6.5)' d='M6.765.5.177 6.093l2.61 5.966 8.39-3.17L6.765.5Z'/%3E%3C/svg%3E");
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-}
-

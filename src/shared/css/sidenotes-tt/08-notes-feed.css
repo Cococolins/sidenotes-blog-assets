@@ -1,5 +1,5 @@
 /* ==========================================================================
-   8. Notes 信息流 (Notes Feed)
+   Notes 信息流 (Notes Feed)
    「记」页面专属：左侧日期+时间，右侧正文（标题隐藏）。
    图片在 Notes 中单图也裁切为正方形。
    ========================================================================== */
@@ -8,12 +8,6 @@
     margin-left: 0;
 }
 
-/* ============================================================
-   修改说明 v33：Notes 条目分隔——日期列上方短线
-   - 不画全宽 hr，避免割裂 660px 行宽
-   - 短线仅跨日期列宽（64px），形成「条目锚点」而非「分隔条」
-   - 第一条不显示，避免和上方 section-title 重复制造横线
-   ============================================================ */
 .notes ul.blog-posts>li {
     list-style-type: none;
     display: grid;
@@ -25,27 +19,8 @@
     margin-bottom: 2rem;  
 }
 
-.notes ul.blog-posts > li::before {
-    content: "";
-    position: absolute;
-    top: 10px;
-    left: 0;
-    width: 101px;
-    height: 1px;
-    background: linear-gradient(
-        to right,
-        var(--border-color) 0%,
-        var(--border-color) 60%,
-        transparent 100%
-    );
-}
-
 .notes ul.blog-posts > li:first-child {
     padding-top: 0;
-}
-
-.notes ul.blog-posts > li:first-child::before {
-    display: none;
 }
 
 /* 所有子元素默认落入右侧内容列 */
@@ -97,6 +72,7 @@
     margin: 0 !important;
     border-radius: 4px;
     display: block;
+    justify-self: center;
     /* 对抗 Safari 闪烁：强制 GPU 渲染 */
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
@@ -112,4 +88,3 @@
 .notes ul.blog-posts>li:last-child>div>*:last-child {
     margin-bottom: 0;
 }
-

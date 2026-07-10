@@ -1,5 +1,5 @@
 /* ==========================================================================
-   6. 图片与图注、脚注 (Images, Figcaption & footnote)
+   图片与图注、脚注 (Images, Figcaption & footnote)
    让页面级覆盖（Notes / Gallery 的 aspect-ratio、height 等）自然胜出。
    ========================================================================== */
 main img {
@@ -16,6 +16,19 @@ img.hero-portrait {
     max-height: 500px;
     width: auto;
     margin: 1.2rem auto;  /* 上下与原本图片间距一致，左右居中 */
+}
+
+/* Notes 信息流里，第一张 hero-portrait 作为整行头图 */
+.notes ul.blog-posts > li > div > figure:first-of-type img.hero-portrait {
+    display: block;
+    margin: 1.2rem auto;
+    max-height: 400px;
+    width: auto;
+}
+
+/* 让这个 figure 本身跨满两列，而不是只在右侧内容列 */
+.notes ul.blog-posts > li > div > figure:first-of-type {
+    grid-column: 1 / -1;
 }
 
 /* <figure> 基础重置：清除浏览器默认的 margin: 1em 40px */
