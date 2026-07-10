@@ -127,6 +127,14 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     }
   }
 
+  const blockquoteFontStack = "--font-blockquote: 'Noto Serif', \"Source Han Serif SC\"";
+  if (!css.includes(blockquoteFontStack)) {
+    failed = true;
+    console.error(`FAIL ${site} CSS keeps Latin before CJK in blockquote font stack`);
+  } else {
+    console.log(`PASS ${site} CSS keeps Latin before CJK in blockquote font stack`);
+  }
+
   if (site === "daily") {
     const dailyHomeChecks = [
       ["title hover arrow rule", ".homelist ul.blog-posts>li>span + a::after"],

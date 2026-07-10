@@ -69,8 +69,10 @@
         -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI",
         "Liberation Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
 
-    /* 引用字体：中文使用思源宋体，其他字符沿用正文字体 */
-    --font-blockquote: "Source Han Serif SC", var(--font-secondary);
+    /* 引用字体：英文与英文标点使用 Noto Serif，中文回退到思源宋体 */
+    --font-blockquote: 'Noto Serif', "Source Han Serif SC", "Optima", system-ui,
+        -apple-system, BlinkMacSystemFont, "Segoe UI Adjusted", "Segoe UI",
+        "Liberation Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
 
     /* 等宽字体：代码块、日期时间 */
     --font-mono: Menlo, Monaco, Consolas, "Courier New", monospace;
