@@ -269,9 +269,9 @@ blockquote {
     margin: 18px;
 }
 
-/* 文章引用：外部留白更宽，内部段落更紧，首尾不叠加浏览器默认 margin */
+/* 文章引用：前后沿用正文节奏，内部段落首尾不叠加浏览器默认 margin */
 body.post main blockquote {
-    margin-block: 2em;
+    margin-block: var(--content-gap);
 }
 
 body.post main blockquote > p {

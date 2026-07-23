@@ -6,6 +6,12 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.29] - 2026-07-23
+
+- Unified article and Notes feed blockquote outer spacing with
+  `--content-gap: 1.2rem`, while preserving the existing horizontal indent and
+  spacing between paragraphs inside blockquotes.
+
 ## [0.2.28] - 2026-07-23
 
 - Added a required changelog workflow for future releases. The release script
