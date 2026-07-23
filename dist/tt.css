@@ -2028,3 +2028,39 @@ body.post main :is(h2, h3)[id] {
         transition: none;
     }
 }
+/* ==========================================================================
+   Notes 条目分隔符
+   用于 sidenotes.cc 与 tt.sidenotes.cc。
+   ========================================================================== */
+.notes ul.blog-posts > li:not(:last-child) {
+    margin-bottom: 3.6rem;
+}
+
+/* 图片段落通常会清除底部 margin；作为条目末尾时恢复正文块间距。 */
+.notes ul.blog-posts > li:not(:last-child) > div > p:last-child:has(> :is(img, a.pswp-gallery__item)) {
+    margin-bottom: var(--content-gap);
+}
+
+.notes ul.blog-posts > li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: calc(90px + 1rem);
+    right: 0;
+    bottom: -1.8rem;
+    width: 41.5px;
+    height: 1px;
+    margin-inline: auto;
+    color: var(--text-color);
+    opacity: 0.3;
+    background:
+        linear-gradient(to right, currentColor, currentColor) 0 center / 21px 1px no-repeat,
+        linear-gradient(to right, currentColor, currentColor) 26px center / 7px 1px no-repeat,
+        linear-gradient(to right, currentColor, currentColor) 38px center / 3.5px 1px no-repeat;
+    pointer-events: none;
+}
+
+@media screen and (max-width: 768px) {
+    .notes ul.blog-posts > li:not(:last-child)::after {
+        left: 0;
+    }
+}

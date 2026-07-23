@@ -6,6 +6,13 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.32] - 2026-07-24
+
+- Increased the Notes feed entry gap from `3rem` to `3.6rem`, repositioning
+  the divider at the new midpoint of `-1.8rem`.
+- Promoted the Notes divider from a `sidenotes.cc`-only rule to shared
+  `sidenotes.cc` and `tt.sidenotes.cc` behavior.
+
 ## [0.2.31] - 2026-07-24
 
 - Increased the `sidenotes.cc` Notes feed entry gap from `2rem` to `3rem` and
