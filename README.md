@@ -10,10 +10,10 @@
 
 - `src/` 是可维护源码。
 - `dist/` 是生成后贴回 Bear Blog 的产物。
-- `snapshots/` 保存线上抓取快照，用来确认迁移前后的行为没有漂移。
-- `Archive/` 保存历史手动版本，可用脚本生成 diff。
-- `Archive/Current/` 保存迁移前根目录里的当前手动版文件，仅用于对照和校验。
-- `docs/` 保存项目说明和协作背景。
+- `Archive/` 是不进入 Git 的本地资料目录，保存历史手动版本、迁移快照和项目说明。
+- `Archive/Current/` 保存迁移前根目录里的当前手动版文件，仅用于本地对照。
+- `Archive/snapshots/` 保存线上抓取快照，用来确认迁移前后的行为没有漂移。
+- `Archive/docs/` 保存项目说明和研究资料。
 
 ## 日常改哪里
 
@@ -121,6 +121,9 @@ npm run release:patch -- "Release note"
 npm run diff:archive -- css 20 34
 npm run diff:archive -- footer 17 20
 ```
+
+`diff:archive` 和 `bootstrap` 依赖本地 `Archive/`，在不含该目录的全新
+Git clone 中不可用。
 
 `release:patch` 会自动更新版本号、构建、校验、提交、打 tag 并 push。需要较大的版本跳跃时，可以用：
 

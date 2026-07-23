@@ -5,6 +5,7 @@ import { join } from "node:path";
 const root = process.cwd();
 const [bump = "patch", ...messageParts] = process.argv.slice(2);
 const packagePath = join(root, "package.json");
+const changelogPath = join(root, "CHANGELOG.md");
 const write = (file, text) => writeFileSync(join(root, file), text);
 
 function run(command, args, options = {}) {
@@ -41,6 +42,46 @@ function nextVersion(current, mode) {
   throw new Error(`Unknown release bump: ${mode}. Use patch, minor, major, or an explicit x.y.z version.`);
 }
 
+function localDate(date = new Date()) {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
+function archiveUnreleased(changelog, version, releaseDate) {
+  const marker = "## [Unreleased]";
+  const markerIndex = changelog.indexOf(marker);
+  if (markerIndex === -1) {
+    throw new Error(`Missing ${marker} in CHANGELOG.md`);
+  }
+
+  const notesStart = markerIndex + marker.length;
+  const nextHeadingOffset = changelog.slice(notesStart).search(/\n## \[/);
+  const notesEnd = nextHeadingOffset === -1
+    ? changelog.length
+    : notesStart + nextHeadingOffset;
+  const notes = changelog.slice(notesStart, notesEnd).trim();
+
+  if (!notes) {
+    throw new Error("CHANGELOG.md [Unreleased] is empty. Add release notes before publishing.");
+  }
+
+  const prefix = changelog.slice(0, notesStart);
+  const previousReleases = changelog.slice(notesEnd).replace(/^\s+/, "");
+  const archived = [
+    prefix,
+    "",
+    `## [${version}] - ${releaseDate}`,
+    "",
+    notes,
+    "",
+    previousReleases,
+  ].join("\n").trimEnd();
+
+  return `${archived}\n`;
+}
+
 const packageJson = JSON.parse(readFileSync(packagePath, "utf8"));
 const version = nextVersion(packageJson.version, bump);
 const tag = `v${version}`;
@@ -55,8 +96,12 @@ if (existingTag.status === 0) {
   process.exit(1);
 }
 
+const changelog = readFileSync(changelogPath, "utf8");
+const nextChangelog = archiveUnreleased(changelog, version, localDate());
+
 packageJson.version = version;
 write("package.json", `${JSON.stringify(packageJson, null, 2)}\n`);
+write("CHANGELOG.md", nextChangelog);
 
 run("npm", ["run", "build"]);
 run("npm", ["run", "verify"]);

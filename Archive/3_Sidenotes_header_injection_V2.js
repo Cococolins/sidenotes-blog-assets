@@ -1,1 +1,0 @@
-<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>

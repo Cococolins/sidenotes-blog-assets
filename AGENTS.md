@@ -55,13 +55,16 @@ Edit source files under `src/`. Do not hand-edit generated files under `dist/`.
 Generated `dist/` files are committed because Bear Blog loads them through the
 GitHub CDN. If `src/` changes, run the build so `dist/` changes with it.
 
-Migration baselines live here:
+Migration baselines and project references are local-only and ignored by Git:
 
 - `Archive/Current/`: current manual files from before the migration.
 - `Archive/`: older hand-managed versions for diffing and archaeology.
-- `snapshots/2026-06-11/`: live site snapshots captured during migration.
+- `Archive/snapshots/2026-06-11/`: live site snapshots captured during migration.
+- `Archive/docs/`: project instructions and research notes.
 
-Do not delete Archive or snapshot files just because they look old. They are the
+Tracked build and verification workflows must not require `Archive/`, because it
+is absent from GitHub and fresh clones. Local-only archive tools may still use
+it. Do not delete Archive files just because they look old; they are the local
 evidence trail for future comparisons.
 
 ## CSS Structure
@@ -142,6 +145,24 @@ Current intentional homepage details:
 - post-to-post spacing is larger than paragraph spacing
 - homepage PhotoSwipe image wrappers need explicit width protection
 
+## Changelog Discipline
+
+`CHANGELOG.md` is the release-level index of design and maintenance intent.
+Git history and diffs remain the exact implementation evidence; the changelog
+must explain the outcome, reason, scope, chosen values, and deliberate
+exceptions that are difficult to recover from a diff alone.
+
+- Read the recent changelog entries before changing behavior that has already
+  been tuned or released.
+- Every change intended for the next release must add an entry under
+  `## [Unreleased]` in the same work.
+- Prefer concrete entries: include exact CSS values, affected sites or page
+  types, and intentionally unaffected behavior when those details matter.
+- Do not rewrite past release entries except to correct factual errors.
+- `scripts/release.mjs` must refuse to publish when `[Unreleased]` is empty. On
+  release, it archives those entries under the new version and local date, then
+  creates a fresh empty `[Unreleased]` section.
+
 ## Build And Release
 
 Common commands:
@@ -154,8 +175,11 @@ npm run release:minor -- "Release note"
 npm run release:major -- "Release note"
 ```
 
-`release:*` runs the build and verification, commits the result, tags it, and
-pushes to GitHub.
+Before running `release:*`, add the release notes under `[Unreleased]` in
+`CHANGELOG.md`.
+
+`release:*` archives those notes under the new version and date, runs the build
+and verification, commits the result, tags it, and pushes to GitHub.
 
 Archive diff helpers:
 

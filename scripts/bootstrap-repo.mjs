@@ -4,6 +4,7 @@ import { basename, join } from "node:path";
 
 const root = process.cwd();
 const snapshotDate = "2026-06-11";
+const snapshotRoot = "Archive/snapshots";
 
 const ensureDir = (dir) => mkdirSync(dir, { recursive: true });
 const normalize = (text) => text.replace(/\r\n/g, "\n").trimEnd() + "\n";
@@ -97,8 +98,8 @@ function siteManifest(site, cssEntries, footerEntry) {
   }, null, 2);
 }
 
-ensureDir("snapshots");
-ensureDir(`snapshots/${snapshotDate}`);
+ensureDir(snapshotRoot);
+ensureDir(`${snapshotRoot}/${snapshotDate}`);
 ensureDir("src/css");
 ensureDir("src/sites");
 ensureDir("dist");
@@ -119,9 +120,9 @@ for (const [site, tmpPath] of Object.entries(liveInputs)) {
   const css = extractStyle(html);
   const footer = extractCustomFooter(html);
 
-  write(`snapshots/${snapshotDate}/${site}.html`, html);
-  write(`snapshots/${snapshotDate}/${site}.css`, css);
-  write(`snapshots/${snapshotDate}/${site}.footer.html`, footer);
+  write(`${snapshotRoot}/${snapshotDate}/${site}.html`, html);
+  write(`${snapshotRoot}/${snapshotDate}/${site}.css`, css);
+  write(`${snapshotRoot}/${snapshotDate}/${site}.footer.html`, footer);
 
   ensureDir(`src/sites/${site}`);
   write(`src/sites/${site}/footer.html`, footer);
@@ -144,7 +145,7 @@ for (const [site, tmpPath] of Object.entries(liveInputs)) {
 write("src/header.html", localHeader);
 write("src/sites/sidenotes/footer.html", localFooter);
 write(
-  "snapshots/README.md",
+  `${snapshotRoot}/README.md`,
   `# Live snapshots
 
 These files preserve the CSS, footer injection, and rendered HTML captured from the live Bear Blog sites.
@@ -166,14 +167,14 @@ const report = {
       `src/sites/${site}/manifest.json`,
       `src/sites/${site}/footer.html`,
       site === "sidenotes" ? null : `src/sites/${site}/legacy.css`,
-      `snapshots/${snapshotDate}/${site}.html`,
-      `snapshots/${snapshotDate}/${site}.css`,
-      `snapshots/${snapshotDate}/${site}.footer.html`,
+      `${snapshotRoot}/${snapshotDate}/${site}.html`,
+      `${snapshotRoot}/${snapshotDate}/${site}.css`,
+      `${snapshotRoot}/${snapshotDate}/${site}.footer.html`,
     ]).filter(Boolean),
   ],
 };
 
-write("snapshots/bootstrap-report.json", JSON.stringify(report, null, 2));
+write(`${snapshotRoot}/bootstrap-report.json`, JSON.stringify(report, null, 2));
 
 console.log(`Bootstrapped ${Object.keys(liveInputs).length} site snapshots from live HTML.`);
 console.log(`Split sidenotes CSS into ${siteCssEntries.sidenotes.length} modules.`);

@@ -11,7 +11,9 @@ const read = (file) => normalize(readFileSync(join(root, file), "utf8"));
 const sha = (text) => createHash("sha256").update(normalize(text)).digest("hex").slice(0, 12);
 
 const checks = [
-  ["sidenotes header equals current archived V3", "dist/sidenotes.header.html", "Archive/Current/3_Sidenotes_header_injection_V3.js"],
+  ["sidenotes generated header equals source", "dist/sidenotes.header.html", "src/header.html"],
+  ["daily generated header equals source", "dist/daily.header.html", "src/header.html"],
+  ["tt generated header equals source", "dist/tt.header.html", "src/header.html"],
 ];
 
 const containsChecks = [
@@ -192,6 +194,7 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     ["figure-after-image spacing rule", "main p:has(> :is(img, a.pswp-gallery__item)) + figure > p:has(> :is(img, a.pswp-gallery__item))"],
     ["PhotoSwipe anchor line-height rule", "main a.pswp-gallery__item"],
     ["PhotoSwipe list and figure wrapper rule", "main :is(li, figure)>a.pswp-gallery__item"],
+    ["mobile figure caption width rule", "max-width: calc(100% - 76px);"],
   ];
   for (const [label, needle] of imageFixes) {
     if (!css.includes(needle)) {

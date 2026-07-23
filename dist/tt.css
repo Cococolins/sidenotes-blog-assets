@@ -1078,6 +1078,15 @@ body.post main > figure > figcaption {
     margin-bottom: 0;
 }
 
+/* 手机端图片继续向两侧各拓宽 20px，但图注收回到引用块的宽度：
+   figure 两侧拓宽 20px + blockquote 两侧外距 18px = 图注两侧各留 38px。 */
+@media screen and (max-width: 768px) {
+    body.post main > figure:has(:is(img, .pswp-gallery__item)) > figcaption {
+        max-width: calc(100% - 76px);
+        margin-inline: auto;
+    }
+}
+
 /* 图片 + 图注间距智能收紧：当 <p> 含图片且紧跟 <figcaption> 时自动贴合 */
 main p:has(img):has(+ figcaption) {
     margin-bottom: 0;
