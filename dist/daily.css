@@ -627,6 +627,11 @@ main {
     line-height: 1.6;
 }
 
+/* 文章正文段落留出一整行呼吸感；排除元信息、标签与图片段落 */
+body.post main > p:not(.tags):not(:has(time, img, .pswp-gallery__item)) {
+    margin-bottom: 1.6em;
+}
+
 /* YouTube / 视频嵌入自适应 */
 main iframe[src*="youtube"] {
     width: 100%;
