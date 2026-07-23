@@ -682,7 +682,7 @@ blockquote {
     border-left: 1px solid var(--border-color);
     color: var(--blockquote-color);
     font-family: var(--font-blockquote);
-    font-size: 0.96em;
+    font-size: 1.1em;
     font-weight: 500;
     padding-left: 12px;
     margin: 18px;
