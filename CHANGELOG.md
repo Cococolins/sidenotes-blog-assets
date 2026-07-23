@@ -6,6 +6,12 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.33] - 2026-07-24
+
+- Prevented a first image paragraph in the shared Notes feed from reapplying
+  the `1.2rem` content margin, keeping it aligned with the entry date and at
+  the same distance from the preceding divider as other entry starts.
+
 ## [0.2.32] - 2026-07-24
 
 - Increased the Notes feed entry gap from `3rem` to `3.6rem`, repositioning

@@ -1296,10 +1296,6 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
     margin-block: var(--content-gap);
 }
 
-.notes ul.blog-posts>li>div>p:first-child {
-    margin-top: 0;
-}
-
 .notes ul.blog-posts>li>div>h2 {
     margin-top: 2.6rem;
 }
@@ -1351,6 +1347,11 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
 
 .notes ul.blog-posts>li>div>p:has(> :is(img, a.pswp-gallery__item)) {
     margin-top: var(--content-gap);
+}
+
+/* 条目首段不额外下移，包括以图片开头的 Note。 */
+.notes ul.blog-posts>li>div>p:first-child {
+    margin-top: 0;
 }
 
 /* 连续图片仍作为同一个视觉组，图片后的正文再回到统一间距 */
