@@ -2030,14 +2030,23 @@ body.post main :is(h2, h3)[id] {
 }
 /* ==========================================================================
    Notes 条目分隔符
-   仅用于 sidenotes.cc，保持条目间距不变。
+   仅用于 sidenotes.cc。
    ========================================================================== */
+.notes ul.blog-posts > li:not(:last-child) {
+    margin-bottom: 3rem;
+}
+
+/* 图片段落通常会清除底部 margin；作为条目末尾时恢复正文块间距。 */
+.notes ul.blog-posts > li:not(:last-child) > div > p:last-child:has(> :is(img, a.pswp-gallery__item)) {
+    margin-bottom: var(--content-gap);
+}
+
 .notes ul.blog-posts > li:not(:last-child)::after {
     content: "";
     position: absolute;
     left: calc(90px + 1rem);
     right: 0;
-    bottom: -1rem;
+    bottom: -1.5rem;
     width: 41.5px;
     height: 1px;
     margin-inline: auto;

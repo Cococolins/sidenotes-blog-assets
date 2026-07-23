@@ -6,6 +6,13 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.31] - 2026-07-24
+
+- Increased the `sidenotes.cc` Notes feed entry gap from `2rem` to `3rem` and
+  centered the divider within it at `-1.5rem`.
+- Restored the final image paragraph's `1.2rem` content margin so image-ending
+  and text-ending Notes keep the same visual distance from the divider.
+
 ## [0.2.30] - 2026-07-23
 
 - Added a `sidenotes.cc`-only divider between Notes feed entries using three
