@@ -90,6 +90,9 @@
 .notes p:has(> :is(img, a.pswp-gallery__item):only-of-type) {
     display: grid;
     gap: 6px;
+}
+
+.notes ul.blog-posts>li>div>p:has(> :is(img, a.pswp-gallery__item)) {
     margin-top: var(--content-gap);
 }
 
