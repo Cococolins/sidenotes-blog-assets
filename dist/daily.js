@@ -42,6 +42,7 @@ const SITE_CONFIG = {
     this.initExactTime();
     this.initPostExcerpts();
     this.initYouTube();
+    this.initBilibiliBackgroundPause();
     this.initExternalLinks();
     },
 
@@ -804,7 +805,42 @@ const SITE_CONFIG = {
     },
 
     // ════════════════════════════════════════════════════════════════
-    //  10. 外部链接新窗口打开 (全局)
+    //  10. Bilibili 嵌入播放器离页静音
+    //      点播 iframe 跨域且没有可靠的公开暂停接口。页面切到后台时重建 iframe，
+    //      立即销毁旧的播放上下文，避免跳到 Bilibili 后两个页面同时播放。
+    // ════════════════════════════════════════════════════════════════
+    initBilibiliBackgroundPause() {
+        const playerSelector = 'main iframe[src*="//player.bilibili.com/player.html"]';
+        if (!document.querySelector(playerSelector)) return;
+
+        const stopPlayers = () => {
+            document.querySelectorAll(playerSelector).forEach(iframe => {
+                iframe.replaceWith(iframe.cloneNode(true));
+            });
+        };
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) stopPlayers();
+        });
+
+        // 父页面里的视频标题链接可以在新标签页出现前先停；iframe 内部的跳转
+        // 无法冒泡到父页面，则由上面的 visibilitychange 兜底。
+        document.addEventListener('click', event => {
+            if (!(event.target instanceof Element)) return;
+            const link = event.target.closest('a[href]');
+            if (!link) return;
+
+            try {
+                const hostname = new URL(link.href, location.href).hostname;
+                if (hostname === 'bilibili.com' || hostname.endsWith('.bilibili.com')) {
+                    stopPlayers();
+                }
+            } catch { }
+        }, true);
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  11. 外部链接新窗口打开 (全局)
     // ════════════════════════════════════════════════════════════════
     initExternalLinks() {
     // 定义你真正的根域名

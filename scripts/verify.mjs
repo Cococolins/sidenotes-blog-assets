@@ -126,6 +126,21 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     }
   }
 
+  const bilibiliPauseChecks = [
+    ["initializes Bilibili background pause", "initBilibiliBackgroundPause"],
+    ["targets Bilibili embed players", "player.bilibili.com/player.html"],
+    ["stops Bilibili when the page is hidden", "if (document.hidden) stopPlayers()"],
+    ["destroys the active Bilibili playback context", "iframe.replaceWith(iframe.cloneNode(true))"],
+  ];
+  for (const [label, needle] of bilibiliPauseChecks) {
+    if (!js.includes(needle)) {
+      failed = true;
+      console.error(`FAIL ${site} external JS ${label}`);
+    } else {
+      console.log(`PASS ${site} external JS ${label}`);
+    }
+  }
+
   const directoryCssChecks = [
     ["contains article directory styles", ".article-directory__panel"],
     ["contains desktop hidden directory breakpoint", "@media screen and (min-width: 1180px)"],
