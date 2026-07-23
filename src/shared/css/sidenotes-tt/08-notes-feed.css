@@ -75,6 +75,11 @@
     margin-top: 2px;
 }
 
+/* 图片作为条目首项时，与日期使用同一个顶部起点。 */
+.notes ul.blog-posts>li:has(>div>:first-child :is(img, .pswp-gallery__item))>span {
+    margin-top: 0;
+}
+
 .notes ul.blog-posts>li>span :is(time, .exact-time) {
     font-family: var(--font-mono);
     font-size: 0.9rem;
@@ -94,6 +99,11 @@
 
 /* 条目首段不额外下移；首图已由上方 :not(:first-child) 排除。 */
 .notes ul.blog-posts>li>div>p:first-child {
+    margin-top: 0;
+}
+
+/* 首项 hero figure 不叠加正文块的 1.2rem 顶部间距。 */
+.notes ul.blog-posts>li>div>figure:first-child:has(img.hero-portrait) {
     margin-top: 0;
 }
 

@@ -21,9 +21,24 @@ img.hero-portrait {
 /* Notes 信息流里，第一张 hero-portrait 作为整行头图 */
 .notes ul.blog-posts > li > div > figure:first-of-type img.hero-portrait {
     display: block;
-    margin: 1.2rem auto;
+    margin: 0 auto;
     max-height: 400px;
     width: auto;
+}
+
+/* Hero figure 统一控制外部节奏，图片与 PhotoSwipe 链接不再叠加 margin。 */
+.notes ul.blog-posts > li > div > figure:has(img.hero-portrait) > a.pswp-gallery__item {
+    margin-block: 0;
+}
+
+/* 图注在 figure 内时仅保留上方紧凑间距，底部由 figure 的外距负责。 */
+.notes ul.blog-posts > li > div > figure:has(img.hero-portrait) > figcaption {
+    margin-bottom: 0;
+}
+
+/* 旧结构把 figcaption 放在 figure 后面，此时 figure 不再额外留底距。 */
+.notes ul.blog-posts > li > div > figure:has(img.hero-portrait):has(+ figcaption) {
+    margin-bottom: 0;
 }
 
 /* 让这个 figure 本身跨满两列，而不是只在右侧内容列 */

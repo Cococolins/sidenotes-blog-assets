@@ -6,6 +6,16 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.35] - 2026-07-24
+
+- Kept the existing `2px` date optical offset for text-led Notes, but removed
+  it conditionally when an entry begins with an image so both share the same
+  top edge.
+- Removed stacked `1.2rem` margins inside Notes `hero-portrait` figures.
+  First-item hero figures now start flush, image-to-caption spacing remains
+  `0.5rem`, and the caption-to-next-content rhythm returns to `1.2rem` for
+  both supported caption structures.
+
 ## [0.2.34] - 2026-07-24
 
 - Corrected the leading-image alignment fix by excluding first paragraphs from
