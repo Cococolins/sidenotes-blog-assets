@@ -181,6 +181,11 @@ body.post main > p:not(.tags):not(:has(time, img, .pswp-gallery__item)) {
     margin-bottom: 1.6em;
 }
 
+/* 引用内只放大相邻段落之间的间距，保留引用块首尾原有留白 */
+body.post main blockquote > p + p {
+    margin-top: 1.6em;
+}
+
 /* YouTube / 视频嵌入自适应 */
 main iframe[src*="youtube"] {
     width: 100%;
