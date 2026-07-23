@@ -6,6 +6,12 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.34] - 2026-07-24
+
+- Corrected the leading-image alignment fix by excluding first paragraphs from
+  the higher-specificity image margin rule, rather than relying on source
+  order. This removes the actual `1.2rem` offset in both Notes feeds.
+
 ## [0.2.33] - 2026-07-24
 
 - Prevented a first image paragraph in the shared Notes feed from reapplying

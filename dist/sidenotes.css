@@ -1345,11 +1345,11 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
     gap: 6px;
 }
 
-.notes ul.blog-posts>li>div>p:has(> :is(img, a.pswp-gallery__item)) {
+.notes ul.blog-posts>li>div>p:not(:first-child):has(> :is(img, a.pswp-gallery__item)) {
     margin-top: var(--content-gap);
 }
 
-/* 条目首段不额外下移，包括以图片开头的 Note。 */
+/* 条目首段不额外下移；首图已由上方 :not(:first-child) 排除。 */
 .notes ul.blog-posts>li>div>p:first-child {
     margin-top: 0;
 }
