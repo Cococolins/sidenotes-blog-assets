@@ -176,17 +176,17 @@ main {
     line-height: 1.6;
 }
 
-/* 文章页同级内容块的统一节奏，以正文 1.4em 的实际距离为基准 */
+/* 文章页同级内容块的统一节奏，以正文 1.2em 的实际距离为基准 */
 body.post main {
-    --content-gap: 1.4rem;
+    --content-gap: 1.2rem;
 }
 
 body.post main h2 {
-    margin-top: 3rem;
+    margin-top: 2.6rem;
 }
 
 body.post main h3 {
-    margin-top: 2em;
+    margin-top: 1.8rem;
 }
 
 /* 文章正文段落留出一整行呼吸感；排除元信息、标签与图片段落 */
@@ -279,7 +279,7 @@ body.post main blockquote > p {
 }
 
 body.post main blockquote > p + p {
-    margin-top: 1.2em;
+    margin-top: var(--content-gap);
 }
 
 /* 正文列表缩进：文字起始位置约两个汉字宽（浏览器默认约 40px） */

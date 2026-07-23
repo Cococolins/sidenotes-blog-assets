@@ -3,6 +3,10 @@
    「记」页面专属：左侧日期+时间，右侧正文（标题隐藏）。
    图片在 Notes 中单图也裁切为正方形。
    ========================================================================== */
+.notes {
+    --content-gap: 1.2rem;
+}
+
 .notes ul.blog-posts {
     padding-left: 0;
     margin-left: 0;
@@ -29,8 +33,34 @@
     margin-top: 0;
 }
 
+/* Notes 正文块沿用单篇文章的阅读节奏，条目之间仍保留独立的大间距 */
+.notes ul.blog-posts>li>div>p:not(:has(img, .pswp-gallery__item)),
+.notes ul.blog-posts>li>div> :is(pre, .highlight, .code, ul, ol, table, details, figure, .yt-placeholder) {
+    margin-block: var(--content-gap);
+}
+
 .notes ul.blog-posts>li>div>p:first-child {
     margin-top: 0;
+}
+
+.notes ul.blog-posts>li>div>h2 {
+    margin-top: 2.6rem;
+}
+
+.notes ul.blog-posts>li>div>h3 {
+    margin-top: 1.8rem;
+}
+
+.notes ul.blog-posts>li>div>blockquote {
+    margin-block: 2em;
+}
+
+.notes ul.blog-posts>li>div>blockquote>p {
+    margin-block: 0;
+}
+
+.notes ul.blog-posts>li>div>blockquote>p+p {
+    margin-top: var(--content-gap);
 }
 
 /* 隐藏标题 */
@@ -60,7 +90,21 @@
 .notes p:has(> :is(img, a.pswp-gallery__item):only-of-type) {
     display: grid;
     gap: 6px;
-    margin-top: 10px;
+    margin-top: var(--content-gap);
+}
+
+/* 连续图片仍作为同一个视觉组，图片后的正文再回到统一间距 */
+.notes ul.blog-posts>li>div>p:has(> :is(img, a.pswp-gallery__item)) + p:has(> :is(img, a.pswp-gallery__item)) {
+    margin-top: 6px;
+}
+
+.notes ul.blog-posts>li>div>p:has(> :is(img, a.pswp-gallery__item)) + p:not(:has(> :is(img, a.pswp-gallery__item))),
+.notes ul.blog-posts>li>div>p:has(> :is(img, a.pswp-gallery__item)) + details {
+    margin-top: var(--content-gap);
+}
+
+.notes ul.blog-posts>li>div>figcaption {
+    margin-bottom: var(--content-gap);
 }
 
 .notes p>img,
