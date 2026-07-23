@@ -14,6 +14,9 @@ const SITE_CONFIG = {
         "fallbackParagraphs": 2,
         "maxPosts": 10,
         "overrideExistingDescription": true
+    },
+    "articleDirectory": {
+        "enabled": true
     }
 };
 
@@ -33,6 +36,7 @@ const SITE_CONFIG = {
         this.initSubtitle();
     this.initNavigation();
     this.initAutoHideHeader();
+    this.initArticleDirectory();
     this.initFigcaption();
     this.initGallery();
     this.initExactTime();
@@ -149,6 +153,214 @@ const SITE_CONFIG = {
             }
         });
         headroom.init();
+    },
+
+    // ════════════════════════════════════════════════════════════════
+    //  3A. 长文章隐藏式目录
+    //     桌面端显示右侧章节刻度，悬停或聚焦后展开；窄屏改用底部目录面板。
+    // ════════════════════════════════════════════════════════════════
+    initArticleDirectory() {
+        if (!SITE_CONFIG.articleDirectory?.enabled || !document.body.classList.contains('post')) return;
+
+        const main = document.querySelector('main');
+        if (!main) return;
+
+        const headings = Array.from(main.querySelectorAll('h2, h3'))
+            .filter(heading => heading.textContent.trim());
+        if (headings.length < 2) return;
+
+        const usedIds = new Set();
+        headings.forEach((heading, index) => {
+            let id = heading.id.trim() || `article-section-${index + 1}`;
+            const baseId = id;
+            let suffix = 2;
+
+            while (usedIds.has(id) || (document.getElementById(id) && document.getElementById(id) !== heading)) {
+                id = `${baseId}-${suffix}`;
+                suffix += 1;
+            }
+
+            heading.id = id;
+            usedIds.add(id);
+        });
+
+        const directory = document.createElement('aside');
+        directory.className = 'article-directory';
+
+        const backdrop = document.createElement('button');
+        backdrop.type = 'button';
+        backdrop.className = 'article-directory__backdrop';
+        backdrop.setAttribute('aria-label', '关闭目录');
+
+        const panel = document.createElement('nav');
+        panel.id = 'article-directory-panel';
+        panel.className = 'article-directory__panel';
+        panel.setAttribute('aria-label', '文章目录');
+
+        const panelHeader = document.createElement('div');
+        panelHeader.className = 'article-directory__header';
+
+        const panelTitle = document.createElement('span');
+        panelTitle.textContent = '目录';
+
+        const closeButton = document.createElement('button');
+        closeButton.type = 'button';
+        closeButton.className = 'article-directory__close';
+        closeButton.setAttribute('aria-label', '关闭目录');
+        closeButton.textContent = '×';
+
+        const pinButton = document.createElement('button');
+        pinButton.type = 'button';
+        pinButton.className = 'article-directory__pin';
+        pinButton.setAttribute('aria-label', '固定展开目录');
+        pinButton.setAttribute('aria-pressed', 'false');
+        pinButton.title = '固定展开目录';
+        pinButton.textContent = '⌖';
+
+        panelHeader.append(panelTitle, closeButton);
+        panel.append(panelHeader, pinButton);
+
+        const list = document.createElement('ul');
+        list.className = 'article-directory__list';
+        const links = new Map();
+        let currentParentItem = null;
+        let currentChildList = null;
+
+        headings.forEach(heading => {
+            const item = document.createElement('li');
+            item.className = `article-directory__item article-directory__item--level-${heading.tagName === 'H2' ? 2 : 3}`;
+
+            const link = document.createElement('a');
+            link.className = 'article-directory__link';
+            link.href = `#${heading.id}`;
+
+            const marker = document.createElement('span');
+            marker.className = 'article-directory__marker';
+            marker.setAttribute('aria-hidden', 'true');
+
+            const text = document.createElement('span');
+            text.className = 'article-directory__text';
+            text.textContent = heading.textContent.trim();
+
+            link.append(marker, text);
+            item.appendChild(link);
+            links.set(heading, link);
+
+            if (heading.tagName === 'H2') {
+                list.appendChild(item);
+                currentParentItem = item;
+                currentChildList = null;
+                return;
+            }
+
+            if (currentParentItem) {
+                if (!currentChildList) {
+                    currentChildList = document.createElement('ul');
+                    currentChildList.className = 'article-directory__children';
+                    currentParentItem.appendChild(currentChildList);
+                }
+                currentChildList.appendChild(item);
+            } else {
+                list.appendChild(item);
+            }
+        });
+
+        panel.appendChild(list);
+        directory.append(backdrop, panel);
+
+        const toggleButton = document.createElement('button');
+        toggleButton.type = 'button';
+        toggleButton.className = 'article-directory__toggle';
+        toggleButton.setAttribute('aria-controls', panel.id);
+        toggleButton.setAttribute('aria-expanded', 'false');
+        toggleButton.textContent = '目录';
+
+        document.body.append(directory, toggleButton);
+
+        const closeDirectory = (restoreFocus = true) => {
+            if (!directory.classList.contains('is-open')) return;
+            directory.classList.remove('is-open');
+            document.documentElement.classList.remove('article-directory-open');
+            toggleButton.setAttribute('aria-expanded', 'false');
+            if (restoreFocus) toggleButton.focus();
+        };
+
+        const openDirectory = () => {
+            directory.classList.add('is-open');
+            document.documentElement.classList.add('article-directory-open');
+            toggleButton.setAttribute('aria-expanded', 'true');
+            closeButton.focus();
+        };
+
+        toggleButton.addEventListener('click', openDirectory);
+        backdrop.addEventListener('click', () => closeDirectory());
+        closeButton.addEventListener('click', () => closeDirectory());
+        panel.addEventListener('click', event => {
+            if (event.target.closest('.article-directory__link')) closeDirectory(false);
+        });
+
+        pinButton.addEventListener('click', () => {
+            const isPinned = directory.classList.toggle('is-pinned');
+            pinButton.setAttribute('aria-pressed', String(isPinned));
+            pinButton.setAttribute('aria-label', isPinned ? '取消固定目录' : '固定展开目录');
+            pinButton.title = isPinned ? '取消固定目录' : '固定展开目录';
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape') closeDirectory();
+        });
+
+        const desktopQuery = window.matchMedia('(min-width: 1180px)');
+        const handleDesktopChange = event => {
+            if (event.matches) closeDirectory(false);
+        };
+        if (desktopQuery.addEventListener) {
+            desktopQuery.addEventListener('change', handleDesktopChange);
+        } else {
+            desktopQuery.addListener(handleDesktopChange);
+        }
+
+        let activeHeading = null;
+        let scrollFrame = null;
+
+        const updateActiveHeading = () => {
+            scrollFrame = null;
+            const mainRect = main.getBoundingClientRect();
+            directory.classList.toggle('is-after-article', mainRect.bottom <= 100);
+            toggleButton.classList.toggle('is-after-article', mainRect.bottom <= 100);
+
+            let nextActive = headings[0];
+            headings.forEach(heading => {
+                if (heading.getBoundingClientRect().top <= 110) nextActive = heading;
+            });
+
+            if (nextActive === activeHeading) return;
+            activeHeading = nextActive;
+
+            links.forEach((link, heading) => {
+                const isActive = heading === activeHeading;
+                link.classList.toggle('is-active', isActive);
+                if (isActive) {
+                    link.setAttribute('aria-current', 'location');
+                } else {
+                    link.removeAttribute('aria-current');
+                }
+            });
+
+            const activeLink = links.get(activeHeading);
+            if (activeLink && list.scrollHeight > list.clientHeight) {
+                list.scrollTop = activeLink.offsetTop - (list.clientHeight / 2);
+            }
+        };
+
+        const scheduleActiveUpdate = () => {
+            if (scrollFrame) return;
+            scrollFrame = window.requestAnimationFrame(updateActiveHeading);
+        };
+
+        window.addEventListener('scroll', scheduleActiveUpdate, {passive: true});
+        window.addEventListener('resize', scheduleActiveUpdate);
+        updateActiveHeading();
     },
 
     // ════════════════════════════════════════════════════════════════

@@ -3,5 +3,8 @@
   "exactTimeSelectors": [
     ".notes ul li",
     ".gallery ul li"
-  ]
+  ],
+  "articleDirectory": {
+    "enabled": true
+  }
 }

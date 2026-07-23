@@ -81,6 +81,44 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     }
   }
 
+  if (!config.articleDirectory?.enabled) {
+    failed = true;
+    console.error(`FAIL ${site} enables article directory`);
+  } else {
+    console.log(`PASS ${site} enables article directory`);
+  }
+
+  const directoryJsChecks = [
+    ["initializes article directory", "initArticleDirectory"],
+    ["limits directory to post pages", "document.body.classList.contains('post')"],
+    ["builds directory from h2 and h3", "main.querySelectorAll('h2, h3')"],
+    ["supports mobile directory dialog", "article-directory__toggle"],
+    ["tracks active article heading", "aria-current"],
+  ];
+  for (const [label, needle] of directoryJsChecks) {
+    if (!js.includes(needle)) {
+      failed = true;
+      console.error(`FAIL ${site} external JS ${label}`);
+    } else {
+      console.log(`PASS ${site} external JS ${label}`);
+    }
+  }
+
+  const directoryCssChecks = [
+    ["contains article directory styles", ".article-directory__panel"],
+    ["contains desktop hidden directory breakpoint", "@media screen and (min-width: 1180px)"],
+    ["supports keyboard directory expansion", ".article-directory:focus-within"],
+    ["supports reduced directory motion", "@media (prefers-reduced-motion: reduce)"],
+  ];
+  for (const [label, needle] of directoryCssChecks) {
+    if (!css.includes(needle)) {
+      failed = true;
+      console.error(`FAIL ${site} CSS ${label}`);
+    } else {
+      console.log(`PASS ${site} CSS ${label}`);
+    }
+  }
+
   if (config.excerptHydrator?.enabled) {
     if (!js.includes('"excerptHydrator"') || !js.includes("initPostExcerpts") || !js.includes("extractPostExcerpt")) {
       failed = true;

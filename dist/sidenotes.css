@@ -1548,3 +1548,344 @@ main img {
     background: var(--code-background-color);
     font-size: 0.9em;
 	}
+/* ==========================================================================
+   长文章隐藏式目录 (Article Directory)
+   ========================================================================== */
+html.article-directory-open {
+    overflow: hidden;
+}
+
+body.post main :is(h2, h3)[id] {
+    scroll-margin-top: 80px;
+}
+
+.article-directory__toggle {
+    position: fixed;
+    right: 20px;
+    bottom: max(20px, env(safe-area-inset-bottom));
+    z-index: 89;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: 0.55rem 0.85rem;
+    background: var(--background-color);
+    color: var(--text-color);
+    font-family: var(--font-main);
+    font-size: 0.8rem;
+    line-height: 1;
+    box-shadow: 0 4px 18px rgb(0 0 0 / 10%);
+    transition:
+        opacity 160ms ease,
+        transform 160ms ease;
+}
+
+.article-directory__toggle:hover,
+.article-directory__toggle:focus-visible {
+    color: var(--link-color);
+}
+
+.article-directory__toggle:focus-visible,
+.article-directory__close:focus-visible,
+.article-directory__pin:focus-visible,
+.article-directory__link:focus-visible {
+    outline: 2px solid var(--link-color);
+    outline-offset: 2px;
+}
+
+.article-directory__toggle.is-after-article {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+}
+
+.article-directory {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+}
+
+.article-directory.is-open {
+    display: block;
+}
+
+.article-directory__backdrop {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    border: 0;
+    padding: 0;
+    background: rgb(0 0 0 / 34%);
+}
+
+.article-directory__panel {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-height: min(76vh, 640px);
+    border-radius: 16px 16px 0 0;
+    padding: 0 20px calc(20px + env(safe-area-inset-bottom));
+    overflow: hidden;
+    background: var(--background-color);
+    color: var(--text-color);
+    box-shadow: 0 -10px 36px rgb(0 0 0 / 16%);
+}
+
+.article-directory__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 52px;
+    border-bottom: 1px solid var(--border-color);
+    font-family: var(--font-main);
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.article-directory__close {
+    border: 0;
+    padding: 0.4rem;
+    background: transparent;
+    color: inherit;
+    font-size: 1.5rem;
+    line-height: 1;
+}
+
+.article-directory__pin {
+    display: none;
+}
+
+.article-directory__list,
+.article-directory__children {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.article-directory__list {
+    max-height: calc(min(76vh, 640px) - 73px - env(safe-area-inset-bottom));
+    padding: 10px 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.article-directory__item {
+    margin: 0;
+    padding: 0;
+}
+
+.article-directory__link {
+    display: flex;
+    align-items: center;
+    min-height: 40px;
+    color: var(--text-color);
+    font-family: var(--font-main);
+    font-size: 0.86rem;
+    line-height: 1.4;
+    text-decoration: none;
+}
+
+.article-directory__item--level-3 > .article-directory__link {
+    padding-left: 1.25rem;
+    font-size: 0.8rem;
+    opacity: 0.78;
+}
+
+.article-directory__marker {
+    flex: 0 0 auto;
+    width: 2px;
+    height: 12px;
+    margin-right: 12px;
+    border-radius: 999px;
+    background: var(--border-color);
+}
+
+.article-directory__link.is-active {
+    color: var(--link-color);
+}
+
+.article-directory__link.is-active .article-directory__marker {
+    background: currentColor;
+}
+
+.article-directory__link:hover,
+.article-directory__link:focus-visible {
+    color: var(--link-color);
+    text-decoration: none;
+}
+
+@media screen and (min-width: 1180px) {
+    html.article-directory-open {
+        overflow: auto;
+    }
+
+    .article-directory__toggle {
+        display: none;
+    }
+
+    .article-directory,
+    .article-directory.is-open {
+        display: block;
+        inset: 50% auto auto calc(50% + (var(--width) / 2) + 28px);
+        width: min(240px, calc(50vw - (var(--width) / 2) - 44px));
+        height: auto;
+        max-height: calc(100vh - 132px);
+        z-index: 90;
+        transform: translateY(-50%);
+        transition:
+            opacity 160ms ease,
+            transform 160ms ease;
+    }
+
+    .article-directory.is-after-article {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateY(calc(-50% + 8px));
+    }
+
+    .article-directory__backdrop,
+    .article-directory__header {
+        display: none;
+    }
+
+    .article-directory__panel {
+        position: relative;
+        inset: auto;
+        max-height: calc(100vh - 132px);
+        border-radius: 0;
+        padding: 28px 0;
+        overflow: visible;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .article-directory__pin {
+        position: absolute;
+        top: 0;
+        right: 2px;
+        display: block;
+        width: 24px;
+        height: 24px;
+        border: 0;
+        padding: 0;
+        background: transparent;
+        color: var(--text-color);
+        font-size: 1rem;
+        line-height: 24px;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 150ms ease;
+    }
+
+    .article-directory:hover .article-directory__pin,
+    .article-directory:focus-within .article-directory__pin,
+    .article-directory.is-pinned .article-directory__pin {
+        opacity: 0.55;
+        visibility: visible;
+    }
+
+    .article-directory__pin:hover,
+    .article-directory__pin:focus-visible,
+    .article-directory.is-pinned .article-directory__pin {
+        color: var(--link-color);
+        opacity: 1;
+    }
+
+    .article-directory__list {
+        max-height: calc(100vh - 188px);
+        padding: 0;
+        overflow-y: auto;
+        scrollbar-width: none;
+    }
+
+    .article-directory__list::-webkit-scrollbar {
+        display: none;
+    }
+
+    .article-directory__children {
+        padding: 0;
+    }
+
+    .article-directory__link {
+        min-height: 12px;
+        color: var(--text-color);
+        font-size: 0.78rem;
+        line-height: 1.35;
+        transition:
+            min-height 150ms ease,
+            color 150ms ease;
+    }
+
+    .article-directory__item--level-3 > .article-directory__link {
+        padding-left: 0;
+        font-size: 0.74rem;
+        opacity: 0.76;
+    }
+
+    .article-directory__marker {
+        width: 2px;
+        height: 6px;
+        margin-right: 10px;
+        background: var(--border-color);
+        transition:
+            height 150ms ease,
+            background-color 150ms ease;
+    }
+
+    .article-directory__text {
+        height: 0;
+        overflow: hidden;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+            opacity 150ms ease,
+            visibility 0s 150ms;
+    }
+
+    .article-directory:hover .article-directory__link,
+    .article-directory:focus-within .article-directory__link,
+    .article-directory.is-pinned .article-directory__link {
+        min-height: 30px;
+    }
+
+    .article-directory:hover .article-directory__marker,
+    .article-directory:focus-within .article-directory__marker,
+    .article-directory.is-pinned .article-directory__marker {
+        height: 18px;
+    }
+
+    .article-directory:hover .article-directory__text,
+    .article-directory:focus-within .article-directory__text,
+    .article-directory.is-pinned .article-directory__text {
+        height: auto;
+        opacity: 1;
+        visibility: visible;
+        transition:
+            opacity 150ms ease,
+            visibility 0s;
+    }
+
+    .article-directory__item--level-3 > .article-directory__link .article-directory__text {
+        padding-left: 0.85rem;
+    }
+
+    .article-directory__link.is-active {
+        color: var(--link-color);
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    .article-directory,
+    .article-directory__toggle,
+    .article-directory__link,
+    .article-directory__marker,
+    .article-directory__text {
+        scroll-behavior: auto;
+        transition: none;
+    }
+}

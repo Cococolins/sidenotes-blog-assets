@@ -10,5 +10,8 @@
     "fallbackParagraphs": 2,
     "maxPosts": 10,
     "overrideExistingDescription": true
+  },
+  "articleDirectory": {
+    "enabled": true
   }
 }

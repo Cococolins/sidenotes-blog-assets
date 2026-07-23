@@ -14,7 +14,8 @@
     "src/shared/css/all/10-plugins.css",
     "src/shared/css/all/11-details.css",
     "src/shared/css/sidenotes-tt/12-responsive.css",
-    "src/shared/css/all/13-enhancements.css"
+    "src/shared/css/all/13-enhancements.css",
+    "src/shared/css/all/14-article-directory.css"
   ],
   "header": "src/header.html",
   "js": "src/shared/js/blog-app.js",
