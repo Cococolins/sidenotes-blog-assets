@@ -1761,8 +1761,8 @@ body.post main :is(h2, h3)[id] {
 
     .article-directory__pin {
         position: absolute;
-        top: -15px;
-        left: 0;
+        top: -8px;
+        left: -10px;
         display: block;
         width: 24px;
         height: 24px;
