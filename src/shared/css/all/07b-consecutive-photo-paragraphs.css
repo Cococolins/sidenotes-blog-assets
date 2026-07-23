@@ -8,6 +8,11 @@ main p:has(> :is(img, a.pswp-gallery__item)) {
     margin-bottom: 0;
 }
 
+/* 文章页单张图片与前文保持统一内容间距 */
+:where(body.post) main > p:has(> :is(img, a.pswp-gallery__item)) {
+    margin-top: var(--content-gap);
+}
+
 /* 连续两个图片段落：第二个段落顶部 6px，等同于网格 gap */
 main p:has(> :is(img, a.pswp-gallery__item)) + p:has(> :is(img, a.pswp-gallery__item)) {
     margin-top: 6px;
@@ -27,10 +32,20 @@ main p:has(> :is(img, a.pswp-gallery__item)) + details {
     margin-top: 1em;
 }
 
+/* 单篇文章中，图片后的正文与折叠内容回到统一内容间距 */
+:where(body.post) main > p:has(> :is(img, a.pswp-gallery__item)) + p:not(:has(> :is(img, a.pswp-gallery__item))),
+:where(body.post) main > p:has(> :is(img, a.pswp-gallery__item)) + details {
+    margin-top: var(--content-gap);
+}
+
+/* 连续图片仍视为一个视觉组，不套用正文块间距 */
+:where(body.post) main > p:has(> :is(img, a.pswp-gallery__item)) + figure:has(:is(img, .pswp-gallery__item)) {
+    margin-top: 6px;
+}
+
 /* 多段连排里的单图也走正方形裁切 */
 main p:has(> :is(img, a.pswp-gallery__item)) + p:has(> :is(img, a.pswp-gallery__item):only-of-type),
 main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.pswp-gallery__item)) {
     display: grid;
     grid-template-columns: 1fr;
 }
-

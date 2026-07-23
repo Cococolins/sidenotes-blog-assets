@@ -627,6 +627,11 @@ main {
     line-height: 1.6;
 }
 
+/* 文章页同级内容块的统一节奏，以正文 1.4em 的实际距离为基准 */
+body.post main {
+    --content-gap: 1.4rem;
+}
+
 body.post main h2 {
     margin-top: 3rem;
 }
@@ -637,7 +642,12 @@ body.post main h3 {
 
 /* 文章正文段落留出一整行呼吸感；排除元信息、标签与图片段落 */
 body.post main > p:not(.tags):not(:has(time, img, .pswp-gallery__item)) {
-    margin-bottom: 1.4em;
+    margin-bottom: var(--content-gap);
+}
+
+/* 列表、表格与折叠内容属于正文流中的同级内容块 */
+body.post main > :is(ul, ol, table, details) {
+    margin-block: var(--content-gap);
 }
 
 /* YouTube / 视频嵌入自适应 */
@@ -647,6 +657,10 @@ main iframe[src*="youtube"] {
     border: none;
     display: block;
     margin: 1.2rem auto;
+}
+
+body.post main > iframe[src*="youtube"] {
+    margin-block: var(--content-gap);
 }
 
 main iframe[src*="youtube"]:has(+ figcaption) {
@@ -683,6 +697,11 @@ pre,
     overflow-x: auto;
     font-size: 0.85em;
 
+}
+
+/* 文章页最外层代码块与正文段落保持一致的前后节奏 */
+body.post main > :is(pre, .highlight, .code) {
+    margin-block: var(--content-gap);
 }
 
 /* pre 内的 code 重置行内样式，避免双重背景与 padding */
@@ -1088,6 +1107,20 @@ main>figure:has(:is(img, .pswp-gallery__item)) {
     margin-right: -20px;
 }
 
+/* 文章页图片与视频作为正文同级内容块，由外层统一控制前后距离 */
+body.post main > figure:has(:is(img, .pswp-gallery__item, iframe)) {
+    margin-block: var(--content-gap);
+}
+
+body.post main > figure > p:has(:is(img, .pswp-gallery__item)),
+body.post main > figure > a.pswp-gallery__item {
+    margin-block: 0;
+}
+
+body.post main > :is(p, figure):has(:is(img, .pswp-gallery__item)) img {
+    margin-block: 0;
+}
+
 /* 引用、列表、脚注里的图片不拓宽 */
 main :is(blockquote, li, .footnotes) img {
     max-width: 100%;
@@ -1107,6 +1140,11 @@ main figcaption {
     line-height: 1.5;
     margin-top: 0.5rem;
     margin-bottom: 1.6rem;
+}
+
+/* 图注与图片保持紧凑，figure 的外距负责衔接下一段正文 */
+body.post main > figure > figcaption {
+    margin-bottom: 0;
 }
 
 /* 图片 + 图注间距智能收紧：当 <p> 含图片且紧跟 <figcaption> 时自动贴合 */
@@ -1236,6 +1274,11 @@ main p:has(> :is(img, a.pswp-gallery__item)) {
     margin-bottom: 0;
 }
 
+/* 文章页单张图片与前文保持统一内容间距 */
+:where(body.post) main > p:has(> :is(img, a.pswp-gallery__item)) {
+    margin-top: var(--content-gap);
+}
+
 /* 连续两个图片段落：第二个段落顶部 6px，等同于网格 gap */
 main p:has(> :is(img, a.pswp-gallery__item)) + p:has(> :is(img, a.pswp-gallery__item)) {
     margin-top: 6px;
@@ -1255,13 +1298,23 @@ main p:has(> :is(img, a.pswp-gallery__item)) + details {
     margin-top: 1em;
 }
 
+/* 单篇文章中，图片后的正文与折叠内容回到统一内容间距 */
+:where(body.post) main > p:has(> :is(img, a.pswp-gallery__item)) + p:not(:has(> :is(img, a.pswp-gallery__item))),
+:where(body.post) main > p:has(> :is(img, a.pswp-gallery__item)) + details {
+    margin-top: var(--content-gap);
+}
+
+/* 连续图片仍视为一个视觉组，不套用正文块间距 */
+:where(body.post) main > p:has(> :is(img, a.pswp-gallery__item)) + figure:has(:is(img, .pswp-gallery__item)) {
+    margin-top: 6px;
+}
+
 /* 多段连排里的单图也走正方形裁切 */
 main p:has(> :is(img, a.pswp-gallery__item)) + p:has(> :is(img, a.pswp-gallery__item):only-of-type),
 main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.pswp-gallery__item)) {
     display: grid;
     grid-template-columns: 1fr;
 }
-
 /* ==========================================================================
    插件定制 (Plugin Overrides)
    PhotoSwipe 灯箱 UI + 网易云迷你播放器 + 工具类。
@@ -1444,6 +1497,10 @@ main img {
     background: var(--code-background-color);
     font-size: 0.9em;
 	}
+
+body.post main > .yt-placeholder {
+    margin-block: var(--content-gap);
+}
 /* ==========================================================================
    长文章隐藏式目录 (Article Directory)
    ========================================================================== */

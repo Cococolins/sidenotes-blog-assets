@@ -27,3 +27,7 @@ main img {
     background: var(--code-background-color);
     font-size: 0.9em;
 	}
+
+body.post main > .yt-placeholder {
+    margin-block: var(--content-gap);
+}

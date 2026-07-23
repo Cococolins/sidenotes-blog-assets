@@ -176,6 +176,11 @@ main {
     line-height: 1.6;
 }
 
+/* 文章页同级内容块的统一节奏，以正文 1.4em 的实际距离为基准 */
+body.post main {
+    --content-gap: 1.4rem;
+}
+
 body.post main h2 {
     margin-top: 3rem;
 }
@@ -186,7 +191,12 @@ body.post main h3 {
 
 /* 文章正文段落留出一整行呼吸感；排除元信息、标签与图片段落 */
 body.post main > p:not(.tags):not(:has(time, img, .pswp-gallery__item)) {
-    margin-bottom: 1.4em;
+    margin-bottom: var(--content-gap);
+}
+
+/* 列表、表格与折叠内容属于正文流中的同级内容块 */
+body.post main > :is(ul, ol, table, details) {
+    margin-block: var(--content-gap);
 }
 
 /* YouTube / 视频嵌入自适应 */
@@ -196,6 +206,10 @@ main iframe[src*="youtube"] {
     border: none;
     display: block;
     margin: 1.2rem auto;
+}
+
+body.post main > iframe[src*="youtube"] {
+    margin-block: var(--content-gap);
 }
 
 main iframe[src*="youtube"]:has(+ figcaption) {
@@ -232,6 +246,11 @@ pre,
     overflow-x: auto;
     font-size: 0.85em;
 
+}
+
+/* 文章页最外层代码块与正文段落保持一致的前后节奏 */
+body.post main > :is(pre, .highlight, .code) {
+    margin-block: var(--content-gap);
 }
 
 /* pre 内的 code 重置行内样式，避免双重背景与 padding */
