@@ -420,7 +420,7 @@ div .pswp__img--placeholder {
     --text-color: #2B3831;
     --link-color: #1f7a4f;
     --link-hover-color: #16603d;
-    --visited-color: #467856;
+    --visited-color: #5a6e60;
     --code-background-color: #f2f2f2;
     --code-color: #5f6f64;
     --blockquote-color: #222;
@@ -428,6 +428,13 @@ div .pswp__img--placeholder {
 }
 
 
+/* 修改说明 v33：暗色整体重做。
+   - 背景由冷黑 #0c0a09 改为暖黑 #14140F，配合 Noto Serif 衬线字气质
+   - 文字暖白 #E8E3D6，避免冷蓝调下的「炫光」
+   - 链接换成低饱和浅绿 #7FB89A，与亮色 #1f7a4f 同色系但暗色场景下不刺眼
+   - visited 退为暖灰，不再用紫
+   - 边框、代码背景跟随整体暖色温
+*/
 @media (prefers-color-scheme: dark) {
     :root {
         --background-color: #14140F;

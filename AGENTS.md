@@ -76,10 +76,6 @@ Shared by `sidenotes.cc` and `tt.sidenotes.cc`:
 
 - `src/shared/css/sidenotes-tt/`
 
-Shared by `daily.sidenotes.cc` and `tt.sidenotes.cc`:
-
-- `src/shared/css/daily-tt/`
-
 Site-only CSS:
 
 - `src/sites/sidenotes/css/`

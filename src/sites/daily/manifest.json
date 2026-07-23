@@ -1,8 +1,8 @@
 {
   "css": [
     "src/shared/css/all/00-vendor-photoswipe.css",
-    "src/shared/css/daily-tt/01-tokens.css",
-    "src/shared/css/daily-tt/02-base.css",
+    "src/shared/css/all/01-tokens.css",
+    "src/shared/css/all/02-base.css",
     "src/shared/css/all/03-layout.css",
     "src/shared/css/all/04-navigation.css",
     "src/sites/daily/css/05-home-list.css",

@@ -23,6 +23,8 @@ CSS 按「共享范围」拆分。
 
 ```text
 src/shared/css/all/00-vendor-photoswipe.css
+src/shared/css/all/01-tokens.css
+src/shared/css/all/02-base.css
 src/shared/css/all/03-layout.css
 src/shared/css/all/04-navigation.css
 src/shared/css/all/06-media.css
@@ -31,6 +33,7 @@ src/shared/css/all/07b-consecutive-photo-paragraphs.css
 src/shared/css/all/10-plugins.css
 src/shared/css/all/11-details.css
 src/shared/css/all/13-enhancements.css
+src/shared/css/all/14-article-directory.css
 ```
 
 改这里会影响 `sidenotes.cc` 和 `tt.sidenotes.cc`：
@@ -40,13 +43,6 @@ src/shared/css/sidenotes-tt/05-post-list.css
 src/shared/css/sidenotes-tt/08-notes-feed.css
 src/shared/css/sidenotes-tt/09-gallery-feed.css
 src/shared/css/sidenotes-tt/12-responsive.css
-```
-
-改这里会影响 `daily.sidenotes.cc` 和 `tt.sidenotes.cc`：
-
-```text
-src/shared/css/daily-tt/01-tokens.css
-src/shared/css/daily-tt/02-base.css
 ```
 
 只改单个站时，到对应站点目录：

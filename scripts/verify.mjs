@@ -56,7 +56,29 @@ for (const site of ["sidenotes", "daily", "tt"]) {
   const snippetCustomCss = read(`dist/snippets/${site}-custom-css.css`);
   const snippetHeader = read(`dist/snippets/${site}-header.html`);
   const snippetFooter = read(`dist/snippets/${site}-footer.html`);
+  const manifest = JSON.parse(read(`src/sites/${site}/manifest.json`));
   const config = JSON.parse(read(`src/sites/${site}/config.json`));
+
+  const requiredSharedCss = [
+    "src/shared/css/all/01-tokens.css",
+    "src/shared/css/all/02-base.css",
+    "src/shared/css/all/14-article-directory.css",
+  ];
+  for (const sharedCss of requiredSharedCss) {
+    if (!manifest.css.includes(sharedCss)) {
+      failed = true;
+      console.error(`FAIL ${site} manifest includes shared CSS ${sharedCss}`);
+    } else {
+      console.log(`PASS ${site} manifest includes shared CSS ${sharedCss}`);
+    }
+  }
+
+  if (!css.includes("--visited-color: #5a6e60")) {
+    failed = true;
+    console.error(`FAIL ${site} CSS keeps unified visited link color`);
+  } else {
+    console.log(`PASS ${site} CSS keeps unified visited link color`);
+  }
 
   if (!js.includes(JSON.stringify(config.tagline))) {
     failed = true;
