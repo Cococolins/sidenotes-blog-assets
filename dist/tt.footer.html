@@ -411,11 +411,22 @@ const SITE_CONFIG = {
     link.setAttribute('data-pswp-width', img.naturalWidth || 1600);
     link.setAttribute('data-pswp-height', img.naturalHeight || 1200);
 
-    if (!img.complete) {
-        img.onload = () => {
-            link.setAttribute('data-pswp-width', img.naturalWidth);
-            link.setAttribute('data-pswp-height', img.naturalHeight);
-        };
+    const isNotesImage = Boolean(img.closest('.notes'));
+    const updateNotesImageOrientation = () => {
+        if (!isNotesImage || !img.naturalWidth || !img.naturalHeight) return;
+        img.classList.toggle('notes-image--portrait', img.naturalHeight > img.naturalWidth);
+    };
+    const updateImageMetadata = () => {
+        if (!img.naturalWidth || !img.naturalHeight) return;
+        link.setAttribute('data-pswp-width', img.naturalWidth);
+        link.setAttribute('data-pswp-height', img.naturalHeight);
+        updateNotesImageOrientation();
+    };
+
+    if (img.complete) {
+        updateImageMetadata();
+    } else {
+        img.addEventListener('load', updateImageMetadata, {once: true});
     }
 
     img.parentNode.insertBefore(link, img);

@@ -205,6 +205,35 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     }
   }
 
+  const notesOrientationJsChecks = [
+    ["classifies Notes images after dimensions are available", "updateNotesImageOrientation"],
+    ["marks portrait Notes images", "notes-image--portrait"],
+    ["compares intrinsic image dimensions", "img.naturalHeight > img.naturalWidth"],
+  ];
+  for (const [label, needle] of notesOrientationJsChecks) {
+    if (!js.includes(needle)) {
+      failed = true;
+      console.error(`FAIL ${site} external JS ${label}`);
+    } else {
+      console.log(`PASS ${site} external JS ${label}`);
+    }
+  }
+
+  if (site !== "daily") {
+    const notesOrientationCssChecks = [
+      ["keeps single non-portrait Notes images uncropped", "aspect-ratio: auto;"],
+      ["crops single portrait Notes images to a square", ".notes-image--portrait"],
+    ];
+    for (const [label, needle] of notesOrientationCssChecks) {
+      if (!css.includes(needle)) {
+        failed = true;
+        console.error(`FAIL ${site} CSS ${label}`);
+      } else {
+        console.log(`PASS ${site} CSS ${label}`);
+      }
+    }
+  }
+
   const blockquoteFontStack = "--font-blockquote: 'Noto Serif', \"Source Han Serif SC\"";
   if (!css.includes(blockquoteFontStack)) {
     failed = true;

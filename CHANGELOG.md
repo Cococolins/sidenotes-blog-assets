@@ -6,6 +6,10 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+- Made single images in the shared Notes feed orientation-aware: portrait images
+  are cropped to `1:1`, while landscape and square images remain at `100%`
+  width with their natural aspect ratio. Multi-image grids remain unchanged.
+
 ## [0.2.35] - 2026-07-24
 
 - Kept the existing `2px` date optical offset for text-led Notes, but removed

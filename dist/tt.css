@@ -1273,7 +1273,7 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
 /* ==========================================================================
    Notes 信息流 (Notes Feed)
    「记」页面专属：左侧日期+时间，右侧正文（标题隐藏）。
-   图片在 Notes 中单图也裁切为正方形。
+   Notes 单张竖图裁切为正方形，横图与正方形保持自然比例。
    ========================================================================== */
 .notes {
     --content-gap: 1.2rem;
@@ -1393,12 +1393,12 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
     margin-bottom: var(--content-gap);
 }
 
-.notes p>img,
-.notes p>a.pswp-gallery__item>img {
+.notes p:has(> :is(img, a.pswp-gallery__item):only-of-type)>img,
+.notes p:has(> :is(img, a.pswp-gallery__item):only-of-type)>a.pswp-gallery__item>img {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
-    aspect-ratio: 1 / 1;
+    height: auto;
+    object-fit: initial;
+    aspect-ratio: auto;
     margin: 0 !important;
     border-radius: 4px;
     display: block;
@@ -1408,6 +1408,12 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
     transform: translate3d(0, 0, 0);
     -webkit-backface-visibility: hidden;
     will-change: transform;
+}
+
+.notes p:has(> :is(img, a.pswp-gallery__item):only-of-type)>img.notes-image--portrait,
+.notes p:has(> :is(img, a.pswp-gallery__item):only-of-type)>a.pswp-gallery__item>img.notes-image--portrait {
+    object-fit: cover;
+    aspect-ratio: 1 / 1;
 }
 
 /* 消除最后一条 Note 的叠加边距与底部留白 */
