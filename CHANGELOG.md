@@ -6,6 +6,13 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.30] - 2026-07-23
+
+- Added a `sidenotes.cc`-only divider between Notes feed entries using three
+  descending `21px`, `7px`, and `3.5px` lines at `30%` opacity, while
+  preserving the existing feed spacing and leaving `tt.sidenotes.cc`
+  unchanged.
+
 ## [0.2.29] - 2026-07-23
 
 - Unified article and Notes feed blockquote outer spacing with

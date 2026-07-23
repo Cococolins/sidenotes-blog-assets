@@ -1,0 +1,27 @@
+/* ==========================================================================
+   Notes 条目分隔符
+   仅用于 sidenotes.cc，保持条目间距不变。
+   ========================================================================== */
+.notes ul.blog-posts > li:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    left: calc(90px + 1rem);
+    right: 0;
+    bottom: -1rem;
+    width: 41.5px;
+    height: 1px;
+    margin-inline: auto;
+    color: var(--text-color);
+    opacity: 0.3;
+    background:
+        linear-gradient(to right, currentColor, currentColor) 0 center / 21px 1px no-repeat,
+        linear-gradient(to right, currentColor, currentColor) 26px center / 7px 1px no-repeat,
+        linear-gradient(to right, currentColor, currentColor) 38px center / 3.5px 1px no-repeat;
+    pointer-events: none;
+}
+
+@media screen and (max-width: 768px) {
+    .notes ul.blog-posts > li:not(:last-child)::after {
+        left: 0;
+    }
+}
