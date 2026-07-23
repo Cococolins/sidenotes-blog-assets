@@ -211,8 +211,8 @@ body.post main :is(h2, h3)[id] {
 
     .article-directory__pin {
         position: absolute;
-        top: 0;
-        right: 2px;
+        top: -15px;
+        left: 0;
         display: block;
         width: 24px;
         height: 24px;
@@ -220,7 +220,7 @@ body.post main :is(h2, h3)[id] {
         padding: 0;
         background: transparent;
         color: var(--text-color);
-        font-size: 1rem;
+        font-size: 0.8rem;
         line-height: 24px;
         opacity: 0;
         visibility: hidden;
