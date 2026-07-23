@@ -176,8 +176,8 @@ body.post main :is(h2, h3)[id] {
     .article-directory,
     .article-directory.is-open {
         display: block;
-        inset: 50% auto auto calc(50% + (var(--width) / 2) + 28px);
-        width: min(240px, calc(50vw - (var(--width) / 2) - 44px));
+        inset: 50% auto auto calc(50% + (var(--width) / 2) + 48px);
+        width: min(240px, calc(50vw - (var(--width) / 2) - 64px));
         height: auto;
         max-height: calc(100vh - 132px);
         z-index: 90;

@@ -199,7 +199,7 @@ const SITE_CONFIG = __SITE_CONFIG__;
         pinButton.setAttribute('aria-label', '固定展开目录');
         pinButton.setAttribute('aria-pressed', 'false');
         pinButton.title = '固定展开目录';
-        pinButton.textContent = '⌖';
+        pinButton.textContent = '📎';
 
         panelHeader.append(panelTitle, closeButton);
         panel.append(panelHeader, pinButton);
