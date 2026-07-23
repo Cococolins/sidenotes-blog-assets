@@ -627,14 +627,17 @@ main {
     line-height: 1.6;
 }
 
-/* 文章正文段落留出一整行呼吸感；排除元信息、标签与图片段落 */
-body.post main > p:not(.tags):not(:has(time, img, .pswp-gallery__item)) {
-    margin-bottom: 1.6em;
+body.post main h2 {
+    margin-top: 3rem;
 }
 
-/* 引用内只放大相邻段落之间的间距，保留引用块首尾原有留白 */
-body.post main blockquote > p + p {
-    margin-top: 1.6em;
+body.post main h3 {
+    margin-top: 2em;
+}
+
+/* 文章正文段落留出一整行呼吸感；排除元信息、标签与图片段落 */
+body.post main > p:not(.tags):not(:has(time, img, .pswp-gallery__item)) {
+    margin-bottom: 1.4em;
 }
 
 /* YouTube / 视频嵌入自适应 */
@@ -696,6 +699,19 @@ blockquote {
     font-weight: 500;
     padding-left: 12px;
     margin: 18px;
+}
+
+/* 文章引用：外部留白更宽，内部段落更紧，首尾不叠加浏览器默认 margin */
+body.post main blockquote {
+    margin-block: 2em;
+}
+
+body.post main blockquote > p {
+    margin-block: 0;
+}
+
+body.post main blockquote > p + p {
+    margin-top: 1.2em;
 }
 
 /* 正文列表缩进：文字起始位置约两个汉字宽（浏览器默认约 40px） */
