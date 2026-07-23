@@ -75,9 +75,9 @@
     margin-top: 2px;
 }
 
-/* 图片作为条目首项时，与日期使用同一个顶部起点。 */
+/* 图片作为条目首项时，将日期字形略微上移，与图片顶边光学对齐。 */
 .notes ul.blog-posts>li:has(>div>:first-child :is(img, .pswp-gallery__item))>span {
-    margin-top: 0;
+    margin-top: -3px;
 }
 
 .notes ul.blog-posts>li>span :is(time, .exact-time) {

@@ -6,6 +6,11 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.37] - 2026-07-24
+
+- Shifted the date of image-led Notes upward by `3px` as an optical correction,
+  while preserving the existing `2px` downward offset for text-led entries.
+
 ## [0.2.36] - 2026-07-24
 
 - Made single images in the shared Notes feed orientation-aware: portrait images
