@@ -1,6 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { buildDashboard } from "./build-dashboard.mjs";
 
 const root = process.cwd();
 const requestedSites = process.argv.slice(2);
@@ -66,5 +65,3 @@ for (const site of sites) {
 
   console.log(`Built ${site}: dist/${site}.css, dist/${site}.js, custom CSS and injection snippets`);
 }
-
-await buildDashboard({ root });

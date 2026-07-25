@@ -65,8 +65,9 @@ Sidenotes pilot 挂载时会暂时隐藏：
 - 当前 inline toolbar 的键盘 listener 是否需要在 Visual 模式进一步隔离；
 - version history 在编辑现有文章页的实际 DOM 位置与恢复行为。
 
-在这些项目完成前，不发布图片上传 adapter。固定 commit snippet 已于
-2026-07-25 作为 `?sn-editor=1` canary 追加到线上 Dashboard Footer。
+在这些项目完成前，不发布新的图片上传 adapter。旧 Visual editor 的 fixed
+commit snippet 曾于 2026-07-25 作为 `?sn-editor=1` canary 追加到线上
+Dashboard Footer，随后因产品方向错误于同日撤下。
 
 ## 既有未发布 draft
 
@@ -92,3 +93,20 @@ Archive/dashboard-backups/2026-07-25-pre-sidenotes-editor/
 
 备份后再次读取线上字段，内容与 SHA-256 均保持一致，未触发「Save」。回退步骤、
 文件长度与完整校验值见该目录的 `README.md`。
+
+## Canary 撤回
+
+2026-07-25 已用上述备份完整恢复 Bear 账户级 Dashboard Footer：
+
+- 恢复内容长度为 41,545 字符；
+- SHA-256 为
+  `7ac2418c3636779c7660357597b67f111af5c0d4aadb883524dadc0e557b3e05`；
+- 保存后重新载入 `/dashboard/customise/`；
+- 确认 `Sidenotes Dashboard Editor v0.2.37`、资源 commit
+  `de184b64d2ef2e8eee569034166643459f1cc633` 及其 CDN 引用均不存在；
+- 确认原有 `Sidenotes Dashboard Enhancements` 仍存在；
+- Dashboard Styles 未修改；
+- 没有打开、修改、保存、发布或删除任何 post。
+
+撤回原因和旧实现的保留经验见
+`dashboard/visual-editor-pilot-retrospective.md`。
