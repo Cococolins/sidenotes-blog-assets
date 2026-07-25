@@ -50,6 +50,11 @@ Sidenotes pilot 挂载时会暂时隐藏：
 `hidden` 与 `aria-hidden` 状态。Attributes UI 不隐藏，标题与 Bear header
 数据流不由正文编辑器接管。
 
+首次线上挂载还确认了一个执行时序：旧 Dashboard 脚本可能在 pilot 已挂载后
+才插入 `#sn-md-toolbar` 和 `.markdown_line_fixer`。因此实现不能只在初始化时
+扫描一次；当前使用仅监听新增节点的 `MutationObserver`，立即挂起迟到的冲突
+控件，并在 rollback 时断开 observer、恢复其原始状态。
+
 ## 仍待上线前确认
 
 - upload endpoint 的实际完整 URL、单图与多图响应结构；
@@ -58,7 +63,8 @@ Sidenotes pilot 挂载时会暂时隐藏：
 - 当前 inline toolbar 的键盘 listener 是否需要在 Visual 模式进一步隔离；
 - version history 在编辑现有文章页的实际 DOM 位置与恢复行为。
 
-在这些项目完成前，不发布图片上传 adapter，也不把生成 snippet 粘贴到线上。
+在这些项目完成前，不发布图片上传 adapter。固定 commit snippet 已于
+2026-07-25 作为 `?sn-editor=1` canary 追加到线上 Dashboard Footer。
 
 ## 既有未发布 draft
 

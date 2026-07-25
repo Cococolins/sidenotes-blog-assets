@@ -9,6 +9,11 @@ import {
 import { createToolbar } from "./toolbar.js";
 
 const LOG_PREFIX = "[Sidenotes Editor]";
+const CONFLICTING_ENHANCEMENT_SELECTOR = [
+  "#sn-md-toolbar",
+  ".markdown-toolbar",
+  ".markdown_line_fixer",
+].join(", ");
 
 function createButton(documentObject, label, className) {
   const button = documentObject.createElement("button");
@@ -56,6 +61,7 @@ export class DashboardEditorLifecycle {
     this.viewportFrame = null;
     this.abortController = new AbortController();
     this.suspendedEnhancements = [];
+    this.conflictingEnhancementObserver = null;
     this.originalTextareaState = {
       className: this.textarea.className,
       hidden: this.textarea.hidden,
@@ -69,6 +75,7 @@ export class DashboardEditorLifecycle {
     try {
       this.createShell();
       this.suspendConflictingEnhancements();
+      this.observeConflictingEnhancements();
       this.attachLifecycleListeners();
 
       const staticResult = scanMarkdownCompatibility(this.textarea.value);
@@ -209,20 +216,29 @@ export class DashboardEditorLifecycle {
     this.textarea.removeAttribute("aria-hidden");
   }
 
-  suspendConflictingEnhancements() {
-    const selectors = [
-      "#sn-md-toolbar",
-      ".markdown-toolbar",
-      ".markdown_line_fixer",
-    ];
-    const elements = new Set(
-      selectors.flatMap((selector) => [
-        ...this.document.querySelectorAll(selector),
-      ]),
-    );
+  suspendConflictingEnhancements(root = this.document) {
+    const elements = new Set();
+    if (
+      root instanceof this.window.Element &&
+      root.matches(CONFLICTING_ENHANCEMENT_SELECTOR)
+    ) {
+      elements.add(root);
+    }
+    for (const element of root.querySelectorAll?.(
+      CONFLICTING_ENHANCEMENT_SELECTOR,
+    ) ?? []) {
+      elements.add(element);
+    }
 
     for (const element of elements) {
       if (this.shell.contains(element)) continue;
+      if (
+        this.suspendedEnhancements.some(
+          (record) => record.element === element,
+        )
+      ) {
+        continue;
+      }
       this.suspendedEnhancements.push({
         element,
         hidden: element.hidden,
@@ -235,6 +251,26 @@ export class DashboardEditorLifecycle {
       element.setAttribute("aria-hidden", "true");
       element.setAttribute("data-sn-editor-suspended", "true");
     }
+  }
+
+  observeConflictingEnhancements() {
+    const target = this.document.body || this.document.documentElement;
+    if (!target || typeof this.window.MutationObserver !== "function") return;
+
+    this.conflictingEnhancementObserver = new this.window.MutationObserver(
+      (records) => {
+        for (const record of records) {
+          for (const node of record.addedNodes) {
+            if (!(node instanceof this.window.Element)) continue;
+            this.suspendConflictingEnhancements(node);
+          }
+        }
+      },
+    );
+    this.conflictingEnhancementObserver.observe(target, {
+      childList: true,
+      subtree: true,
+    });
   }
 
   restoreConflictingEnhancements() {
@@ -619,6 +655,8 @@ export class DashboardEditorLifecycle {
 
   rollback() {
     this.window.clearTimeout(this.sourceRefreshTimer);
+    this.conflictingEnhancementObserver?.disconnect();
+    this.conflictingEnhancementObserver = null;
     if (this.viewportFrame) {
       this.window.cancelAnimationFrame(this.viewportFrame);
       this.viewportFrame = null;

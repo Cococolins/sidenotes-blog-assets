@@ -17,11 +17,13 @@ scope, chosen values, and deliberate exceptions for future maintainers.
   local Bear DOM and Markdown fixtures, Dashboard tests, and verification that
   the public `sidenotes`, `daily`, and `tt` bundles contain no editor code.
 - Suspended the existing `#sn-md-toolbar` and `.markdown_line_fixer` controls only
-  while the pilot editor is mounted, and restore them on rollback. The live
-  Bear Dashboard has not been changed in this work.
+  while the pilot editor is mounted, including controls inserted after mount by
+  late Dashboard callbacks, and restore them on rollback.
 - Recorded a byte-exact, SHA-256-verified pre-deployment backup of the current
   account-level Dashboard Styles and Footer under the local ignored `Archive/`
   tree, and explicitly excluded the additional `hom` blog from the pilot.
+- Appended the fixed-commit pilot snippet to the live account-level Dashboard
+  Footer behind `?sn-editor=1`; no post content was created, saved, or published.
 
 ## [0.2.37] - 2026-07-24
 

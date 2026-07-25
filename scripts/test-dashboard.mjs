@@ -13,6 +13,10 @@ import {
 const root = process.cwd();
 const fixture = (name) =>
   readFileSync(join(root, "dashboard/fixtures/markdown", name), "utf8");
+const lifecycleSource = readFileSync(
+  join(root, "src/dashboard/sidenotes-editor/lifecycle.js"),
+  "utf8",
+);
 
 function memoryStorage() {
   const values = new Map();
@@ -130,4 +134,16 @@ test("HTML examples inside code do not trigger raw HTML fallback", () => {
   const markdown = "```html\n<details>example</details>\n```\n";
   assert.equal(scanMarkdownCompatibility(markdown).safe, true);
   assert.equal(roundTrip(markdown).safe, true);
+});
+
+test("late legacy editor controls remain suspended", () => {
+  assert.match(lifecycleSource, /new this\.window\.MutationObserver/);
+  assert.match(
+    lifecycleSource,
+    /this\.suspendConflictingEnhancements\(node\)/,
+  );
+  assert.match(
+    lifecycleSource,
+    /this\.conflictingEnhancementObserver\?\.disconnect\(\)/,
+  );
 });
