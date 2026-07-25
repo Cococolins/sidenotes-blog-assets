@@ -6,11 +6,22 @@
   "scripts": {
     "bootstrap": "node scripts/bootstrap-repo.mjs",
     "build": "node scripts/build.mjs",
-    "verify": "node scripts/verify.mjs",
+    "build:dashboard": "node scripts/build-dashboard.mjs",
+    "test:dashboard": "node --test scripts/test-dashboard.mjs",
+    "verify": "node scripts/verify.mjs && npm run test:dashboard",
     "diff:archive": "node scripts/diff-archive.mjs",
     "release": "node scripts/release.mjs patch",
     "release:patch": "node scripts/release.mjs patch",
     "release:minor": "node scripts/release.mjs minor",
     "release:major": "node scripts/release.mjs major"
+  },
+  "dependencies": {
+    "@tiptap/core": "3.29.0",
+    "@tiptap/extension-image": "3.29.0",
+    "@tiptap/markdown": "3.29.0",
+    "@tiptap/starter-kit": "3.29.0"
+  },
+  "devDependencies": {
+    "esbuild": "0.28.1"
   }
 }

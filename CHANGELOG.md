@@ -6,6 +6,23 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+- Added a pilot-only Bear Dashboard editor for the `colin` blog, built as a
+  separate Tiptap `3.29.0` bundle with Visual and Markdown modes, static syntax
+  scanning, structural Markdown round-trip checks, and immediate synchronization
+  back to Bear's `#body_content` textarea.
+- Added `?sn-editor=1` and `?sn-editor=0` canary switches, scoped light-mode
+  Dashboard CSS, touch toolbars, `16px` mobile inputs, safe-area spacing,
+  Visual Viewport hints, and composition guards for iPhone and iPad input.
+- Added a fixed-version Dashboard Footer snippet with SHA-384 integrity values,
+  local Bear DOM and Markdown fixtures, Dashboard tests, and verification that
+  the public `sidenotes`, `daily`, and `tt` bundles contain no editor code.
+- Suspended the existing `#sn-md-toolbar` and `.markdown_line_fixer` controls only
+  while the pilot editor is mounted, and restore them on rollback. The live
+  Bear Dashboard has not been changed in this work.
+- Recorded a byte-exact, SHA-256-verified pre-deployment backup of the current
+  account-level Dashboard Styles and Footer under the local ignored `Archive/`
+  tree, and explicitly excluded the additional `hom` blog from the pilot.
+
 ## [0.2.37] - 2026-07-24
 
 - Shifted the date of image-led Notes upward by `3px` as an optical correction,

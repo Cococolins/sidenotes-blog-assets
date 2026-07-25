@@ -1,5 +1,6 @@
 .DS_Store
 .claude/
 Archive/
+node_modules/
 dist/.tmp/
 *.diff
