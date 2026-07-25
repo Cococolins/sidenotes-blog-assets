@@ -231,7 +231,6 @@ export class DashboardEditorLifecycle {
     }
 
     for (const element of elements) {
-      if (this.shell.contains(element)) continue;
       if (
         this.suspendedEnhancements.some(
           (record) => record.element === element,

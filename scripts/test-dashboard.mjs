@@ -146,4 +146,8 @@ test("late legacy editor controls remain suspended", () => {
     lifecycleSource,
     /this\.conflictingEnhancementObserver\?\.disconnect\(\)/,
   );
+  assert.doesNotMatch(
+    lifecycleSource,
+    /this\.shell\.contains\(element\)/,
+  );
 });

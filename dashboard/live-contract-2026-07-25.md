@@ -51,9 +51,11 @@ Sidenotes pilot 挂载时会暂时隐藏：
 数据流不由正文编辑器接管。
 
 首次线上挂载还确认了一个执行时序：旧 Dashboard 脚本可能在 pilot 已挂载后
-才插入 `#sn-md-toolbar` 和 `.markdown_line_fixer`。因此实现不能只在初始化时
-扫描一次；当前使用仅监听新增节点的 `MutationObserver`，立即挂起迟到的冲突
-控件，并在 rollback 时断开 observer、恢复其原始状态。
+才插入 `#sn-md-toolbar` 和 `.markdown_line_fixer`；其中旧 toolbar 会跟随已经
+移动的 textarea，被插入到新 editor shell 内。因此实现不能只在初始化时扫描
+一次，也不能排除 shell 内的旧 selector。当前使用仅监听新增节点的
+`MutationObserver`，立即挂起迟到的冲突控件，并在 rollback 时断开 observer、
+恢复其原始状态。
 
 ## 仍待上线前确认
 
