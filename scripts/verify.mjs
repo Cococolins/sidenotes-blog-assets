@@ -234,12 +234,12 @@ for (const site of ["sidenotes", "daily", "tt"]) {
     }
   }
 
-  const blockquoteFontStack = "--font-blockquote: 'Noto Serif', \"Source Han Serif SC\"";
+  const blockquoteFontStack = "--font-blockquote: \"CJK Dash Fix\", 'Noto Serif', \"Source Han Serif SC\"";
   if (!css.includes(blockquoteFontStack)) {
     failed = true;
-    console.error(`FAIL ${site} CSS keeps Latin before CJK in blockquote font stack`);
+    console.error(`FAIL ${site} CSS keeps CJK punctuation fix before Latin and CJK blockquote fonts`);
   } else {
-    console.log(`PASS ${site} CSS keeps Latin before CJK in blockquote font stack`);
+    console.log(`PASS ${site} CSS keeps CJK punctuation fix before Latin and CJK blockquote fonts`);
   }
 
   if (site === "daily") {

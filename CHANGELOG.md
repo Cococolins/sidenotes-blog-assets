@@ -6,6 +6,12 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.38] - 2026-08-01
+
+- Made Chinese dashes and ellipses inside blockquotes use the same CJK glyph
+  correction as body text and footnotes, while preserving Noto Serif for Latin
+  text and punctuation and Source Han Serif SC for Chinese quote text.
+
 ## [0.2.37] - 2026-07-24
 
 - Shifted the date of image-led Notes upward by `3px` as an optical correction,
