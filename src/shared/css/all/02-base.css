@@ -14,7 +14,7 @@ body {
     max-width: var(--width);
     background-color: var(--background-color);
     color: var(--text-color);
-    line-height: 2;
+    line-height: 1.7;
     word-wrap: break-word;
     overflow-wrap: break-word;
     text-autospace: ideograph-alpha ideograph-numeric;
@@ -173,7 +173,7 @@ button {
 }
 
 main {
-    line-height: 2;
+    line-height: 1.7;
 }
 
 /* 文章页同级内容块的统一节奏，以正文 1.2em 的实际距离为基准 */

@@ -6,6 +6,12 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.40] - 2026-08-21
+
+- Restored the shared body and main content line height from `2` to `1.7`
+  across all three sites after visual comparison, while retaining
+  `--content-gap: 1.2rem` and component-specific compact line heights.
+
 ## [0.2.39] - 2026-08-21
 
 - Increased the shared body and main content line height from `1.7` and `1.6`
