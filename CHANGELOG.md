@@ -6,6 +6,12 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.39] - 2026-08-21
+
+- Increased the shared body and main content line height from `1.7` and `1.6`
+  to `2` across all three sites, while preserving component-specific compact
+  line heights.
+
 ## [0.2.38] - 2026-08-01
 
 - Made Chinese dashes and ellipses inside blockquotes use the same CJK glyph
