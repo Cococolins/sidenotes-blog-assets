@@ -452,6 +452,7 @@ const SITE_CONFIG = {
             pswpModule: () => import(pswpModuleUrl),
     bgOpacity: 0.95,
     spacing: 0.1,
+    showAnimationDuration: 180,  // 缩短点击缩略图后的打开动画；左右手势仍使用 PhotoSwipe 的速度驱动 spring
     showHideOpacity: true,       // 【V17】zoom 动画叠加 opacity 淡入，柔化裁切缩略图的宽高比跳变
     maxWidthToAnimate: 10000,    // 【V17】默认 4000 导致 7008px 巨图动画被禁用，提升阈值修复
     padding: {top: 20, bottom: 20, left: 0, right: 0 },

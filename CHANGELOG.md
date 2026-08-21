@@ -6,6 +6,12 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.41] - 2026-08-21
+
+- Reduced the PhotoSwipe opening transition from the default `333 ms` to
+  `180 ms` across all three sites, while preserving gesture-driven horizontal
+  swiping and the existing closing and in-view zoom timings.
+
 ## [0.2.40] - 2026-08-21
 
 - Restored the shared body and main content line height from `2` to `1.7`
