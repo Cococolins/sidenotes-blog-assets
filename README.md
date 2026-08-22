@@ -23,6 +23,7 @@ CSS 按「共享范围」拆分。
 
 ```text
 src/shared/css/all/00-vendor-photoswipe.css
+src/shared/css/all/00b-vendor-photoswipe-dynamic-caption.css
 src/shared/css/all/01-tokens.css
 src/shared/css/all/02-base.css
 src/shared/css/all/03-layout.css
@@ -63,6 +64,29 @@ src/sites/tt/config.json
 ```
 
 `daily` 额外启用了首页摘要水合：文章正文里可以放 `<!-- more -->`，脚本会在首页读取单篇文章，并用该标记之前的段落替换 embedded list 里的 description；没有标记时默认取前 2 段。配置在 `src/sites/daily/config.json` 的 `excerptHydrator`。
+
+## 图片图注
+
+普通 Markdown 图片继续沿用原来的写法：
+
+```markdown
+![图片替代文字](图片地址 "正文图注")
+```
+
+引号内的正文图注会显示在图片下方，并在打开 PhotoSwipe 后作为灯箱图注。需要「正文短图注 + 灯箱标题和长说明」时，改用：
+
+```html
+<figure>
+  <img src="图片地址" alt="图片替代文字">
+  <figcaption>正文里显示的简短图注</figcaption>
+  <div class="pswp-caption-content">
+    <strong>灯箱里的图片标题</strong>
+    <p>只在点开图片后显示的长说明。</p>
+  </div>
+</figure>
+```
+
+灯箱图注按 `.pswp-caption-content`、`figcaption`、图片 `alt` 的顺序取值。`.pswp-caption-content` 在正文中隐藏，只用于灯箱；重要信息仍应放在正文图注或图片替代文字中。
 
 不要手动改 `dist/`。改完 `src/` 后运行 `npm run build`，确认没问题再发布。
 

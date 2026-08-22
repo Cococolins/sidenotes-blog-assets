@@ -114,6 +114,18 @@ When adding a new per-site difference, prefer adding a config field before
 forking the shared JS. Fork the JS only if the behavior is genuinely different
 and cannot stay understandable as configuration.
 
+### PhotoSwipe Captions
+
+- `initFigcaption()` must run before `initGallery()` so Markdown image titles
+  become visible page-level `figcaption` elements before PhotoSwipe reads them.
+- Lightbox captions use this priority: optional hidden `.pswp-caption-content`,
+  visible `figcaption`, then image `alt` as the final fallback.
+- `.pswp-caption-content` is for lightbox-only title and long-description HTML;
+  keep important information available in the visible caption or image `alt`.
+- Dynamic Caption Plugin must be registered before `lightbox.init()`. Keep its
+  vendored layout CSS immediately after the PhotoSwipe core CSS, with project
+  typography overrides in `src/shared/css/all/10-plugins.css`.
+
 ### Daily Homepage Behavior
 
 `daily` uses Bear's embedded post list plus client-side enhancement:

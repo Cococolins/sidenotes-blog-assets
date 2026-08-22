@@ -18,21 +18,30 @@
     opacity: 1 !important;
 }
 
-/* 灯箱底部图注（由 Footer Script 动态注入） */
-.pswp__custom-caption {
-    position: absolute;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
+/* PhotoSwipe 动态图注：短图注保持居中，长说明改为左对齐。 */
+.pswp__dynamic-caption {
     color: #eee;
     font-size: 0.85em;
     font-family: var(--font-secondary);
+    line-height: 1.5;
     text-align: center;
     opacity: 0.9;
-    max-width: 85%;
-    pointer-events: none;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
     z-index: 100;
+}
+
+.pswp__dynamic-caption--aside,
+.pswp__dynamic-caption:has(p) {
+    text-align: left;
+}
+
+.pswp__dynamic-caption strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+.pswp__dynamic-caption p {
+    margin: 0.4em 0 0;
 }
 
 /* --- 网易云音乐迷你播放器 --- */

@@ -335,6 +335,58 @@ div .pswp__img--placeholder {
     display: none
 }
 
+/* PhotoSwipe Dynamic Caption Plugin v1.2.7
+   https://github.com/dimsemenov/photoswipe-dynamic-caption-plugin
+   MIT License */
+
+.pswp__dynamic-caption {
+  color: #fff;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  top: 0;
+  transition: opacity 120ms linear !important;
+}
+
+.pswp-caption-content {
+  display: none;
+}
+
+.pswp__dynamic-caption a {
+  color: #fff;
+}
+
+.pswp__dynamic-caption--faded {
+  opacity: 0 !important;
+}
+
+.pswp__dynamic-caption--aside {
+  width: auto;
+  max-width: 300px;
+  padding: 20px 15px 20px 20px;
+  margin-top: 70px;
+}
+
+.pswp__dynamic-caption--below {
+  width: auto;
+  max-width: 700px;
+  padding: 15px 0 0;
+}
+
+.pswp__dynamic-caption--on-hor-edge {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.pswp__dynamic-caption--mobile {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10px 15px;
+  right: 0;
+  bottom: 0;
+  top: auto !important;
+  left: 0 !important;
+}
 /* ==========================================================================
    设计令牌 (Design Tokens)
    CSS 自定义属性：颜色、字体、尺寸。亮/暗主题通过 prefers-color-scheme 切换。
@@ -1551,21 +1603,30 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
     opacity: 1 !important;
 }
 
-/* 灯箱底部图注（由 Footer Script 动态注入） */
-.pswp__custom-caption {
-    position: absolute;
-    bottom: 25px;
-    left: 50%;
-    transform: translateX(-50%);
+/* PhotoSwipe 动态图注：短图注保持居中，长说明改为左对齐。 */
+.pswp__dynamic-caption {
     color: #eee;
     font-size: 0.85em;
     font-family: var(--font-secondary);
+    line-height: 1.5;
     text-align: center;
     opacity: 0.9;
-    max-width: 85%;
-    pointer-events: none;
     text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
     z-index: 100;
+}
+
+.pswp__dynamic-caption--aside,
+.pswp__dynamic-caption:has(p) {
+    text-align: left;
+}
+
+.pswp__dynamic-caption strong {
+    color: #fff;
+    font-weight: 600;
+}
+
+.pswp__dynamic-caption p {
+    margin: 0.4em 0 0;
 }
 
 /* --- 网易云音乐迷你播放器 --- */

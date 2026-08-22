@@ -1,4 +1,5 @@
 import PhotoSwipeLightbox from 'https://cdn.jsdelivr.net/npm/photoswipe@5.4.4/dist/photoswipe-lightbox.esm.min.js';
+import PhotoSwipeDynamicCaption from 'https://cdn.jsdelivr.net/npm/photoswipe-dynamic-caption-plugin@1.2.7/photoswipe-dynamic-caption-plugin.esm.js';
     // headroom.js 没有官方 ESM 包，用 jsDelivr 的 /+esm 端点让 Rollup 即时转换 UMD → ESM
     import Headroom from 'https://cdn.jsdelivr.net/npm/headroom.js@0.12.0/+esm';
 
@@ -450,33 +451,33 @@ const SITE_CONFIG = __SITE_CONFIG__;
     errorMsg: '图片加载失败'
         });
 
-    lightbox.on('uiRegister', function() {
-        lightbox.pswp.ui.registerElement({
-            name: 'custom-caption',
-            order: 9,
-            isButton: false,
-            appendTo: 'wrapper',
-            html: '',
-            onInit: (el, pswp) => {
-                lightbox.pswp.on('change', () => {
-                    const currSlideElement = lightbox.pswp.currSlide.data.element;
-                    let captionHTML = '';
-                    if (currSlideElement) {
-                        const container = currSlideElement.parentElement;
-                        const nextEl = container.nextElementSibling;
-                        if (nextEl && nextEl.tagName === 'FIGCAPTION') {
-                            captionHTML = nextEl.innerHTML;
-                        } else {
-                            const img = currSlideElement.querySelector('img');
-                            if (img && img.alt) {
-                                captionHTML = img.alt;
-                            }
-                        }
-                    }
-                    el.innerHTML = captionHTML || '';
-                });
-            }
-        });
+        const getGalleryCaption = (slide) => {
+            const item = slide.data.element;
+            if (!item) return '';
+
+            const figure = item.closest('figure');
+            const nextElement = item.parentElement?.nextElementSibling;
+            const richCaption = item.querySelector('.pswp-caption-content')
+                || figure?.querySelector(':scope > .pswp-caption-content')
+                || (nextElement?.classList.contains('pswp-caption-content') ? nextElement : null)
+                || (nextElement?.tagName === 'FIGCAPTION'
+                    && nextElement.nextElementSibling?.classList.contains('pswp-caption-content')
+                    ? nextElement.nextElementSibling
+                    : null);
+            if (richCaption) return richCaption.innerHTML;
+
+            const visibleCaption = figure?.querySelector(':scope > figcaption')
+                || (nextElement?.tagName === 'FIGCAPTION' ? nextElement : null);
+            if (visibleCaption) return visibleCaption.innerHTML;
+
+            return item.querySelector('img')?.getAttribute('alt') || '';
+        };
+
+        new PhotoSwipeDynamicCaption(lightbox, {
+            captionContent: getGalleryCaption,
+            type: 'auto',
+            mobileLayoutBreakpoint: () => window.innerWidth <= 768,
+            mobileCaptionOverlapRatio: 1
         });
 
         // 【V16.1 修复】动态提取点击一刻的大图真实尺寸，专门对付 10MB 级别缓存巨图在解析极微小时差内导致的 1600 占位符死锁！

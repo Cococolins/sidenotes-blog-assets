@@ -62,6 +62,7 @@ for (const site of ["sidenotes", "daily", "tt"]) {
   const config = JSON.parse(read(`src/sites/${site}/config.json`));
 
   const requiredSharedCss = [
+    "src/shared/css/all/00b-vendor-photoswipe-dynamic-caption.css",
     "src/shared/css/all/01-tokens.css",
     "src/shared/css/all/02-base.css",
     "src/shared/css/all/14-article-directory.css",
@@ -125,6 +126,42 @@ for (const site of ["sidenotes", "daily", "tt"]) {
       console.error(`FAIL ${site} external JS ${label}`);
     } else {
       console.log(`PASS ${site} external JS ${label}`);
+    }
+  }
+
+  const dynamicCaptionJsChecks = [
+    ["imports the pinned PhotoSwipe dynamic caption plugin", "photoswipe-dynamic-caption-plugin@1.2.7"],
+    ["initializes the PhotoSwipe dynamic caption plugin", "new PhotoSwipeDynamicCaption(lightbox"],
+    ["prioritizes lightbox-only rich captions", "item.querySelector('.pswp-caption-content')"],
+    ["keeps visible figcaption as the fallback", "querySelector(':scope > figcaption')"],
+  ];
+  for (const [label, needle] of dynamicCaptionJsChecks) {
+    if (!js.includes(needle)) {
+      failed = true;
+      console.error(`FAIL ${site} external JS ${label}`);
+    } else {
+      console.log(`PASS ${site} external JS ${label}`);
+    }
+  }
+
+  if (js.includes("name: 'custom-caption'")) {
+    failed = true;
+    console.error(`FAIL ${site} external JS removes the legacy wrapper caption`);
+  } else {
+    console.log(`PASS ${site} external JS removes the legacy wrapper caption`);
+  }
+
+  const dynamicCaptionCssChecks = [
+    ["contains PhotoSwipe dynamic caption layout", ".pswp__dynamic-caption--below"],
+    ["hides lightbox-only rich caption source", ".pswp-caption-content"],
+    ["styles rich caption paragraphs", ".pswp__dynamic-caption p"],
+  ];
+  for (const [label, needle] of dynamicCaptionCssChecks) {
+    if (!css.includes(needle)) {
+      failed = true;
+      console.error(`FAIL ${site} CSS ${label}`);
+    } else {
+      console.log(`PASS ${site} CSS ${label}`);
     }
   }
 

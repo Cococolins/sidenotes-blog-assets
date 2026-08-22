@@ -6,6 +6,14 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.42] - 2026-08-22
+
+- Replaced the shared wrapper-level PhotoSwipe caption with Dynamic Caption
+  Plugin `1.2.7` across all three sites. Existing page captions remain visible
+  and serve as lightbox fallbacks, while optional hidden
+  `.pswp-caption-content` HTML adds a title and long description shown only
+  after opening an image.
+
 ## [0.2.41] - 2026-08-21
 
 - Reduced the PhotoSwipe opening transition from the default `333 ms` to

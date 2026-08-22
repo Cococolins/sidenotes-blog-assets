@@ -1,6 +1,7 @@
 {
   "css": [
     "src/shared/css/all/00-vendor-photoswipe.css",
+    "src/shared/css/all/00b-vendor-photoswipe-dynamic-caption.css",
     "src/shared/css/all/01-tokens.css",
     "src/shared/css/all/02-base.css",
     "src/shared/css/all/03-layout.css",
