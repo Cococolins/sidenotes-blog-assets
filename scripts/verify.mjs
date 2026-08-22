@@ -269,6 +269,20 @@ for (const site of ["sidenotes", "daily", "tt"]) {
         console.log(`PASS ${site} CSS ${label}`);
       }
     }
+
+    const galleryFigureChecks = [
+      ["shows image figures in the Gallery feed", ".gallery ul.blog-posts>li>div>figure:has(> :is(img, a.pswp-gallery__item))"],
+      ["hides figure captions in the Gallery feed", ".gallery ul.blog-posts>li>div>figure>:is(figcaption, .pswp-caption-content)"],
+      ["crops figure thumbnails in the Gallery feed", ".gallery figure>a.pswp-gallery__item>img"],
+    ];
+    for (const [label, needle] of galleryFigureChecks) {
+      if (!css.includes(needle)) {
+        failed = true;
+        console.error(`FAIL ${site} CSS ${label}`);
+      } else {
+        console.log(`PASS ${site} CSS ${label}`);
+      }
+    }
   }
 
   const blockquoteFontStack = "--font-blockquote: \"CJK Dash Fix\", 'Noto Serif', \"Source Han Serif SC\"";

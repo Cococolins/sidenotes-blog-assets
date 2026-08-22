@@ -1540,6 +1540,22 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
     display: contents;
 }
 
+/* 逐图长说明使用手写 figure；列表页只展示其中的图片缩略图。 */
+.gallery ul.blog-posts>li>div>figure:has(> :is(img, a.pswp-gallery__item)) {
+    display: block;
+    flex: 0 0 calc(50% - 3px);
+    margin: 0;
+}
+
+.gallery ul.blog-posts>li>div>figure>a.pswp-gallery__item {
+    width: 100%;
+    margin: 0;
+}
+
+.gallery ul.blog-posts>li>div>figure>:is(figcaption, .pswp-caption-content) {
+    display: none;
+}
+
 /* Flex 流式网格：让分散在不同 <p> 中的图片自动并列 */
 .gallery ul.blog-posts>li>div {
     display: flex;
@@ -1568,7 +1584,9 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
 
 /* Gallery 所有图片强制正方形裁切（含单图） */
 .gallery p>img,
-.gallery p>a.pswp-gallery__item>img {
+.gallery p>a.pswp-gallery__item>img,
+.gallery figure>img,
+.gallery figure>a.pswp-gallery__item>img {
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -1582,7 +1600,6 @@ main p:has(> :is(img, a.pswp-gallery__item):only-of-type) + p:has(> :is(img, a.p
     -webkit-backface-visibility: hidden;
     will-change: transform;
 }
-
 /* ==========================================================================
    插件定制 (Plugin Overrides)
    PhotoSwipe 灯箱 UI + 网易云迷你播放器 + 工具类。

@@ -6,6 +6,12 @@ scope, chosen values, and deliberate exceptions for future maintainers.
 
 ## [Unreleased]
 
+## [0.2.43] - 2026-08-22
+
+- Restored Gallery index thumbnails for posts authored with per-image
+  `<figure>` markup by treating image figures as single-image feed items, while
+  keeping visible and lightbox-only captions hidden outside the post page.
+
 ## [0.2.42] - 2026-08-22
 
 - Replaced the shared wrapper-level PhotoSwipe caption with Dynamic Caption
